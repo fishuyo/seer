@@ -1,0 +1,13 @@
+lib/
+libs/
+target/
+**.bin
+
+.vscode/
+.bloop/
+.metals/
+.bsp/
+project/metals.sbt
+.scalafmt.conf
+.DS_Store
+
