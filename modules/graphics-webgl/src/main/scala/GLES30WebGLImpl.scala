@@ -20,9 +20,9 @@ object VertexArrayUtil {
   
   def apply(id:Int) = buffers(id)
   def nextId():Int = {
-    for(i <- 0 until buffers.size) 
+    for(i <- 1 to buffers.size) 
       if(!buffers.contains(i)) return i
-    return buffers.size
+    return buffers.size + 1
   }
 
   def createVertexArray()(implicit gl:WebGL2RenderingContext):Int = { 

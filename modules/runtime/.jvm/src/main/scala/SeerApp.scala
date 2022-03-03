@@ -9,6 +9,8 @@ class SeerApp extends SeerObject {
   val modules = ArrayBuffer[RuntimeModule]()
 
   var onInit = () => {}
+  var onStart = () => {}
+  var onCleanup = () => {}
   var onDraw = () => {}
   var onUpdate = () => {}
 
@@ -26,7 +28,11 @@ class SeerApp extends SeerObject {
 
     modules.foreach(_.init())
     onInit()
+
     modules.foreach(_.start())
+    onStart()
+    
     modules.foreach(_.cleanup())
+    onCleanup()
   }
 }

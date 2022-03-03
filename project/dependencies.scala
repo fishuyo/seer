@@ -38,9 +38,9 @@ object Dependencies {
     // "com.typesafe.akka" %% "akka-stream" % akka.version,
 
     "io.altoo" %% "akka-kryo-serialization" % "1.1.5",
-    "com.twitter" %% "chill" % chillV,
-    "com.twitter" %% "chill-bijection" % chillV,
-    "com.twitter" %% "chill-akka" % chillV,
+    "com.twitter" %% "chill" % "0.10.0",
+    "com.twitter" %% "chill-bijection" % "0.10.0",
+    "com.twitter" %% "chill-akka" % "0.10.0",
 
     "com.github.pathikrit" %% "better-files" % "3.9.1",
     "com.github.pathikrit" %% "better-files-akka" % "3.9.1",

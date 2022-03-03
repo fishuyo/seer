@@ -3,22 +3,22 @@
   <head>
     <meta charset="UTF-8">
     <title>seer</title>
+    <style>
+      body {
+        margin: 0px;
+      }
+    </style>
   </head>
   <body>
-
-    <!-- <div>
-      <canvas style="display:block; width:98vw; height:98vh" id="canvas" width="1280" height="800"/>
-    </div> -->
-
     <!-- Include Scala.js compiled code -->
     <script type="text/javascript" src="target/scala-2.13/examplesjs-fastopt/main.js"></script>
-    <!-- Include JavaScript dependencies -->
-    <!-- <script type="text/javascript" src="./target/scala-2.12/uiproto-jsdeps.js"></script> -->
 
-    <!-- Run tutorial.webapp.TutorialApp -->
+    <!-- Run example Main function -->
     <script type="text/javascript">
       // HelloWorld.main__AT__V()
-      HelloShader.main__AT__V()
+      // HelloShader.main__AT__V()
+      HelloTexture.main__AT__V()
+      // Bubbles0.main__AT__V()
     </script>
   </body>
 </html>

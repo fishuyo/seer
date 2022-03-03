@@ -122,8 +122,9 @@ class GLES20LwjglImpl extends GLES20 {
 
   def glBufferData (target:Int, size:Int, data:Buffer, usage:Int):Unit = {
     data match {
-      case b:FloatBuffer => GL15.glBufferData(target, b, usage); //println("float")
-      case _ => println("nope")
+      case b:FloatBuffer => GL15.glBufferData(target, b, usage);
+      case b:IntBuffer => GL15.glBufferData(target, b, usage);
+      case _ => println("Err: Not implemented glBufferData type")
     }
   }
 
@@ -260,71 +261,71 @@ class GLES20LwjglImpl extends GLES20 {
 
   def glStencilOpSeparate (face:Int, fail:Int, zfail:Int, zpass:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
 
-  def glTexParameterfv (target:Int, pname:Int, params:FloatBuffer):Unit = glTexParameterfv(target,pname,params)
+  def glTexParameterfv (target:Int, pname:Int, params:FloatBuffer):Unit = GL11.glTexParameterfv(target,pname,params)
 
-  def glTexParameteri (target:Int, pname:Int, param:Int):Unit = glTexParameteri(target,pname,param)
+  def glTexParameteri (target:Int, pname:Int, param:Int):Unit = GL11.glTexParameteri(target,pname,param)
 
-  def glTexParameteriv (target:Int, pname:Int, params:IntBuffer):Unit = glTexParameteriv(target,pname,params)
+  def glTexParameteriv (target:Int, pname:Int, params:IntBuffer):Unit = GL11.glTexParameteriv(target,pname,params)
 
-  def glUniform1f (location:Int, x:Float):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform1f (location:Int, x:Float):Unit = GL20.glUniform1f(location, x)
 
-  def glUniform1fv (location:Int, count:Int, v:FloatBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform1fv (location:Int, count:Int, v:FloatBuffer):Unit = GL20.glUniform1fv(location, v)
   
-  def glUniform1fv (location:Int, count:Int, v:Array[Float], offset:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform1fv (location:Int, count:Int, v:Array[Float], offset:Int):Unit = GL20.glUniform1fv(location, v)
 
-  def glUniform1i (location:Int, x:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform1i (location:Int, x:Int):Unit = GL20.glUniform1i(location, x)
 
-  def glUniform1iv (location:Int, count:Int, v:IntBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform1iv (location:Int, count:Int, v:IntBuffer):Unit = GL20.glUniform1iv(location, v)
   
-  def glUniform1iv (location:Int, count:Int, v:Array[Int], offset:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform1iv (location:Int, count:Int, v:Array[Int], offset:Int):Unit = GL20.glUniform1iv(location, v)
 
-  def glUniform2f (location:Int, x:Float, y:Float):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform2f (location:Int, x:Float, y:Float):Unit = GL20.glUniform2f(location, x, y)
 
-  def glUniform2fv (location:Int, count:Int, v:FloatBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform2fv (location:Int, count:Int, v:FloatBuffer):Unit = GL20.glUniform2fv(location, v)
   
-  def glUniform2fv (location:Int, count:Int, v:Array[Float], offset:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform2fv (location:Int, count:Int, v:Array[Float], offset:Int):Unit = GL20.glUniform2fv(location, v)
 
-  def glUniform2i (location:Int, x:Int, y:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform2i (location:Int, x:Int, y:Int):Unit = GL20.glUniform2i(location, x, y)
 
-  def glUniform2iv (location:Int, count:Int, v:IntBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform2iv (location:Int, count:Int, v:IntBuffer):Unit = GL20.glUniform2iv(location, v)
   
-  def glUniform2iv (location:Int, count:Int, v:Array[Int], offset:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform2iv (location:Int, count:Int, v:Array[Int], offset:Int):Unit = GL20.glUniform2iv(location, v)
 
-  def glUniform3f (location:Int, x:Float, y:Float, z:Float):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform3f (location:Int, x:Float, y:Float, z:Float):Unit = GL20.glUniform3f(location, x, y, z)
 
-  def glUniform3fv (location:Int, count:Int, v:FloatBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform3fv (location:Int, count:Int, v:FloatBuffer):Unit = GL20.glUniform3fv(location, v)
   
-  def glUniform3fv (location:Int, count:Int, v:Array[Float], offset:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform3fv (location:Int, count:Int, v:Array[Float], offset:Int):Unit = GL20.glUniform3fv(location, v)
 
-  def glUniform3i (location:Int, x:Int, y:Int, z:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform3i (location:Int, x:Int, y:Int, z:Int):Unit = GL20.glUniform3i(location, x, y, z)
 
-  def glUniform3iv (location:Int, count:Int, v:IntBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform3iv (location:Int, count:Int, v:IntBuffer):Unit = GL20.glUniform3iv(location, v)
   
-  def glUniform3iv (location:Int, count:Int, v:Array[Int], offset:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform3iv (location:Int, count:Int, v:Array[Int], offset:Int):Unit = GL20.glUniform3iv(location, v)
 
-  def glUniform4f (location:Int, x:Float, y:Float, z:Float, w:Float):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform4f (location:Int, x:Float, y:Float, z:Float, w:Float):Unit = GL20.glUniform4f(location, x, y, z, w)
 
   def glUniform4fv (location:Int, count:Int, v:FloatBuffer):Unit = GL20.glUniform4fv(location, v)
   
-  def glUniform4fv (location:Int, count:Int, v:Array[Float], offset:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform4fv (location:Int, count:Int, v:Array[Float], offset:Int=0):Unit = GL20.glUniform4fv(location, v)
 
-  def glUniform4i (location:Int, x:Int, y:Int, z:Int, w:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform4i (location:Int, x:Int, y:Int, z:Int, w:Int):Unit = GL20.glUniform4i(location, x, y, z, w)
 
-  def glUniform4iv (location:Int, count:Int, v:IntBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform4iv (location:Int, count:Int, v:IntBuffer):Unit = GL20.glUniform4iv(location, v)
   
-  def glUniform4iv (location:Int, count:Int, v:Array[Int], offset:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniform4iv (location:Int, count:Int, v:Array[Int], offset:Int):Unit = GL20.glUniform4iv(location, v)
 
-  def glUniformMatrix2fv (location:Int, count:Int, transpose:Boolean, value:FloatBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniformMatrix2fv (location:Int, count:Int, transpose:Boolean, value:FloatBuffer):Unit = GL20.glUniformMatrix2fv(location, transpose, value)
   
-  def glUniformMatrix2fv (location:Int, count:Int, transpose:Boolean, value:Array[Float], offset:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniformMatrix2fv (location:Int, count:Int, transpose:Boolean, value:Array[Float], offset:Int):Unit = GL20.glUniformMatrix2fv(location, transpose, value)
 
-  def glUniformMatrix3fv (location:Int, count:Int, transpose:Boolean, value:FloatBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniformMatrix3fv (location:Int, count:Int, transpose:Boolean, value:FloatBuffer):Unit = GL20.glUniformMatrix3fv(location, transpose, value)
   
-  def glUniformMatrix3fv (location:Int, count:Int, transpose:Boolean, value:Array[Float], offset:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniformMatrix3fv (location:Int, count:Int, transpose:Boolean, value:Array[Float], offset:Int):Unit = GL20.glUniformMatrix3fv(location, transpose, value)
 
-  def glUniformMatrix4fv (location:Int, count:Int, transpose:Boolean, value:FloatBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniformMatrix4fv (location:Int, count:Int, transpose:Boolean, value:FloatBuffer):Unit = GL20.glUniformMatrix4fv(location, transpose, value)
   
-  def glUniformMatrix4fv (location:Int, count:Int, transpose:Boolean, value:Array[Float], offset:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glUniformMatrix4fv (location:Int, count:Int, transpose:Boolean, value:Array[Float], offset:Int):Unit = GL20.glUniformMatrix4fv(location, transpose, value)
 
   def glUseProgram (program:Int):Unit = GL20.glUseProgram(program)
 

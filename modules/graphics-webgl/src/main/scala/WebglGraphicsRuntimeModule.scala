@@ -23,6 +23,8 @@ class WebglGraphicsRuntimeModule extends RuntimeModule {
   var onUpdate = (dt:Double) => {}
   var onDraw = (g:Graphics) => {}
 
+  var (w,h) = (0,0)
+
   override def init() = {
     println("Initializing WebGL Graphics RuntimeModule..")
     // println("WebGL Version " + Version.getVersion())
@@ -31,16 +33,20 @@ class WebglGraphicsRuntimeModule extends RuntimeModule {
     dom.document.body.appendChild(can)
     
     can.width = dom.window.innerWidth.toInt
-    can.height = dom.window.innerHeight.toInt - 60
+    can.height = dom.window.innerHeight.toInt
+    w = can.width; h = can.height;
 
     val webgl = can.getContext("webgl2").asInstanceOf[WebGLRenderingContext]     
     val webgl2 = webgl.asInstanceOf[WebGL2RenderingContext]     
     g = new GraphicsWebGLImpl(webgl)
     Graphics() = g
 
+
+    can.onmousedown = (e:dom.MouseEvent) => { }
+    can.onmouseup = (e:dom.MouseEvent) => { }
+    can.onmousemove = (e:dom.MouseEvent) => { println(e) }
+
     onInit()
-		// Create default window
-		// Window.create()
   }
 
   override def start() = run(0.0f)

@@ -1,18 +1,18 @@
 package seer 
-package examples
+package examplesjs
 
 import graphics._
-import graphics.lwjgl._
+import graphics.webgl._
 
 import runtime.SeerApp
 import math.Random
 
-import java.nio.FloatBuffer
+import scala.scalajs.js.annotation._
 
-
+@JSExportTopLevel("HelloShader")
 object HelloShader extends SeerApp {
 
-	val graphics = new LwjglGraphicsRuntimeModule()
+	val graphics = new WebglGraphicsRuntimeModule()
 
 	useModules(graphics :: List())
 
@@ -27,14 +27,15 @@ object HelloShader extends SeerApp {
     import gl._ 
 
     val vertText = """
-      #version 330 core
+      #version 300 es
       layout(location = 0) in vec3 position;
       void main(){ 
         gl_Position = vec4(position, 1.0); 
       }"""
 
     val fragText = """
-      #version 330 core
+      #version 300 es
+      precision highp float; 
 
       uniform vec4 color;
       out vec4 fragColor;
@@ -42,8 +43,8 @@ object HelloShader extends SeerApp {
         fragColor = color;
       }"""
 
-    shader = new ShaderProgram().create(vertText, fragText)
-    
+    shader = new ShaderProgram().create(vertText.stripLeading, fragText.stripLeading)
+
     mesh = new Mesh() 
     mesh.vertices = BufferUtils.newFloatBuffer(coords.length)
 
@@ -57,7 +58,7 @@ object HelloShader extends SeerApp {
     mesh.vertices.put(coords)
     mesh.vertices.rewind()
     mesh.update()
-    
+
 	}
 
 	graphics.onDraw = (g:Graphics) => {

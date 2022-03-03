@@ -7,7 +7,7 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
  */
 lazy val examples = project //.enablePlugins(JavaAgent)
   .in(file("examples"))
-  .dependsOn(graphics_lwjgl, math.jvm)
+  .dependsOn(graphics_lwjgl, audio_portaudio, audio_jack, math.jvm, live, multitouch)
   .settings(Settings.app: _*)
   // .settings(javaAgents += "org.lwjglx" % "lwjglx-debug" % "1.0.0" % "runtime" from "https://build.lwjgl.org/addons/lwjglx-debug/lwjglx-debug-1.0.0.jar")
 
@@ -30,16 +30,29 @@ lazy val runtime = crossProject(JVMPlatform, JSPlatform)
 lazy val graphics = crossProject(JVMPlatform, JSPlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/graphics"))
+  .dependsOn(math)
   .settings(Settings.common: _*)
+
+lazy val audio = crossProject(JVMPlatform, JSPlatform)
+  .crossType(CrossType.Pure)
+  .in(file("modules/audio"))
+  .dependsOn(math)
+  .settings(Settings.common: _*)
+  .settings(libraryDependencies ++= Dependencies.audio.value)
 
 lazy val math = crossProject(JVMPlatform, JSPlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/math"))
   .settings(Settings.common: _*)
 
+lazy val actor = crossProject(JVMPlatform, JSPlatform)
+  .crossType(CrossType.Pure)
+  .in(file("modules/actor"))
+  .settings(Settings.common: _*)
+
 
 /**
- * Graphics / Audio Backends 
+ * Graphics Backends 
  */
 lazy val graphics_lwjgl = project
   .in(file("modules/graphics-lwjgl"))
@@ -62,3 +75,35 @@ lazy val graphics_webgl = project.enablePlugins(ScalaJSPlugin)
   )
 
 
+/**
+ * Audio Backends
+ */
+lazy val audio_portaudio = project
+  .in(file("modules/audio-portaudio"))
+  .dependsOn(audio.jvm, runtime.jvm)
+  .settings(Settings.common: _*)
+  .settings(libraryDependencies ++= Dependencies.audio.value)
+
+lazy val audio_jack = project
+  .in(file("modules/audio-jack"))
+  .dependsOn(audio.jvm, runtime.jvm)
+  .settings(Settings.common: _*)
+  .settings(libraryDependencies ++= Dependencies.audio.value)
+
+
+/**
+ * Desktop addons
+ */
+
+/// Livecoding / scala script compiler
+lazy val live = project
+  .in(file("modules/live"))
+  .dependsOn(actor.jvm)
+  .settings(Settings.common: _*)
+
+
+/// Multitouch wrapper for Apple trackpads
+lazy val multitouch = project
+  .in(file("modules/multitouch"))
+  .dependsOn(math.jvm)
+  .settings(Settings.common: _*)

@@ -39,13 +39,41 @@ object Window {
     def pollEvents() = glfwPollEvents()
 }
 
+case class KeyEvent(window:Window, key:String, keycode:Int, scancode:Int, action:Int, mods:Int)
+case class MouseEvent(window:Window, state:MouseState)
+
+class MouseState {
+    var event = ""
+    var x:Double = 0.0
+    var y:Double = 0.0
+    var dx:Double = 0.0
+    var dy:Double = 0.0
+    var button:Int = 0
+    var action:Int = 0
+    var mods:Int = 0
+    var scrollx:Double = 0.0
+    var scrolly:Double = 0.0
+    var inside:Boolean = false
+}
+
 class Window {
 
     // The window handle
 	var handle:Long = _
     var capabilities:GLCapabilities = _
 
+    // window callback functions
     var onDraw = (g:Graphics) => {}
+    
+    var onKeyEvent = (event:KeyEvent) => {
+        if(event.keycode == GLFW_KEY_ESCAPE && event.action == GLFW_RELEASE)
+            event.window.setShouldClose(true); 
+    }
+
+    val mouseState = new MouseState()
+    var onMouseEvent = (event:MouseEvent) => {
+
+    }
 
     def create(width:Int = 640, height:Int = 480) = {
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
@@ -63,25 +91,63 @@ class Window {
         // glfwWindowHint(GLFW_STEREO, should_create_stereo);
 
 		// debug
-		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+		// glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 
 		// Create the window
 		handle = glfwCreateWindow(width, height, "seer", NULL, NULL);
 		if ( handle == NULL )
 			throw new RuntimeException("Failed to create the GLFW window");
 
-		// Setup a key callback. It will be called every time a key is pressed, repeated or released.
-		glfwSetKeyCallback(handle, (window, key, scancode, action, mods) => {
-			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
-				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
-		});
+		// Setup callbacks... 
+		glfwSetKeyCallback(handle, (window, keycode, scancode, action, mods) => {
+            var name:String = null
+            try{
+                name = glfwGetKeyName(keycode,scancode)
+            } catch { case e:Exception => println(e) }
+
+            this.onKeyEvent(KeyEvent(this, name, keycode, scancode, action, mods))
+        });
+
+		glfwSetCharCallback(handle, (window, codepoint) => {
+            // println(s"char callback: $codepoint")
+        });
+
+        glfwSetCursorPosCallback(handle, (window, xpos, ypos) => {
+            mouseState.event = "move"
+            mouseState.dx = xpos - mouseState.x
+            mouseState.dy = ypos - mouseState.y
+            mouseState.x = xpos
+            mouseState.y = ypos
+            onMouseEvent(MouseEvent(this, mouseState))
+        })
+
+        glfwSetMouseButtonCallback(handle, (window, button, action, mods) => {
+            mouseState.event = "button"
+            mouseState.button = button
+            mouseState.action = action
+            mouseState.mods = mods 
+            onMouseEvent(MouseEvent(this, mouseState))
+        })
+        
+        glfwSetScrollCallback(handle, (window, xoff, yoff) => {
+            mouseState.event = "scroll"
+            mouseState.scrollx = xoff
+            mouseState.scrolly = yoff
+            onMouseEvent(MouseEvent(this, mouseState))
+        })
+
+        glfwSetCursorEnterCallback(handle, (window, entered) => {
+            mouseState.event = "enter"
+            mouseState.inside = entered
+            onMouseEvent(MouseEvent(this, mouseState))
+        })
 
         // Make the OpenGL context current
 		glfwMakeContextCurrent(handle);
         capabilities = GL.createCapabilities()
 
         // debug
-		val debugProc = GLUtil.setupDebugMessageCallback()
+		// val debugProc = GLUtil.setupDebugMessageCallback()
 
         this
     }
@@ -122,6 +188,7 @@ class Window {
 		glfwShowWindow(handle);
     }
 
+    def setShouldClose(close:Boolean=true) = glfwSetWindowShouldClose(handle, close)
     def shouldClose() = glfwWindowShouldClose(handle)
 
     def swapBuffers() = glfwSwapBuffers(handle)

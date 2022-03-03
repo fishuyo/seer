@@ -21,7 +21,7 @@ object HelloWorld extends SeerApp {
 
 	graphics.onUpdate = (dt:Double) => {
 		timer += dt
-		if(timer > 500.0) timer = 0.0
+		if(timer > 0.5) timer = 0.0
 	}
 
 	graphics.onDraw = (g:Graphics) => {
