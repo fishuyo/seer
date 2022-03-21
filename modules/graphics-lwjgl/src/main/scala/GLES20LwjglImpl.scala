@@ -100,7 +100,7 @@ class GLES20LwjglImpl extends GLES20 {
 
   def glTexSubImage2D (target:Int, level:Int, xoffset:Int, yoffset:Int, width:Int, height:Int, format:Int, `type`:Int, pixels:Buffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
 
-  def glViewport (x:Int, y:Int, width:Int, height:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glViewport (x:Int, y:Int, width:Int, height:Int):Unit = GL11.glViewport(x,y,width,height)
 
   def glAttachShader (program:Int, shader:Int):Unit = GL20.glAttachShader(program, shader)
 
@@ -108,9 +108,9 @@ class GLES20LwjglImpl extends GLES20 {
 
   def glBindBuffer (target:Int, buffer:Int):Unit = GL15.glBindBuffer(target, buffer)
 
-  def glBindFramebuffer (target:Int, framebuffer:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glBindFramebuffer (target:Int, framebuffer:Int):Unit = GL30.glBindFramebuffer(target, framebuffer)
 
-  def glBindRenderbuffer (target:Int, renderbuffer:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glBindRenderbuffer (target:Int, renderbuffer:Int):Unit = GL30.glBindRenderbuffer(target, renderbuffer)
 
   def glBlendColor (red:Float, green:Float, blue:Float, alpha:Float):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
 
@@ -162,9 +162,9 @@ class GLES20LwjglImpl extends GLES20 {
 
   def glEnableVertexAttribArray (index:Int):Unit = GL20.glEnableVertexAttribArray(index)
 
-  def glFramebufferRenderbuffer (target:Int, attachment:Int, renderbuffertarget:Int, renderbuffer:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glFramebufferRenderbuffer (target:Int, attachment:Int, renderbuffertarget:Int, renderbuffer:Int):Unit = GL30.glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer)
 
-  def glFramebufferTexture2D (target:Int, attachment:Int, textarget:Int, texture:Int, level:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glFramebufferTexture2D (target:Int, attachment:Int, textarget:Int, texture:Int, level:Int):Unit = GL30.glFramebufferTexture2D(target, attachment, textarget, texture, level)
 
   def glGenBuffer ():Int = GL15.glGenBuffers()
 
@@ -172,13 +172,13 @@ class GLES20LwjglImpl extends GLES20 {
 
   def glGenerateMipmap (target:Int):Unit = GL30.glGenerateMipmap(target)
 
-  def glGenFramebuffer ():Int = 0
+  def glGenFramebuffer ():Int = GL30.glGenFramebuffers()
 
-  def glGenFramebuffers (n:Int, framebuffers:IntBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glGenFramebuffers (n:Int, framebuffers:IntBuffer):Unit = GL30.glGenFramebuffers(framebuffers)
 
-  def glGenRenderbuffer ():Int = 0
+  def glGenRenderbuffer ():Int = GL30.glGenRenderbuffers()
 
-  def glGenRenderbuffers (n:Int, renderbuffers:IntBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glGenRenderbuffers (n:Int, renderbuffers:IntBuffer):Unit = GL30.glGenRenderbuffers(renderbuffers)
 
   // deviates
   def glGetActiveAttrib (program:Int, index:Int, size:IntBuffer, `type`:Buffer):String = ""
@@ -246,7 +246,7 @@ class GLES20LwjglImpl extends GLES20 {
 
   def glReleaseShaderCompiler ():Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
 
-  def glRenderbufferStorage (target:Int, internalformat:Int, width:Int, height:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glRenderbufferStorage (target:Int, internalformat:Int, width:Int, height:Int):Unit = GL30.glRenderbufferStorage(target, internalformat, width, height)
 
   def glSampleCoverage (value:Float, invert:Boolean):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
 

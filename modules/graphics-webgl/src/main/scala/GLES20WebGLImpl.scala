@@ -130,6 +130,54 @@ object UniformLocationUtil {
   // }
 }
 
+object RenderbufferUtil {
+  val buffers = HashMap[Int,WebGLRenderbuffer]()
+  implicit def int2renderbuffer(id:Int) = buffers(id) 
+  
+  buffers(0) = null
+
+  def apply(id:Int) = buffers(id)
+  def nextId():Int = {
+    for(i <- 1 to buffers.size) 
+      if(!buffers.contains(i)) return i
+    return buffers.size + 1
+  }
+
+  def createRenderbuffer()(implicit gl:WebGLRenderingContext):Int = { 
+    val id = nextId()
+    buffers += id -> gl.createRenderbuffer()
+    id 
+  }
+
+  def deleteRenderbuffer(id:Int)(implicit gl:WebGLRenderingContext) = {
+    gl.deleteRenderbuffer(id)
+    buffers -= id
+  }
+}
+
+object FramebufferUtil {
+  val buffers = HashMap[Int,WebGLFramebuffer]()
+  implicit def int2framebuffer(id:Int) = buffers(id) 
+  buffers(0) = null
+  
+  def apply(id:Int) = buffers(id)
+  def nextId():Int = {
+    for(i <- 1 to buffers.size) 
+      if(!buffers.contains(i)) return i
+    return buffers.size + 1
+  }
+
+  def createFramebuffer()(implicit gl:WebGLRenderingContext):Int = { 
+    val id = nextId()
+    buffers += id -> gl.createFramebuffer()
+    id 
+  }
+
+  def deleteFramebuffer(id:Int)(implicit gl:WebGLRenderingContext) = {
+    gl.deleteFramebuffer(id)
+    buffers -= id
+  }
+}
 
 class GLES20WebGLImpl(gl:WebGLRenderingContext) extends GLES20 {
   import TextureUtil._
@@ -137,6 +185,8 @@ class GLES20WebGLImpl(gl:WebGLRenderingContext) extends GLES20 {
   import ShaderUtil._
   import ProgramUtil._
   import UniformLocationUtil._
+  import RenderbufferUtil._
+  import FramebufferUtil._
 
   implicit val g = gl
 
@@ -244,17 +294,17 @@ class GLES20WebGLImpl(gl:WebGLRenderingContext) extends GLES20 {
 
   def glTexSubImage2D (target:Int, level:Int, xoffset:Int, yoffset:Int, width:Int, height:Int, format:Int, `type`:Int, pixels:Buffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
 
-  def glViewport (x:Int, y:Int, width:Int, height:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
+  def glViewport (x:Int, y:Int, width:Int, height:Int):Unit = gl.viewport(x, y, width, height)
 
   def glAttachShader (program:Int, shader:Int):Unit = gl.attachShader(program, shader)
 
   def glBindAttribLocation (program:Int, index:Int, name:String):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
 
-  def glBindBuffer (target:Int, buffer:Int):Unit = gl.bindBuffer(target,buffer)
+  def glBindBuffer (target:Int, buffer:Int):Unit = gl.bindBuffer(target, buffer)
 
-  def glBindFramebuffer (target:Int, framebuffer:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
+  def glBindFramebuffer (target:Int, framebuffer:Int):Unit = gl.bindFramebuffer(target, framebuffer)
 
-  def glBindRenderbuffer (target:Int, renderbuffer:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
+  def glBindRenderbuffer (target:Int, renderbuffer:Int):Unit = gl.bindRenderbuffer(target, renderbuffer)
 
   def glBlendColor (red:Float, green:Float, blue:Float, alpha:Float):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
 
@@ -301,9 +351,9 @@ class GLES20WebGLImpl(gl:WebGLRenderingContext) extends GLES20 {
 
   def glEnableVertexAttribArray (index:Int):Unit = gl.enableVertexAttribArray(index)
 
-  def glFramebufferRenderbuffer (target:Int, attachment:Int, renderbuffertarget:Int, renderbuffer:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
+  def glFramebufferRenderbuffer (target:Int, attachment:Int, renderbuffertarget:Int, renderbuffer:Int):Unit = gl.framebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer)
 
-  def glFramebufferTexture2D (target:Int, attachment:Int, textarget:Int, texture:Int, level:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
+  def glFramebufferTexture2D (target:Int, attachment:Int, textarget:Int, texture:Int, level:Int):Unit = gl.framebufferTexture2D(target, attachment, textarget, texture, level)
   
   def glGenBuffer ():Int = BufferUtil.createBuffer()
 
@@ -316,13 +366,23 @@ class GLES20WebGLImpl(gl:WebGLRenderingContext) extends GLES20 {
 
   def glGenerateMipmap (target:Int):Unit = gl.generateMipmap(target)
 
-  def glGenFramebuffer ():Int = 0
+  def glGenFramebuffer ():Int = FramebufferUtil.createFramebuffer()
 
-  def glGenFramebuffers (n:Int, framebuffers:IntBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
+  def glGenFramebuffers (n:Int, framebuffers:IntBuffer):Unit = {
+    for(i <- 0 until n){
+      val id = glGenFramebuffer()
+      framebuffers.put(i, id)
+    }
+  }
 
-  def glGenRenderbuffer ():Int = 0
+  def glGenRenderbuffer ():Int = RenderbufferUtil.createRenderbuffer()
 
-  def glGenRenderbuffers (n:Int, renderbuffers:IntBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
+  def glGenRenderbuffers (n:Int, renderbuffers:IntBuffer):Unit = {
+    for(i <- 0 until n){
+      val id = glGenRenderbuffer()
+      renderbuffers.put(i, id)
+    }
+  }
 
   // deviates
   def glGetActiveAttrib (program:Int, index:Int, size:IntBuffer, `type`:Buffer):String = ""
@@ -390,7 +450,7 @@ class GLES20WebGLImpl(gl:WebGLRenderingContext) extends GLES20 {
 
   def glReleaseShaderCompiler ():Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
 
-  def glRenderbufferStorage (target:Int, internalformat:Int, width:Int, height:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
+  def glRenderbufferStorage (target:Int, internalformat:Int, width:Int, height:Int):Unit = gl.renderbufferStorage(target, internalformat, width, height)
 
   def glSampleCoverage (value:Float, invert:Boolean):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
 

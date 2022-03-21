@@ -56,7 +56,7 @@ class Image(val buffer:ByteBuffer, val w:Int, val h:Int, val channels:Int, val b
     }
   }
 
-  def apply(x:Int, y:Int, offset:Int=0) = buffer.get(bytesPerPixel*(y*w+x) + offset)
+  def apply(x:Int, y:Int, offset:Int=0):Byte = buffer.get(bytesPerPixel*(y*w+x) + offset)
   def update(x:Int, y:Int, value:Byte) = buffer.put(bytesPerPixel*(y*w+x), value)
   def update(x:Int, y:Int, c:Int, value:Byte) = buffer.put(bytesPerPixel*(y*w+x) + bytesPerChannel*c, value)
 

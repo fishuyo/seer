@@ -8,7 +8,7 @@ object Dependencies {
   }
 
   object lwjgl {
-    val version = "3.3.0"
+    val version = "3.3.1"
     val natives = "natives-macos-arm64"
     val libs = Def.setting(Seq(
       "org.lwjgl" % "lwjgl" % version,

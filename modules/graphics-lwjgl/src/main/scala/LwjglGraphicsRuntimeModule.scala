@@ -25,6 +25,9 @@ class LwjglGraphicsRuntimeModule extends RuntimeModule {
 	var onDraw = (g:Graphics) => {}
 	var onUpdate = (dt:Double) => {}
 
+	def w = Window().getBufferSize()._1
+	def h = Window().getBufferSize()._2
+
   override def init() = {
     println("Initializing LWJGL Graphics RuntimeModule..")
     println("LWJGL Version " + Version.getVersion())

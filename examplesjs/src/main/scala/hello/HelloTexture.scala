@@ -1,5 +1,5 @@
 package seer 
-package examples
+package examplesjs
 
 import graphics._
 import graphics.webgl._

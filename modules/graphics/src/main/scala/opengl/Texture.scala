@@ -43,8 +43,12 @@ class Texture {
 
   def bind(i:Int) = {
     glActiveTexture(GL_TEXTURE0+i)
-    // glEnable(target) // XXX neccessary?
     glBindTexture(target, id)
+    updateParameters()
+  }
+  def unbind(i:Int) = {
+    glActiveTexture(GL_TEXTURE0+i)
+    glBindTexture(target, 0)
     updateParameters()
   }
 
@@ -70,7 +74,7 @@ class Texture {
     if(genMipmap) glGenerateMipmap(target)
   }
 
-  def update(image:Image): Unit = {
+  def updateFormat(image:Image): Unit = {
     w = image.w 
     h = image.h
 
@@ -92,6 +96,10 @@ class Texture {
       
       case _ => ()
     }
+  }
+
+  def update(image:Image): Unit = {
+    updateFormat(image)
     update(image.buffer)
   }
 }

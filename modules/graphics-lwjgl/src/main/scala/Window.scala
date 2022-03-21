@@ -17,6 +17,8 @@ import org.lwjgl.system.MemoryUtil._
 
 import collection.mutable.ArrayBuffer
 
+import scala.util.Using
+
 object Window {
     val windows = ArrayBuffer[Window]()
 
@@ -160,16 +162,46 @@ class Window {
 
 
     def getSize(): (Int,Int) = {
-        try {
-            val stack = stackPush()
+        Using(stackPush()){ case stack =>
 			val pWidth = stack.mallocInt(1); // int*
 			val pHeight = stack.mallocInt(1); // int*
 
-			// Get the window size passed to glfwCreateWindow
+			// Get the framebuffer size in pixels
 			glfwGetWindowSize(handle, pWidth, pHeight);
+            (pWidth.get(0), pHeight.get(0))
+        }.get
 
-            return (pWidth.get(0), pHeight.get(0))
-		} // the stack frame is popped automatically
+        // try {
+        //     val stack = stackPush()
+		// 	val pWidth = stack.mallocInt(1); // int*
+		// 	val pHeight = stack.mallocInt(1); // int*
+
+		// 	// Get the window size passed to glfwCreateWindow
+		// 	glfwGetWindowSize(handle, pWidth, pHeight);
+
+        //     return (pWidth.get(0), pHeight.get(0))
+		// } // the stack frame is popped automatically
+    }
+
+    def getBufferSize(): (Int,Int) = {
+        Using(stackPush()){ case stack =>
+			val pWidth = stack.mallocInt(1); // int*
+			val pHeight = stack.mallocInt(1); // int*
+
+			// Get the framebuffer size in pixels
+			glfwGetFramebufferSize(handle, pWidth, pHeight);
+            (pWidth.get(0), pHeight.get(0))
+        }.get
+        // try {
+        //     val stack = stackPush()
+		// 	val pWidth = stack.mallocInt(1); // int*
+		// 	val pHeight = stack.mallocInt(1); // int*
+
+		// 	// Get the framebuffer size in pixels
+		// 	glfwGetFramebufferSize(handle, pWidth, pHeight);
+
+        //     return (pWidth.get(0), pHeight.get(0))
+		// } // the stack frame is popped automatically
     }
 
     def setPosition(x:Int, y:Int) = glfwSetWindowPos(handle, x, y)

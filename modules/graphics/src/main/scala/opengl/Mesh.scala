@@ -121,6 +121,7 @@ class Mesh {
       indices.rewind()
       indexBuffer.data(indices.capacity(), indices)
     }
+    vao.unbind()
 
   }
 
@@ -157,5 +158,6 @@ class Mesh {
       // val count = vertices.capacity() / 3 
       gl.glDrawArrays(primitive, 0, size)
     }
+    vao.unbind()
   }
 }
