@@ -11,4 +11,8 @@ object Graphics {
 
 trait Graphics {
   val gl:GLES30
+
+  val shaderGen = new ShaderGenerator()
+  
+
 }

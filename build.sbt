@@ -107,3 +107,4 @@ lazy val multitouch = project
   .in(file("modules/multitouch"))
   .dependsOn(math.jvm)
   .settings(Settings.common: _*)
+

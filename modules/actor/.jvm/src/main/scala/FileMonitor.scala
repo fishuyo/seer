@@ -15,7 +15,7 @@ import io.methvin.better.files._
 //   override def close() = { this.getListener() }
 // }
 
-object Monitor {
+object FileMonitor {
 
   val watchers = collection.mutable.HashMap[String,RecursiveFileMonitor]()
 

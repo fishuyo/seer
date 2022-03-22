@@ -46,6 +46,8 @@ case class MouseEvent(window:Window, state:MouseState)
 
 class MouseState {
     var event = ""
+    var px:Double = 0.0
+    var py:Double = 0.0
     var x:Double = 0.0
     var y:Double = 0.0
     var dx:Double = 0.0
@@ -63,18 +65,25 @@ class Window {
     // The window handle
 	var handle:Long = _
     var capabilities:GLCapabilities = _
+    var fullscreen = false
+    var lastSize = (0, 0)
+    var lastPosition = (0, 0)
+    val mouseState = new MouseState()
 
     // window callback functions
     var onDraw = (g:Graphics) => {}
+    var onResize = (w:Int, h:Int) => {}
+    var onFramebufferResize = (w:Int, h:Int) => {}
+    var onKeyEvent = (event:KeyEvent) => { defaultKeyHandler(event) }
+    var onMouseEvent = (event:MouseEvent) => {}
+
     
-    var onKeyEvent = (event:KeyEvent) => {
+    private def defaultKeyHandler(event:KeyEvent) = {
         if(event.keycode == GLFW_KEY_ESCAPE && event.action == GLFW_RELEASE)
-            event.window.setShouldClose(true); 
-    }
-
-    val mouseState = new MouseState()
-    var onMouseEvent = (event:MouseEvent) => {
-
+            if(event.mods == GLFW_MOD_SHIFT)
+                event.window.setShouldClose(true); 
+            else
+                event.window.toggleFullscreen()
     }
 
     def create(width:Int = 640, height:Int = 480) = {
@@ -100,7 +109,18 @@ class Window {
 		if ( handle == NULL )
 			throw new RuntimeException("Failed to create the GLFW window");
 
-		// Setup callbacks... 
+		// Setup callbacks...
+        glfwSetWindowSizeCallback(handle, (window, width, height) => {
+            println(s"window size callback: $width x $height")
+            onResize(width, height)
+        })
+
+        glfwSetFramebufferSizeCallback(handle, (window, width, height) => {
+            println(s"framebuffer size callback: $width x $height")
+            onFramebufferResize(width, height)
+        })
+
+
 		glfwSetKeyCallback(handle, (window, keycode, scancode, action, mods) => {
             var name:String = null
             try{
@@ -108,18 +128,21 @@ class Window {
             } catch { case e:Exception => println(e) }
 
             this.onKeyEvent(KeyEvent(this, name, keycode, scancode, action, mods))
-        });
+        })
 
 		glfwSetCharCallback(handle, (window, codepoint) => {
             // println(s"char callback: $codepoint")
-        });
+        })
 
         glfwSetCursorPosCallback(handle, (window, xpos, ypos) => {
             mouseState.event = "move"
-            mouseState.dx = xpos - mouseState.x
-            mouseState.dy = ypos - mouseState.y
-            mouseState.x = xpos
-            mouseState.y = ypos
+            mouseState.dx = xpos - mouseState.px
+            mouseState.dy = ypos - mouseState.py
+            mouseState.px = xpos
+            mouseState.py = ypos
+            val (w, h) = this.getSize()
+            mouseState.x = xpos / w
+            mouseState.y = 1.0 - (ypos / h)
             onMouseEvent(MouseEvent(this, mouseState))
         })
 
@@ -170,17 +193,6 @@ class Window {
 			glfwGetWindowSize(handle, pWidth, pHeight);
             (pWidth.get(0), pHeight.get(0))
         }.get
-
-        // try {
-        //     val stack = stackPush()
-		// 	val pWidth = stack.mallocInt(1); // int*
-		// 	val pHeight = stack.mallocInt(1); // int*
-
-		// 	// Get the window size passed to glfwCreateWindow
-		// 	glfwGetWindowSize(handle, pWidth, pHeight);
-
-        //     return (pWidth.get(0), pHeight.get(0))
-		// } // the stack frame is popped automatically
     }
 
     def getBufferSize(): (Int,Int) = {
@@ -192,16 +204,33 @@ class Window {
 			glfwGetFramebufferSize(handle, pWidth, pHeight);
             (pWidth.get(0), pHeight.get(0))
         }.get
-        // try {
-        //     val stack = stackPush()
-		// 	val pWidth = stack.mallocInt(1); // int*
-		// 	val pHeight = stack.mallocInt(1); // int*
+    }
 
-		// 	// Get the framebuffer size in pixels
-		// 	glfwGetFramebufferSize(handle, pWidth, pHeight);
+    def toggleFullscreen() = {
+        if(!fullscreen){
+            lastSize = getSize()
+            lastPosition = getPosition()
+            val mon = glfwGetCurrentMonitor(handle)
+            val mode = glfwGetVideoMode(mon)
+            glfwSetWindowMonitor(handle, mon, 0, 0, mode.width, mode.height, mode.refreshRate);
+        } else {
+            val (x,y) = lastPosition
+            val (w,h) = lastSize
+            glfwSetWindowMonitor(handle, 0, x, y, w, h, 0);
+        }
+        fullscreen = !fullscreen
+    }
 
-        //     return (pWidth.get(0), pHeight.get(0))
-		// } // the stack frame is popped automatically
+
+    def getPosition() = {
+        Using(stackPush()){ case stack =>
+			val pX = stack.mallocInt(1); // int*
+			val pY = stack.mallocInt(1); // int*
+
+			// Get the framebuffer size in pixels
+			glfwGetWindowPos(handle, pX, pY);
+            (pX.get(0), pY.get(0))
+        }.get
     }
 
     def setPosition(x:Int, y:Int) = glfwSetWindowPos(handle, x, y)
@@ -211,7 +240,6 @@ class Window {
         val (w,h) = getSize()
         setPosition((sw - w)/2 + x, (sh - h)/2 + y)
     }
-
 
     def show() = {
 		// Enable v-sync
@@ -225,4 +253,53 @@ class Window {
 
     def swapBuffers() = glfwSwapBuffers(handle)
 
+
+
+
+    /** Determines the current monitor that the specified window is being displayed on.
+     * If the monitor could not be determined, the primary monitor will be returned.
+     * 
+     * @param window The window to query
+     * @return The current monitor on which the window is being displayed, or the primary monitor if one could not be determined
+     * @author <a href="https://stackoverflow.com/a/31526753/2398263">Shmo</a><br>
+     * Ported to LWJGL by Brian_Entei */
+    @NativeType("GLFWmonitor *")
+    def glfwGetCurrentMonitor(window:Long):Long = {
+        val wx = Array(0)
+        val wy = Array(0)
+        val ww = Array(0)
+        val wh = Array(0)
+        val mx = Array(0)
+        val my = Array(0)
+        val mw = Array(0)
+        val mh = Array(0)
+
+        var (overlap, bestoverlap) = (0,0)
+        var bestmonitor = glfwGetPrimaryMonitor()
+        var monitors:PointerBuffer = null
+        var mode:GLFWVidMode = null
+
+        glfwGetWindowPos(window, wx, wy);
+        glfwGetWindowSize(window, ww, wh);
+        monitors = glfwGetMonitors();
+
+        while(monitors.hasRemaining()) {
+            var monitor:Long = monitors.get();
+            mode = glfwGetVideoMode(monitor);
+            glfwGetMonitorPos(monitor, mx, my);
+            mw(0) = mode.width();
+            mh(0) = mode.height();
+
+            overlap =
+                    Math.max(0, Math.min(wx(0) + ww(0), mx(0) + mw(0)) - Math.max(wx(0), mx(0))) *
+                    Math.max(0, Math.min(wy(0) + wh(0), my(0) + mh(0)) - Math.max(wy(0), my(0)));
+
+            if (bestoverlap < overlap) {
+                bestoverlap = overlap;
+                bestmonitor = monitor;
+            }
+        }
+
+        return bestmonitor;
+    }
 }

@@ -12,24 +12,37 @@ class ShaderProgram {
   var id:Option[Int] = None
   var vid:Option[Int] = None
   var fid:Option[Int] = None
+
+  var vertCode = ""
+  var fragCode = ""
+  var needsUpdate = false
   
-  def init() = {
+  def init():Unit = {
+    if(id.isDefined) return
     id = Some(glCreateProgram())
     vid = Some(glCreateShader(GL_VERTEX_SHADER))
     fid = Some(glCreateShader(GL_FRAGMENT_SHADER))
   }
 
-  def loadSource(vert:String, frag:String) = {
-    vid.foreach(glShaderSource(_, vert))
-    fid.foreach(glShaderSource(_, frag))
+  def setCode(vert:String, frag:String) = {
+    vertCode = vert
+    fragCode = frag
+    needsUpdate = true
   }
 
+  // def loadSource(vert:String, frag:String) = {
+  //   vid.foreach(glShaderSource(_, vert))
+  //   fid.foreach(glShaderSource(_, frag))
+  // }
+
   def compile() = {
-    vid.foreach{ case i => 
+    vid.foreach{ case i =>
+      glShaderSource(i, vertCode) 
       glCompileShader(i)
       println(glGetShaderInfoLog(i))
     }
     fid.foreach{ case i => 
+      glShaderSource(i, fragCode) 
       glCompileShader(i)
       println(glGetShaderInfoLog(i))
     }
@@ -47,14 +60,27 @@ class ShaderProgram {
   }
 
   def create(v:String,f:String) = {
+    setCode(v,f)
     init()
-    loadSource(v,f)
     compile()
     link()
+    needsUpdate = false
     this
   }
 
-  def bind() = id.foreach(glUseProgram(_))
+  def update():Unit = {
+    if(!needsUpdate) return
+    init()
+    compile()
+    link()
+    needsUpdate = false
+  }
+
+  def bind() = {
+    update()
+    id.foreach(glUseProgram(_))
+  }
+
   def unbind() = glUseProgram(0)
 
 

@@ -45,7 +45,7 @@ class ScriptLoaderActor(val loader:ScriptLoader) extends Actor with ActorLogging
   def receive = {
     case Path(path, reloadOnChange) =>
       log.info(s"path $path")
-      if(reloadOnChange) Monitor(path){ (f) => self ! Reload }
+      if(reloadOnChange) FileMonitor(path){ (f) => self ! Reload }
       loader.setPath(path)
 
     case Code(code) => 
