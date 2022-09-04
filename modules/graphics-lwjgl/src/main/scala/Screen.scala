@@ -1,5 +1,6 @@
 
-package seer.graphics.lwjgl
+package seer.graphics
+
 
 // import org.lwjgl.glfw._
 import org.lwjgl.glfw.GLFW._

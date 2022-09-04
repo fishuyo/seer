@@ -4,19 +4,11 @@ package looper
 import math._
 import audio._
 import graphics._
-import graphics.lwjgl._
 import org.lwjgl.glfw.GLFW._
-
-import runtime._
 
 import collection.mutable.ArrayBuffer
 
 object LooperMain extends SeerApp {
-
-	val audio = new PortAudioRuntimeModule()
-  val graphics = new LwjglGraphicsRuntimeModule()
-
-	useModules(audio :: graphics :: List())
 
   var looper:Looper = _
   var shader:ShaderProgram = _

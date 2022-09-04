@@ -1,16 +1,10 @@
 package seer 
 package examples 
 
-import runtime.SeerApp
 import graphics._
-import graphics.lwjgl._
 import math.Random
 
 object HelloWindowUpdate extends SeerApp {
-
-	val graphics = new LwjglGraphicsRuntimeModule()
-
-	useModules(graphics :: List())
 
   var timer = 0.0 
 

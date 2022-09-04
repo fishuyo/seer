@@ -1,5 +1,6 @@
-package seer.graphics
-package webgl 
+package seer
+package graphics
+package webgl
 
 import org.scalajs.dom
 import dom.raw.WebGLRenderingContext

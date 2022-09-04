@@ -5,18 +5,22 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 /**
  * Examples
  */
-lazy val examples = project //.enablePlugins(JavaAgent)
+lazy val examples = project //crossProject(JVMPlatform, JSPlatform)
+  // .crossType(CrossType.Pure)
   .in(file("examples"))
-  .dependsOn(graphics_lwjgl, audio_portaudio, audio_jack, math.jvm, live, multitouch)
+  // .dependsOn(math)
+  .dependsOn(app.jvm, math.jvm, live, multitouch)
   .settings(Settings.app: _*)
-  // .settings(javaAgents += "org.lwjglx" % "lwjglx-debug" % "1.0.0" % "runtime" from "https://build.lwjgl.org/addons/lwjglx-debug/lwjglx-debug-1.0.0.jar")
+
+// lazy val examplesJVM = examples.jvm.dependsOn(graphics_lwjgl, audio_portaudio, audio_jack, live, multitouch)
+// lazy val examplesJS = examples.js.dependsOn(graphics_webgl)
 
 lazy val examplesjs = project.enablePlugins(ScalaJSPlugin)
   .in(file("examplesjs"))
   .settings(Settings.common: _*)
   // .settings(scalaJSUseMainModuleInitializer := true)
 //   .settings(libraryDependencies ++= Dependencies.coreJs.value)
-  .dependsOn(graphics_webgl, math.js)
+  .dependsOn(app.js, math.js)
 
 
 /*
@@ -52,7 +56,7 @@ lazy val actor = crossProject(JVMPlatform, JSPlatform)
 
 
 /**
- * Graphics Backends 
+ * Backends 
  */
 lazy val graphics_lwjgl = project
   .in(file("modules/graphics-lwjgl"))
@@ -74,10 +78,6 @@ lazy val graphics_webgl = project.enablePlugins(ScalaJSPlugin)
     useYarn := true
   )
 
-
-/**
- * Audio Backends
- */
 lazy val audio_portaudio = project
   .in(file("modules/audio-portaudio"))
   .dependsOn(audio.jvm, runtime.jvm)
@@ -89,6 +89,18 @@ lazy val audio_jack = project
   .dependsOn(audio.jvm, runtime.jvm)
   .settings(Settings.common: _*)
   .settings(libraryDependencies ++= Dependencies.audio.value)
+
+/**
+ * SeerApp - Default module configurations for simple projects
+ */
+lazy val app = crossProject(JVMPlatform, JSPlatform)
+  .crossType(CrossType.Pure)
+  .in(file("modules/app"))
+  .settings(Settings.common: _*)
+  // .dependsOn(actor)
+
+lazy val appJVM = app.jvm.dependsOn(graphics_lwjgl, audio_portaudio)
+lazy val appJS = app.js.dependsOn(graphics_webgl)
 
 
 /**

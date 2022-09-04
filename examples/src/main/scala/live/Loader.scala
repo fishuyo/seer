@@ -1,17 +1,11 @@
 package seer 
 package examples
 
-import runtime._
 import graphics._
-import graphics.lwjgl._
 import actor._
 import script._
 
 object LiveLoader extends SeerApp {
-
-	val graphics = new LwjglGraphicsRuntimeModule()
-
-	useModules(graphics :: List())
 
 	graphics.onDraw = (g:Graphics) => {
 		import g.gl._
@@ -20,7 +14,7 @@ object LiveLoader extends SeerApp {
 	}
 
 
-  override def parseArgs(args:Array[String]){
+  override def parseArgs(args:Array[String]) = {
     if(args.length == 0){
       println("""Please provide path of script or script directory to load.""")
       java.lang.System.exit(0)

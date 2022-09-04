@@ -1,19 +1,13 @@
 package seer
 package examples
 
-import runtime.SeerApp
 import graphics._
-import graphics.lwjgl._
 import math.Random 
 
 /*
  * This example shows how to create multiple windows and assign different onDraw functions to each.
  */
 object HelloWindows extends SeerApp {
-
-	val graphics = new LwjglGraphicsRuntimeModule()
-
-	useModules(graphics :: List())
 
 	var timers = collection.mutable.ArrayBuffer[Double]()
 

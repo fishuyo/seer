@@ -2,17 +2,10 @@ package seer
 package examples
 
 import graphics._
-import graphics.lwjgl._
-
-import runtime.SeerApp
 import math.Random
 
 
 object HelloFramebuffer extends SeerApp {
-
-	val graphics = new LwjglGraphicsRuntimeModule()
-
-	useModules(graphics :: List())
 
 	var timer = 0.0
   var shader:ShaderProgram = _

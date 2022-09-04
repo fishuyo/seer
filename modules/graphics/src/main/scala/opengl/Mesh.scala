@@ -55,7 +55,7 @@ class Mesh {
   val indexBuffer = Buffer()
 
   var primitive = GL_TRIANGLES
-  var size = 0
+  var size = 0 // maybe use limits to make variable sized mesh, without resizing buffers
   var vertices:FloatBuffer = BufferUtils.newFloatBuffer(0)
   var colors:FloatBuffer = BufferUtils.newFloatBuffer(0)
   var texcoords:FloatBuffer = BufferUtils.newFloatBuffer(0)
@@ -160,4 +160,21 @@ class Mesh {
     }
     vao.unbind()
   }
+}
+
+
+
+object Mesh {
+  def quad() = {
+    val quad = new Mesh()
+    quad.resize(4, hasTexcoords=true)
+    quad.vertices.put(Array(-1.0f,-1.0f,0.0f,  1.0f,-1.0f,0.0f,  1.0f,1.0f,0.0f, -1.0f,1.0f,0.0f))
+    quad.texcoords.put(Array(0f,0f,  1.0f,0f,  1.0f,1.0f, 0f,1.0f))
+    quad.resizeIndices(6)
+    quad.indices.put(Array(0,1,2,2,3,0))
+    quad.update()
+    quad
+  }
+
+  
 }

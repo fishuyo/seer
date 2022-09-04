@@ -18,6 +18,8 @@ object VertexArrayUtil {
   val buffers = HashMap[Int,WebGLVertexArrayObject]()
   implicit def int2buffer(id:Int) = buffers(id) 
   
+  buffers(0) = null
+
   def apply(id:Int) = buffers(id)
   def nextId():Int = {
     for(i <- 1 to buffers.size) 

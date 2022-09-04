@@ -2,9 +2,6 @@ package seer
 package examplesjs
 
 import graphics._
-import graphics.webgl._
-
-import runtime.SeerApp
 import math.Random
 
 import scalajs.js.annotation._
@@ -12,10 +9,6 @@ import scalajs.js.annotation._
 
 @JSExportTopLevel("HelloWorld")
 object HelloWorld extends SeerApp {
-
-	val graphics = new WebglGraphicsRuntimeModule()
-
-	useModules(graphics :: List())
 
 	var timer = 0.0
 

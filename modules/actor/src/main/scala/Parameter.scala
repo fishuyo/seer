@@ -15,14 +15,11 @@ import akka.pattern.ask
 
 import com.twitter.chill.KryoInjection
 
-
-// XXX careful with mutable objects..
 object Var {
   def apply[T: ClassTag](path:String, v:T) = {
     new Parameter(v,path)
   }
 }
-
 
 object Parameter {
   def apply[T: ClassTag](v:T, path:String) = {

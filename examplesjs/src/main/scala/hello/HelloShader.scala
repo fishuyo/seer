@@ -2,19 +2,12 @@ package seer
 package examplesjs
 
 import graphics._
-import graphics.webgl._
-
-import runtime.SeerApp
 import math.Random
 
 import scala.scalajs.js.annotation._
 
 @JSExportTopLevel("HelloShader")
 object HelloShader extends SeerApp {
-
-	val graphics = new WebglGraphicsRuntimeModule()
-
-	useModules(graphics :: List())
 
 	var timer = 0.0
   var shader:ShaderProgram = _
@@ -46,7 +39,7 @@ object HelloShader extends SeerApp {
     shader = new ShaderProgram().create(vertText.stripLeading, fragText.stripLeading)
 
     mesh = new Mesh() 
-    mesh.vertices = BufferUtils.newFloatBuffer(coords.length)
+    mesh.resize(coords.length / 3)
 
   }
 
@@ -56,7 +49,6 @@ object HelloShader extends SeerApp {
 
     for(i <- 0 until coords.length) coords(i) += Random.float(-0.005f, 0.005f)()
     mesh.vertices.put(coords)
-    mesh.vertices.rewind()
     mesh.update()
 
 	}
@@ -69,7 +61,7 @@ object HelloShader extends SeerApp {
     glClear(GL_COLOR_BUFFER_BIT)
 
     shader.bind()
-    if(timer == 0.0) shader.uniform("color", Array(r(),r(),r(),1.0f))
+    if(timer == 0.0) shader.uniform("color", Array(r(),r(),r(),1.0f), 4)
 
     mesh.draw()
 	}

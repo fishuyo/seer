@@ -1,15 +1,9 @@
 package seer 
 package examples
 
-import runtime.SeerApp
 import graphics._
-import graphics.lwjgl._
 
 object HelloWindow extends SeerApp {
-
-	val graphics = new LwjglGraphicsRuntimeModule()
-
-	useModules(graphics :: List())
 
 	graphics.onDraw = (g:Graphics) => {
 		import g.gl._

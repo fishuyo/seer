@@ -2,19 +2,12 @@ package seer
 package examples
 
 import graphics._
-import graphics.lwjgl._
-
-import runtime._
 import math._
 import actor._
 
 import scala.io.Source
 
 object ShaderToy extends SeerApp {
-
-	val graphics = new LwjglGraphicsRuntimeModule()
-
-	useModules(graphics :: List())
 
 	var timer = 0.0
   var shader:ShaderProgram = _

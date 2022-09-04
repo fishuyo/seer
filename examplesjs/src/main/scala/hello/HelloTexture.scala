@@ -2,19 +2,12 @@ package seer
 package examplesjs
 
 import graphics._
-import graphics.webgl._
-
-import runtime._
 import math._
 
 import scala.scalajs.js.annotation._
 
 @JSExportTopLevel("HelloTexture")
 object HelloTexture extends SeerApp {
-
-	val graphics = new WebglGraphicsRuntimeModule()
-
-	useModules(graphics :: List())
 
 	var timer = 0.0
   var shader:ShaderProgram = _

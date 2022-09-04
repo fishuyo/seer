@@ -1,14 +1,14 @@
 package seer 
 package examples
 
-import runtime.SeerApp
 import audio._
 
-object HelloAudio extends SeerApp {
+object HelloAudio extends App {
 
-	val audio = new PortAudioRuntimeModule()
+  val runtime = new Runtime()
+	val audio = new PortAudioModule()
 
-	useModules(audio :: List())
+	runtime.useModules(audio :: List())
 
 	audio.onAudioIO = (io:AudioIO) => {
     io.reset()
@@ -19,8 +19,9 @@ object HelloAudio extends SeerApp {
     }
 	}
 
+  runtime.onInit = () => {}
+  runtime.onStart = () => { while(true){Thread.sleep(100)} }
 
-  onInit = () => {}
-  onStart = () => { while(true){Thread.sleep(100)} }
+  runtime.run()
 
 }

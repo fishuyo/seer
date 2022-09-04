@@ -319,7 +319,7 @@ class GLES20WebGLImpl(gl:WebGLRenderingContext) extends GLES20 {
 
   def glBufferSubData (target:Int, offset:Int, size:Int, data:Buffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(0).getMethodName)}
 
-  def glCheckFramebufferStatus (target:Int):Int = 0
+  def glCheckFramebufferStatus (target:Int):Int = gl.checkFramebufferStatus(target)
 
   def glCompileShader (shader:Int):Unit = gl.compileShader(shader)
 

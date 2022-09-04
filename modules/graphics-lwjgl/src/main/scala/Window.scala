@@ -1,6 +1,5 @@
 
 package seer.graphics
-package lwjgl
 
 import org.lwjgl._
 import org.lwjgl.glfw._
@@ -41,24 +40,6 @@ object Window {
     def pollEvents() = glfwPollEvents()
 }
 
-case class KeyEvent(window:Window, key:String, keycode:Int, scancode:Int, action:Int, mods:Int)
-case class MouseEvent(window:Window, state:MouseState)
-
-class MouseState {
-    var event = ""
-    var px:Double = 0.0
-    var py:Double = 0.0
-    var x:Double = 0.0
-    var y:Double = 0.0
-    var dx:Double = 0.0
-    var dy:Double = 0.0
-    var button:Int = 0
-    var action:Int = 0
-    var mods:Int = 0
-    var scrollx:Double = 0.0
-    var scrolly:Double = 0.0
-    var inside:Boolean = false
-}
 
 class Window {
 
@@ -77,13 +58,13 @@ class Window {
     var onKeyEvent = (event:KeyEvent) => { defaultKeyHandler(event) }
     var onMouseEvent = (event:MouseEvent) => {}
 
-    
+
     private def defaultKeyHandler(event:KeyEvent) = {
         if(event.keycode == GLFW_KEY_ESCAPE && event.action == GLFW_RELEASE)
             if(event.mods == GLFW_MOD_SHIFT)
-                event.window.setShouldClose(true); 
+                this.setShouldClose(true); 
             else
-                event.window.toggleFullscreen()
+                this.toggleFullscreen()
     }
 
     def create(width:Int = 640, height:Int = 480) = {
@@ -127,7 +108,7 @@ class Window {
                 name = glfwGetKeyName(keycode,scancode)
             } catch { case e:Exception => println(e) }
 
-            this.onKeyEvent(KeyEvent(this, name, keycode, scancode, action, mods))
+            this.onKeyEvent(KeyEvent(name, keycode, scancode, action, mods))
         })
 
 		glfwSetCharCallback(handle, (window, codepoint) => {
@@ -143,7 +124,7 @@ class Window {
             val (w, h) = this.getSize()
             mouseState.x = xpos / w
             mouseState.y = 1.0 - (ypos / h)
-            onMouseEvent(MouseEvent(this, mouseState))
+            onMouseEvent(MouseEvent(mouseState))
         })
 
         glfwSetMouseButtonCallback(handle, (window, button, action, mods) => {
@@ -151,20 +132,20 @@ class Window {
             mouseState.button = button
             mouseState.action = action
             mouseState.mods = mods 
-            onMouseEvent(MouseEvent(this, mouseState))
+            onMouseEvent(MouseEvent(mouseState))
         })
         
         glfwSetScrollCallback(handle, (window, xoff, yoff) => {
             mouseState.event = "scroll"
             mouseState.scrollx = xoff
             mouseState.scrolly = yoff
-            onMouseEvent(MouseEvent(this, mouseState))
+            onMouseEvent(MouseEvent(mouseState))
         })
 
         glfwSetCursorEnterCallback(handle, (window, entered) => {
             mouseState.event = "enter"
             mouseState.inside = entered
-            onMouseEvent(MouseEvent(this, mouseState))
+            onMouseEvent(MouseEvent(mouseState))
         })
 
         // Make the OpenGL context current
@@ -181,6 +162,7 @@ class Window {
         // Free the window callbacks and destroy the window
 		glfwFreeCallbacks(handle);
 		glfwDestroyWindow(handle);
+        glfwPollEvents();
     }
 
 

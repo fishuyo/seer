@@ -2,19 +2,12 @@ package seer
 package examplesjs
 
 import graphics._
-import graphics.webgl._
-
-import runtime.SeerApp
 import math.Random
 
 import scala.scalajs.js.annotation._
 
 @JSExportTopLevel("HelloFramebuffer")
 object HelloFramebuffer extends SeerApp {
-
-	val graphics = new WebglGraphicsRuntimeModule()
-
-	useModules(graphics :: List())
 
 	var timer = 0.0
   var shader:ShaderProgram = _
