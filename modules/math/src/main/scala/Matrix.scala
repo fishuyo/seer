@@ -20,7 +20,7 @@ object Matrix {
 
   def identity(n:Int) = {
     val m = new Matrix(n)
-    m.setIdentity
+    m.setIdentity()
     m
   }
 

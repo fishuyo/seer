@@ -7,7 +7,7 @@ import math._
 
 object HelloTexture extends SeerApp {
 
-	var timer = 0.0
+  var timer = 0.0
   var shader:ShaderProgram = _
   var mesh:Mesh = _
   var texture:Texture = _
@@ -60,8 +60,8 @@ object HelloTexture extends SeerApp {
 
   }
 
-	graphics.onUpdate = (dt:Double) => {
-		timer += dt
+  graphics.onUpdate = (dt:Double) => {
+    timer += dt
     texture.bind(0)
     image.buffer.rewind()
 
@@ -88,15 +88,15 @@ object HelloTexture extends SeerApp {
     }
     texture.update(image)
 
-	}
+  }
 
-	graphics.onDraw = (g:Graphics) => {
-		import g.gl._
+  graphics.onDraw = (g:Graphics) => {
+    import g.gl._
 
     shader.bind()
     shader.uniform("tex0", 0)
     texture.bind(0)
     mesh.draw()
-	}
+  }
 
 }

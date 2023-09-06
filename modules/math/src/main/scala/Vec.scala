@@ -1,5 +1,6 @@
 
 package seer.math
+import scala.language.implicitConversions
 
 // import spire.algebra._
 
@@ -84,7 +85,7 @@ object Vec3 {
 }
 
 class Vec3( var x: Float, var y: Float, var z: Float ) extends Serializable {
-  implicit def toF( d: Double ) = d.toFloat
+  implicit def toF( d: Double ):Float = d.toFloat
 
   override def equals(other:Any) = other match {
     case v:Vec3 => this == v
@@ -246,7 +247,7 @@ object Vec2 {
 }
 
 class Vec2( var x: Float, var y: Float ) extends Serializable {
-  implicit def toF( d: Double ) = d.toFloat
+  implicit def toF( d: Double ):Float = d.toFloat
 
   def ==(v:Vec2) = {x==v.x && y==v.y}
   def apply(i:Int) = i match { case 0 => x; case 1 => y}

@@ -61,21 +61,21 @@ object Noise {
   }
 
   class Float2(val x:Float, val y:Float)
-	class Float3(val x:Float, val y:Float, val z:Float)
+  class Float3(val x:Float, val y:Float, val z:Float)
 
-	val GRAD_2D = Array(
-		new Float2(-1, -1), new Float2(1, -1), new Float2(-1, 1), new Float2(1, 1),
-		new Float2(0, -1), new Float2(-1, 0), new Float2(0, 1), new Float2(1, 0),
+  val GRAD_2D = Array(
+    new Float2(-1, -1), new Float2(1, -1), new Float2(-1, 1), new Float2(1, 1),
+    new Float2(0, -1), new Float2(-1, 0), new Float2(0, 1), new Float2(1, 0),
   )
 
-	val GRAD_3D = Array(
-		new Float3(1, 1, 0), new Float3(-1, 1, 0), new Float3(1, -1, 0), new Float3(-1, -1, 0),
-		new Float3(1, 0, 1), new Float3(-1, 0, 1), new Float3(1, 0, -1), new Float3(-1, 0, -1),
-		new Float3(0, 1, 1), new Float3(0, -1, 1), new Float3(0, 1, -1), new Float3(0, -1, -1),
-		new Float3(1, 1, 0), new Float3(0, -1, 1), new Float3(-1, 1, 0), new Float3(0, -1, -1),
+  val GRAD_3D = Array(
+    new Float3(1, 1, 0), new Float3(-1, 1, 0), new Float3(1, -1, 0), new Float3(-1, -1, 0),
+    new Float3(1, 0, 1), new Float3(-1, 0, 1), new Float3(1, 0, -1), new Float3(-1, 0, -1),
+    new Float3(0, 1, 1), new Float3(0, -1, 1), new Float3(0, 1, -1), new Float3(0, -1, -1),
+    new Float3(1, 1, 0), new Float3(0, -1, 1), new Float3(-1, 1, 0), new Float3(0, -1, -1),
   )
 
-	val CELL_2D = Array(
+  val CELL_2D = Array(
     new Float2(-0.4313539279f, 0.1281943404f), new Float2(-0.1733316799f, 0.415278375f), new Float2(-0.2821957395f, -0.3505218461f), new Float2(-0.2806473808f, 0.3517627718f), new Float2(0.3125508975f, -0.3237467165f), new Float2(0.3383018443f, -0.2967353402f), new Float2(-0.4393982022f, -0.09710417025f), new Float2(-0.4460443703f, -0.05953502905f),
     new Float2(-0.302223039f, 0.3334085102f), new Float2(-0.212681052f, -0.3965687458f), new Float2(-0.2991156529f, 0.3361990872f), new Float2(0.2293323691f, 0.3871778202f), new Float2(0.4475439151f, -0.04695150755f), new Float2(0.1777518f, 0.41340573f), new Float2(0.1688522499f, -0.4171197882f), new Float2(-0.0976597166f, 0.4392750616f),
     new Float2(0.08450188373f, 0.4419948321f), new Float2(-0.4098760448f, -0.1857461384f), new Float2(0.3476585782f, -0.2857157906f), new Float2(-0.3350670039f, -0.30038326f), new Float2(0.2298190031f, -0.3868891648f), new Float2(-0.01069924099f, 0.449872789f), new Float2(-0.4460141246f, -0.05976119672f), new Float2(0.3650293864f, 0.2631606867f),
@@ -110,7 +110,7 @@ object Noise {
     new Float2(0.1198188883f, -0.4337550392f), new Float2(-0.243590703f, 0.3783696201f), new Float2(0.2958191174f, -0.3391033025f), new Float2(-0.1164007991f, 0.4346847754f), new Float2(0.1274037151f, -0.4315881062f), new Float2(0.368047306f, 0.2589231171f), new Float2(0.2451436949f, 0.3773652989f), new Float2(-0.4314509715f, 0.12786735f),
   )
 
-	val CELL_3D = Array(
+  val CELL_3D = Array(
     new Float3(0.1453787434f, -0.4149781685f, -0.0956981749f), new Float3(-0.01242829687f, -0.1457918398f, -0.4255470325f), new Float3(0.2877979582f, -0.02606483451f, -0.3449535616f), new Float3(-0.07732986802f, 0.2377094325f, 0.3741848704f), new Float3(0.1107205875f, -0.3552302079f, -0.2530858567f), new Float3(0.2755209141f, 0.2640521179f, -0.238463215f), new Float3(0.294168941f, 0.1526064594f, 0.3044271714f), new Float3(0.4000921098f, -0.2034056362f, 0.03244149937f),
     new Float3(-0.1697304074f, 0.3970864695f, -0.1265461359f), new Float3(-0.1483224484f, -0.3859694688f, 0.1775613147f), new Float3(0.2623596946f, -0.2354852944f, 0.2796677792f), new Float3(-0.2709003183f, 0.3505271138f, -0.07901746678f), new Float3(-0.03516550699f, 0.3885234328f, 0.2243054374f), new Float3(-0.1267712655f, 0.1920044036f, 0.3867342179f), new Float3(0.02952021915f, 0.4409685861f, 0.08470692262f), new Float3(-0.2806854217f, -0.266996757f, 0.2289725438f),
     new Float3(-0.171159547f, 0.2141185563f, 0.3568720405f), new Float3(0.2113227183f, 0.3902405947f, -0.07453178509f), new Float3(-0.1024352839f, 0.2128044156f, -0.3830421561f), new Float3(-0.3304249877f, -0.1566986703f, 0.2622305365f), new Float3(0.2091111325f, 0.3133278055f, -0.2461670583f), new Float3(0.344678154f, -0.1944240454f, -0.2142341261f), new Float3(0.1984478035f, -0.3214342325f, -0.2445373252f), new Float3(-0.2929008603f, 0.2262915116f, 0.2559320961f),
@@ -146,145 +146,145 @@ object Noise {
   )
 
 
-	def floor(f:Float) = if(f >= 0) f.toInt else f.toInt - 1
-	
-	def round(f:Float) = if(f >= 0) (f + 0.5f).toInt else (f - 0.5f).toInt
-	
-	def lerp(a:Float, b:Float, t:Float) = a + t * (b - a)
-	def hermite(t:Float) = t * t * (3 - 2 * t)
+  def floor(f:Float) = if(f >= 0) f.toInt else f.toInt - 1
+  
+  def round(f:Float) = if(f >= 0) (f + 0.5f).toInt else (f - 0.5f).toInt
+  
+  def lerp(a:Float, b:Float, t:Float) = a + t * (b - a)
+  def hermite(t:Float) = t * t * (3 - 2 * t)
   def quintic(t:Float) = t * t * t * (t * (t * 6 - 15) + 10)
   def cubicLerp(a:Float, b:Float, c:Float, d:Float, t:Float) = {
-		val p = (d - c) - (a - b)
-		t * t * t * p + t * t * ((a - b) - p) + t * (c - a) + b
-	}
+    val p = (d - c) - (a - b)
+    t * t * t * p + t * t * ((a - b) - p) + t * (c - a) + b
+  }
 
-	// Hashing
-	val X_PRIME = 1619
-	val Y_PRIME = 31337
-	val Z_PRIME = 6971
-	val W_PRIME = 1013
+  // Hashing
+  val X_PRIME = 1619
+  val Y_PRIME = 31337
+  val Z_PRIME = 6971
+  val W_PRIME = 1013
 
-	def Hash2D(s:Int, x:Int, y:Int):Int = {
-		var hash = s
-		hash ^= X_PRIME * x
-		hash ^= Y_PRIME * y
+  def Hash2D(s:Int, x:Int, y:Int):Int = {
+    var hash = s
+    hash ^= X_PRIME * x
+    hash ^= Y_PRIME * y
 
-		hash = hash * hash * hash * 60493
-		hash = (hash >> 13) ^ hash
+    hash = hash * hash * hash * 60493
+    hash = (hash >> 13) ^ hash
 
-		hash
-	}
+    hash
+  }
 
-	def Hash3D(s:Int, x:Int, y:Int, z:Int):Int = {
-		var hash = s
-		hash ^= X_PRIME * x
-		hash ^= Y_PRIME * y
-		hash ^= Z_PRIME * z
+  def Hash3D(s:Int, x:Int, y:Int, z:Int):Int = {
+    var hash = s
+    hash ^= X_PRIME * x
+    hash ^= Y_PRIME * y
+    hash ^= Z_PRIME * z
 
-		hash = hash * hash * hash * 60493
-		hash = (hash >> 13) ^ hash
+    hash = hash * hash * hash * 60493
+    hash = (hash >> 13) ^ hash
 
-		hash
-	}
+    hash
+  }
 
-	def Hash4D(s:Int, x:Int, y:Int, z:Int, w:Int):Int = {
-		var hash = s
-		hash ^= X_PRIME * x
-		hash ^= Y_PRIME * y
-		hash ^= Z_PRIME * z
-		hash ^= W_PRIME * w
+  def Hash4D(s:Int, x:Int, y:Int, z:Int, w:Int):Int = {
+    var hash = s
+    hash ^= X_PRIME * x
+    hash ^= Y_PRIME * y
+    hash ^= Z_PRIME * z
+    hash ^= W_PRIME * w
 
-		hash = hash * hash * hash * 60493
-		hash = (hash >> 13) ^ hash
+    hash = hash * hash * hash * 60493
+    hash = (hash >> 13) ^ hash
 
-		hash
-	}
+    hash
+  }
 
-	def ValCoord2D(s:Int, x:Int, y:Int):Float = {
-		var n = s
-		n ^= X_PRIME * x
-		n ^= Y_PRIME * y
+  def ValCoord2D(s:Int, x:Int, y:Int):Float = {
+    var n = s
+    n ^= X_PRIME * x
+    n ^= Y_PRIME * y
 
-		return (n * n * n * 60493) / 2147483648.0f
-	}
+    return (n * n * n * 60493) / 2147483648.0f
+  }
 
-	def ValCoord3D(s:Int, x:Int, y:Int, z:Int):Float = {
-		var n = s
-		n ^= X_PRIME * x
-		n ^= Y_PRIME * y
-		n ^= Z_PRIME * z
+  def ValCoord3D(s:Int, x:Int, y:Int, z:Int):Float = {
+    var n = s
+    n ^= X_PRIME * x
+    n ^= Y_PRIME * y
+    n ^= Z_PRIME * z
 
-		return (n * n * n * 60493) / 2147483648.0f
-	}
+    return (n * n * n * 60493) / 2147483648.0f
+  }
 
-	def ValCoord4D(s:Int, x:Int, y:Int, z:Int, w:Int):Float = {
-		var n = s
-		n ^= X_PRIME * x
-		n ^= Y_PRIME * y
-		n ^= Z_PRIME * z
-		n ^= W_PRIME * w
+  def ValCoord4D(s:Int, x:Int, y:Int, z:Int, w:Int):Float = {
+    var n = s
+    n ^= X_PRIME * x
+    n ^= Y_PRIME * y
+    n ^= Z_PRIME * z
+    n ^= W_PRIME * w
 
-		return (n * n * n * 60493) / 2147483648.0f
-	}
+    return (n * n * n * 60493) / 2147483648.0f
+  }
 
-	def GradCoord2D(s:Int, x:Int, y:Int, xd:Float, yd:Float):Float = {
-		var hash = s
-		hash ^= X_PRIME * x
-		hash ^= Y_PRIME * y
+  def GradCoord2D(s:Int, x:Int, y:Int, xd:Float, yd:Float):Float = {
+    var hash = s
+    hash ^= X_PRIME * x
+    hash ^= Y_PRIME * y
 
-		hash = hash * hash * hash * 60493
-		hash = (hash >> 13) ^ hash
+    hash = hash * hash * hash * 60493
+    hash = (hash >> 13) ^ hash
 
-		val g = GRAD_2D(hash & 7)
+    val g = GRAD_2D(hash & 7)
 
-		return xd * g.x + yd * g.y
-	}
+    return xd * g.x + yd * g.y
+  }
 
-	def GradCoord3D(s:Int, x:Int, y:Int, z:Int, xd:Float, yd:Float, zd:Float):Float = {
-		var hash = s
-		hash ^= X_PRIME * x
-		hash ^= Y_PRIME * y
-		hash ^= Z_PRIME * z
+  def GradCoord3D(s:Int, x:Int, y:Int, z:Int, xd:Float, yd:Float, zd:Float):Float = {
+    var hash = s
+    hash ^= X_PRIME * x
+    hash ^= Y_PRIME * y
+    hash ^= Z_PRIME * z
 
-		hash = hash * hash * hash * 60493
-		hash = (hash >> 13) ^ hash
+    hash = hash * hash * hash * 60493
+    hash = (hash >> 13) ^ hash
 
-		val g = GRAD_3D(hash & 15)
+    val g = GRAD_3D(hash & 15)
 
-		return xd * g.x + yd * g.y + zd * g.z
-	}
+    return xd * g.x + yd * g.y + zd * g.z
+  }
 
-	def GradCoord4D(s:Int, x:Int, y:Int, z:Int, w:Int, xd:Float, yd:Float, zd:Float, wd:Float):Float = {
-		var hash = s
-		hash ^= X_PRIME * x
-		hash ^= Y_PRIME * y
-		hash ^= Z_PRIME * z
-		hash ^= W_PRIME * w
+  def GradCoord4D(s:Int, x:Int, y:Int, z:Int, w:Int, xd:Float, yd:Float, zd:Float, wd:Float):Float = {
+    var hash = s
+    hash ^= X_PRIME * x
+    hash ^= Y_PRIME * y
+    hash ^= Z_PRIME * z
+    hash ^= W_PRIME * w
 
-		hash = hash * hash * hash * 60493
-		hash = (hash >> 13) ^ hash
+    hash = hash * hash * hash * 60493
+    hash = (hash >> 13) ^ hash
 
-		hash &= 31
-		var (a,b,c) = (yd,zd,wd)            // X,Y,Z
-		(hash >> 3) match {          // OR, DEPENDING ON HIGH ORDER 2 BITS:
-			case 1 =>
-				a = wd
-				b = xd
-				c = yd
-				// W,X,Y
-			case 2 =>
-				a = zd
-				b = wd
-				c = xd
-		    // Z,W,X
-			case 3 =>
-				a = yd
-				b = zd
-				c = wd
-				// Y,Z,W
-		}
-		return (if((hash & 4) == 0) -a else a) + (if((hash & 2) == 0) -b else b) + (if((hash & 1) == 0) -c else c)
-	}
+    hash &= 31
+    var (a,b,c) = (yd,zd,wd)            // X,Y,Z
+    (hash >> 3) match {          // OR, DEPENDING ON HIGH ORDER 2 BITS:
+      case 1 =>
+        a = wd
+        b = xd
+        c = yd
+        // W,X,Y
+      case 2 =>
+        a = zd
+        b = wd
+        c = xd
+        // Z,W,X
+      case 3 =>
+        a = yd
+        b = zd
+        c = wd
+        // Y,Z,W
+    }
+    return (if((hash & 4) == 0) -a else a) + (if((hash & 2) == 0) -b else b) + (if((hash & 1) == 0) -c else c)
+  }
 
 }
 
@@ -304,1806 +304,1806 @@ object Noise {
 class Noise(var seed:Int=1337){
   import Noise._
 
-	var frequency = 0.01f
-	var interpolation = InterpolationType.Quintic
-	var noiseType = NoiseType.Simplex
+  var frequency = 0.01f
+  var interpolation = InterpolationType.Quintic
+  var noiseType = NoiseType.Simplex
 
-	var fractalOctaves = 3
-	var fractalLacunarity = 2.0f
-	var fractalGain = 0.5f
-	var fractalType = FractalType.FBM
-	var fractalBounding = 0f
+  var fractalOctaves = 3
+  var fractalLacunarity = 2.0f
+  var fractalGain = 0.5f
+  var fractalType = FractalType.FBM
+  var fractalBounding = 0f
 
-	var cellularDistanceFunction = CellularDistanceFunction.Euclidean
-	var cellularReturnType = CellularReturnType.CellValue
-	
+  var cellularDistanceFunction = CellularDistanceFunction.Euclidean
+  var cellularReturnType = CellularReturnType.CellValue
+  
   private var cellularNoiseLookup:Noise = _
 
-	var gradientPerturbAmp = (1.0 / 0.45).toFloat
+  var gradientPerturbAmp = (1.0 / 0.45).toFloat
 
 
   calculateFractalBounding()
-	
-	def calculateFractalBounding() = {
-		var amp = fractalGain
-		var ampFractal = 1.0f
-		for(i <- 1 until fractalOctaves) {
-			ampFractal += amp
-			amp *= fractalGain
-		}
-		fractalBounding = 1 / ampFractal
-	}
+  
+  def calculateFractalBounding() = {
+    var amp = fractalGain
+    var ampFractal = 1.0f
+    for(i <- 1 until fractalOctaves) {
+      ampFractal += amp
+      amp *= fractalGain
+    }
+    fractalBounding = 1 / ampFractal
+  }
 
-	def apply(_x:Float, _y:Float, _z:Float):Float = {
-		var (x, y, z) = (_x, _y, _z)
+  def apply(_x:Float, _y:Float, _z:Float):Float = {
+    var (x, y, z) = (_x, _y, _z)
     x *= frequency
-		y *= frequency
-		z *= frequency
+    y *= frequency
+    z *= frequency
 
-		noiseType match {
-			case NoiseType.ValueNoise =>
-				return SingleValue(seed, x, y, z)
-			case NoiseType.ValueFractal =>
-				fractalType match {
-					case FractalType.FBM =>
-						return SingleValueFractalFBM(x, y, z)
-					case FractalType.Billow =>
-						return SingleValueFractalBillow(x, y, z)
-					case FractalType.RigidMulti =>
-						return SingleValueFractalRigidMulti(x, y, z)
-				}
-			case NoiseType.Perlin =>
-				return SinglePerlin(seed, x, y, z)
-			case NoiseType.PerlinFractal =>
-				fractalType match {
-					case FractalType.FBM =>
-						return SinglePerlinFractalFBM(x, y, z)
-					case FractalType.Billow =>
-						return SinglePerlinFractalBillow(x, y, z)
-					case FractalType.RigidMulti =>
-						return SinglePerlinFractalRigidMulti(x, y, z)
-				}
-			case NoiseType.Simplex =>
-				return SingleSimplex(seed, x, y, z)
-			case NoiseType.SimplexFractal =>
-				fractalType match {
-					case FractalType.FBM =>
-						return SingleSimplexFractalFBM(x, y, z)
-					case FractalType.Billow =>
-						return SingleSimplexFractalBillow(x, y, z)
-					case FractalType.RigidMulti =>
-						return SingleSimplexFractalRigidMulti(x, y, z)
-				}
-			case NoiseType.Cellular =>
-				cellularReturnType match {
-					case CellularReturnType.CellValue => return SingleCellular(x, y, z)
-					case CellularReturnType.NoiseLookup => return SingleCellular(x, y, z)
-					case CellularReturnType.Distance => return SingleCellular(x, y, z)
+    noiseType match {
+      case NoiseType.ValueNoise =>
+        return SingleValue(seed, x, y, z)
+      case NoiseType.ValueFractal =>
+        fractalType match {
+          case FractalType.FBM =>
+            return SingleValueFractalFBM(x, y, z)
+          case FractalType.Billow =>
+            return SingleValueFractalBillow(x, y, z)
+          case FractalType.RigidMulti =>
+            return SingleValueFractalRigidMulti(x, y, z)
+        }
+      case NoiseType.Perlin =>
+        return SinglePerlin(seed, x, y, z)
+      case NoiseType.PerlinFractal =>
+        fractalType match {
+          case FractalType.FBM =>
+            return SinglePerlinFractalFBM(x, y, z)
+          case FractalType.Billow =>
+            return SinglePerlinFractalBillow(x, y, z)
+          case FractalType.RigidMulti =>
+            return SinglePerlinFractalRigidMulti(x, y, z)
+        }
+      case NoiseType.Simplex =>
+        return SingleSimplex(seed, x, y, z)
+      case NoiseType.SimplexFractal =>
+        fractalType match {
+          case FractalType.FBM =>
+            return SingleSimplexFractalFBM(x, y, z)
+          case FractalType.Billow =>
+            return SingleSimplexFractalBillow(x, y, z)
+          case FractalType.RigidMulti =>
+            return SingleSimplexFractalRigidMulti(x, y, z)
+        }
+      case NoiseType.Cellular =>
+        cellularReturnType match {
+          case CellularReturnType.CellValue => return SingleCellular(x, y, z)
+          case CellularReturnType.NoiseLookup => return SingleCellular(x, y, z)
+          case CellularReturnType.Distance => return SingleCellular(x, y, z)
           case _ =>	return SingleCellular2Edge(x, y, z)
-				}
-			case NoiseType.WhiteNoise =>
-				return GetWhiteNoise(x, y, z)
-			case NoiseType.Cubic =>
-				return SingleCubic(seed, x, y, z)
-			case NoiseType.CubicFractal =>
-				fractalType match {
-					case FractalType.FBM =>
-						return SingleCubicFractalFBM(x, y, z)
-					case FractalType.Billow =>
-						return SingleCubicFractalBillow(x, y, z)
-					case FractalType.RigidMulti =>
-						return SingleCubicFractalRigidMulti(x, y, z)
-				}
-		}
-	}
+        }
+      case NoiseType.WhiteNoise =>
+        return GetWhiteNoise(x, y, z)
+      case NoiseType.Cubic =>
+        return SingleCubic(seed, x, y, z)
+      case NoiseType.CubicFractal =>
+        fractalType match {
+          case FractalType.FBM =>
+            return SingleCubicFractalFBM(x, y, z)
+          case FractalType.Billow =>
+            return SingleCubicFractalBillow(x, y, z)
+          case FractalType.RigidMulti =>
+            return SingleCubicFractalRigidMulti(x, y, z)
+        }
+    }
+  }
 
-	def apply(_x:Float, _y:Float):Float = {
-		var (x, y) = (_x, _y)
+  def apply(_x:Float, _y:Float):Float = {
+    var (x, y) = (_x, _y)
     x *= frequency
-		y *= frequency
+    y *= frequency
 
-		 noiseType match {
-			case NoiseType.ValueNoise =>
-				return SingleValue(seed, x, y)
-			case NoiseType.ValueFractal =>
-				fractalType match {
-					case FractalType.FBM =>
-						return SingleValueFractalFBM(x, y)
-					case FractalType.Billow =>
-						return SingleValueFractalBillow(x, y)
-					case FractalType.RigidMulti =>
-						return SingleValueFractalRigidMulti(x, y)
-				}
-			case NoiseType.Perlin =>
-				return SinglePerlin(seed, x, y)
-			case NoiseType.PerlinFractal =>
-				fractalType match {
-					case FractalType.FBM =>
-						return SinglePerlinFractalFBM(x, y)
-					case FractalType.Billow =>
-						return SinglePerlinFractalBillow(x, y)
-					case FractalType.RigidMulti =>
-						return SinglePerlinFractalRigidMulti(x, y)
-				}
-			case NoiseType.Simplex =>
-				return SingleSimplex(seed, x, y)
-			case NoiseType.SimplexFractal =>
-				fractalType match {
-					case FractalType.FBM =>
-						return SingleSimplexFractalFBM(x, y)
-					case FractalType.Billow =>
-						return SingleSimplexFractalBillow(x, y)
-					case FractalType.RigidMulti =>
-						return SingleSimplexFractalRigidMulti(x, y)
-				}
-			case NoiseType.Cellular =>
-				cellularReturnType match {
-					case CellularReturnType.CellValue => return SingleCellular(x, y)
-					case CellularReturnType.NoiseLookup => return SingleCellular(x, y)
-					case CellularReturnType.Distance => return SingleCellular(x, y)
+     noiseType match {
+      case NoiseType.ValueNoise =>
+        return SingleValue(seed, x, y)
+      case NoiseType.ValueFractal =>
+        fractalType match {
+          case FractalType.FBM =>
+            return SingleValueFractalFBM(x, y)
+          case FractalType.Billow =>
+            return SingleValueFractalBillow(x, y)
+          case FractalType.RigidMulti =>
+            return SingleValueFractalRigidMulti(x, y)
+        }
+      case NoiseType.Perlin =>
+        return SinglePerlin(seed, x, y)
+      case NoiseType.PerlinFractal =>
+        fractalType match {
+          case FractalType.FBM =>
+            return SinglePerlinFractalFBM(x, y)
+          case FractalType.Billow =>
+            return SinglePerlinFractalBillow(x, y)
+          case FractalType.RigidMulti =>
+            return SinglePerlinFractalRigidMulti(x, y)
+        }
+      case NoiseType.Simplex =>
+        return SingleSimplex(seed, x, y)
+      case NoiseType.SimplexFractal =>
+        fractalType match {
+          case FractalType.FBM =>
+            return SingleSimplexFractalFBM(x, y)
+          case FractalType.Billow =>
+            return SingleSimplexFractalBillow(x, y)
+          case FractalType.RigidMulti =>
+            return SingleSimplexFractalRigidMulti(x, y)
+        }
+      case NoiseType.Cellular =>
+        cellularReturnType match {
+          case CellularReturnType.CellValue => return SingleCellular(x, y)
+          case CellularReturnType.NoiseLookup => return SingleCellular(x, y)
+          case CellularReturnType.Distance => return SingleCellular(x, y)
           case _ => return SingleCellular2Edge(x, y)
-				}
-			case NoiseType.WhiteNoise =>
-				return GetWhiteNoise(x, y)
-			case NoiseType.Cubic =>
-				return SingleCubic(seed, x, y)
-			case NoiseType.CubicFractal =>
-				fractalType match {
-					case FractalType.FBM =>
-						return SingleCubicFractalFBM(x, y)
-					case FractalType.Billow =>
-						return SingleCubicFractalBillow(x, y)
-					case FractalType.RigidMulti =>
-						return SingleCubicFractalRigidMulti(x, y)
-				}
-		}
-	}
+        }
+      case NoiseType.WhiteNoise =>
+        return GetWhiteNoise(x, y)
+      case NoiseType.Cubic =>
+        return SingleCubic(seed, x, y)
+      case NoiseType.CubicFractal =>
+        fractalType match {
+          case FractalType.FBM =>
+            return SingleCubicFractalFBM(x, y)
+          case FractalType.Billow =>
+            return SingleCubicFractalBillow(x, y)
+          case FractalType.RigidMulti =>
+            return SingleCubicFractalRigidMulti(x, y)
+        }
+    }
+  }
 
-	// White Noise
+  // White Noise
 
-	def FloatCast2Int(f:Float):Int = {
-		// val i = java.lang.Float.floatToRawIntBits(f)
-		val i = java.lang.Float.floatToIntBits(f)
-		return i ^ (i >> 16)
-	}
+  def FloatCast2Int(f:Float):Int = {
+    // val i = java.lang.Float.floatToRawIntBits(f)
+    val i = java.lang.Float.floatToIntBits(f)
+    return i ^ (i >> 16)
+  }
 
-	def GetWhiteNoise(x:Float, y:Float, z:Float, w:Float):Float = {
-		val xi = FloatCast2Int(x)
-		val yi = FloatCast2Int(y)
-		val zi = FloatCast2Int(z)
-		val wi = FloatCast2Int(w)
+  def GetWhiteNoise(x:Float, y:Float, z:Float, w:Float):Float = {
+    val xi = FloatCast2Int(x)
+    val yi = FloatCast2Int(y)
+    val zi = FloatCast2Int(z)
+    val wi = FloatCast2Int(w)
 
-		return ValCoord4D(seed, xi, yi, zi, wi)
-	}
+    return ValCoord4D(seed, xi, yi, zi, wi)
+  }
 
-	def GetWhiteNoise(x:Float, y:Float, z:Float):Float = {
-		val xi = FloatCast2Int(x)
-		val yi = FloatCast2Int(y)
-		val zi = FloatCast2Int(z)
+  def GetWhiteNoise(x:Float, y:Float, z:Float):Float = {
+    val xi = FloatCast2Int(x)
+    val yi = FloatCast2Int(y)
+    val zi = FloatCast2Int(z)
 
-		return ValCoord3D(seed, xi, yi, zi)
-	}
+    return ValCoord3D(seed, xi, yi, zi)
+  }
 
-	def GetWhiteNoise(x:Float, y:Float):Float = {
-		val xi = FloatCast2Int(x)
-		val yi = FloatCast2Int(y)
+  def GetWhiteNoise(x:Float, y:Float):Float = {
+    val xi = FloatCast2Int(x)
+    val yi = FloatCast2Int(y)
 
-		return ValCoord2D(seed, xi, yi)
-	}
+    return ValCoord2D(seed, xi, yi)
+  }
 
-	def GetWhiteNoiseInt(x:Int, y:Int, z:Int, w:Int):Float = {
-		return ValCoord4D(seed, x, y, z, w)
-	}
+  def GetWhiteNoiseInt(x:Int, y:Int, z:Int, w:Int):Float = {
+    return ValCoord4D(seed, x, y, z, w)
+  }
 
-	def GetWhiteNoiseInt(x:Int, y:Int, z:Int):Float = {
-		return ValCoord3D(seed, x, y, z)
-	}
+  def GetWhiteNoiseInt(x:Int, y:Int, z:Int):Float = {
+    return ValCoord3D(seed, x, y, z)
+  }
 
-	def GetWhiteNoiseInt(x:Int, y:Int):Float = {
-		return ValCoord2D(seed, x, y)
-	}
+  def GetWhiteNoiseInt(x:Int, y:Int):Float = {
+    return ValCoord2D(seed, x, y)
+  }
 
-	// Value Noise
-	def GetValueFractal(_x:Float, _y:Float, _z:Float):Float = {
-		var (x, y, z) = (_x, _y, _z)
+  // Value Noise
+  def GetValueFractal(_x:Float, _y:Float, _z:Float):Float = {
+    var (x, y, z) = (_x, _y, _z)
     x *= frequency
-		y *= frequency
-		z *= frequency
+    y *= frequency
+    z *= frequency
 
-		fractalType match {
-			case FractalType.FBM =>
-				return SingleValueFractalFBM(x, y, z)
-			case FractalType.Billow =>
-				return SingleValueFractalBillow(x, y, z)
-			case FractalType.RigidMulti =>
-				return SingleValueFractalRigidMulti(x, y, z)
-		}
-	}
+    fractalType match {
+      case FractalType.FBM =>
+        return SingleValueFractalFBM(x, y, z)
+      case FractalType.Billow =>
+        return SingleValueFractalBillow(x, y, z)
+      case FractalType.RigidMulti =>
+        return SingleValueFractalRigidMulti(x, y, z)
+    }
+  }
 
-	def SingleValueFractalFBM(x:Float, y:Float, z:Float):Float = {
-		var _seed = seed
-		var sum = SingleValue(_seed, x, y, z)
-		var amp = 1.0f
-
-    var (_x, _y, _z) = (x, y, z)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-			_z *= fractalLacunarity
-
-			amp *= fractalGain
-      _seed += 1
-			sum += SingleValue(_seed, _x, _y, _z) * amp
-		}
-
-		return sum * fractalBounding
-	}
-
-	def SingleValueFractalBillow(x:Float, y:Float, z:Float):Float = {
-		var _seed = seed
-		var sum = scala.math.abs(SingleValue(_seed, x, y, z)) * 2.0f - 1
-		var amp = 1.0f
+  def SingleValueFractalFBM(x:Float, y:Float, z:Float):Float = {
+    var _seed = seed
+    var sum = SingleValue(_seed, x, y, z)
+    var amp = 1.0f
 
     var (_x, _y, _z) = (x, y, z)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-			_z *= fractalLacunarity
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+      _z *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum += (scala.math.abs(SingleValue(_seed, _x, _y, _z)) * 2 - 1) * amp
-		}
+      sum += SingleValue(_seed, _x, _y, _z) * amp
+    }
 
-		return sum * fractalBounding
-	}
+    return sum * fractalBounding
+  }
 
-	def SingleValueFractalRigidMulti(x:Float, y:Float, z:Float):Float = {
-		var _seed = seed
-		var sum = 1.0f - scala.math.abs(SingleValue(_seed, x, y, z))
-		var amp = 1.0f
+  def SingleValueFractalBillow(x:Float, y:Float, z:Float):Float = {
+    var _seed = seed
+    var sum = scala.math.abs(SingleValue(_seed, x, y, z)) * 2.0f - 1
+    var amp = 1.0f
 
     var (_x, _y, _z) = (x, y, z)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-			_z *= fractalLacunarity
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+      _z *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum -= (1.0f - scala.math.abs(SingleValue(_seed, _x, _y, _z))) * amp
-		}
+      sum += (scala.math.abs(SingleValue(_seed, _x, _y, _z)) * 2 - 1) * amp
+    }
 
-		return sum
-	}
+    return sum * fractalBounding
+  }
 
-	def GetValue(x:Float, y:Float, z:Float):Float = {
-		return SingleValue(seed, x * frequency, y * frequency, z * frequency)
-	}
+  def SingleValueFractalRigidMulti(x:Float, y:Float, z:Float):Float = {
+    var _seed = seed
+    var sum = 1.0f - scala.math.abs(SingleValue(_seed, x, y, z))
+    var amp = 1.0f
 
-	def SingleValue(seed:Int, x:Float, y:Float, z:Float):Float = {
-		val x0 = floor(x)
-		val y0 = floor(y)
-		val z0 = floor(z)
-		val x1 = x0 + 1
-		val y1 = y0 + 1
-		val z1 = z0 + 1
+    var (_x, _y, _z) = (x, y, z)
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+      _z *= fractalLacunarity
 
-		var (xs, ys, zs) = (0.0f, 0.0f, 0.0f)
-		interpolation match {
-			case InterpolationType.Linear =>
-				xs = x - x0
-				ys = y - y0
-				zs = z - z0
-			case InterpolationType.Hermite =>
-				xs = hermite(x - x0)
-				ys = hermite(y - y0)
-				zs = hermite(z - z0)
-			case InterpolationType.Quintic =>
-				xs = quintic(x - x0)
-				ys = quintic(y - y0)
-				zs = quintic(z - z0)
-		}
+      amp *= fractalGain
+      _seed += 1
+      sum -= (1.0f - scala.math.abs(SingleValue(_seed, _x, _y, _z))) * amp
+    }
 
-		val xf00 = lerp(ValCoord3D(seed, x0, y0, z0), ValCoord3D(seed, x1, y0, z0), xs)
-		val xf10 = lerp(ValCoord3D(seed, x0, y1, z0), ValCoord3D(seed, x1, y1, z0), xs)
-		val xf01 = lerp(ValCoord3D(seed, x0, y0, z1), ValCoord3D(seed, x1, y0, z1), xs)
-		val xf11 = lerp(ValCoord3D(seed, x0, y1, z1), ValCoord3D(seed, x1, y1, z1), xs)
+    return sum
+  }
 
-		val yf0 = lerp(xf00, xf10, ys)
-		val yf1 = lerp(xf01, xf11, ys)
+  def GetValue(x:Float, y:Float, z:Float):Float = {
+    return SingleValue(seed, x * frequency, y * frequency, z * frequency)
+  }
 
-		return lerp(yf0, yf1, zs)
-	}
+  def SingleValue(seed:Int, x:Float, y:Float, z:Float):Float = {
+    val x0 = floor(x)
+    val y0 = floor(y)
+    val z0 = floor(z)
+    val x1 = x0 + 1
+    val y1 = y0 + 1
+    val z1 = z0 + 1
 
-	def GetValueFractal(_x:Float, _y:Float):Float = {
-		var (x, y) = (_x, _y)
+    var (xs, ys, zs) = (0.0f, 0.0f, 0.0f)
+    interpolation match {
+      case InterpolationType.Linear =>
+        xs = x - x0
+        ys = y - y0
+        zs = z - z0
+      case InterpolationType.Hermite =>
+        xs = hermite(x - x0)
+        ys = hermite(y - y0)
+        zs = hermite(z - z0)
+      case InterpolationType.Quintic =>
+        xs = quintic(x - x0)
+        ys = quintic(y - y0)
+        zs = quintic(z - z0)
+    }
+
+    val xf00 = lerp(ValCoord3D(seed, x0, y0, z0), ValCoord3D(seed, x1, y0, z0), xs)
+    val xf10 = lerp(ValCoord3D(seed, x0, y1, z0), ValCoord3D(seed, x1, y1, z0), xs)
+    val xf01 = lerp(ValCoord3D(seed, x0, y0, z1), ValCoord3D(seed, x1, y0, z1), xs)
+    val xf11 = lerp(ValCoord3D(seed, x0, y1, z1), ValCoord3D(seed, x1, y1, z1), xs)
+
+    val yf0 = lerp(xf00, xf10, ys)
+    val yf1 = lerp(xf01, xf11, ys)
+
+    return lerp(yf0, yf1, zs)
+  }
+
+  def GetValueFractal(_x:Float, _y:Float):Float = {
+    var (x, y) = (_x, _y)
     x *= frequency
-		y *= frequency
+    y *= frequency
 
-		fractalType match {
-			case FractalType.FBM =>
-				return SingleValueFractalFBM(x, y)
-			case FractalType.Billow =>
-				return SingleValueFractalBillow(x, y)
-			case FractalType.RigidMulti =>
-				return SingleValueFractalRigidMulti(x, y)
-		}
-	}
+    fractalType match {
+      case FractalType.FBM =>
+        return SingleValueFractalFBM(x, y)
+      case FractalType.Billow =>
+        return SingleValueFractalBillow(x, y)
+      case FractalType.RigidMulti =>
+        return SingleValueFractalRigidMulti(x, y)
+    }
+  }
 
-	private def SingleValueFractalFBM(x:Float, y:Float):Float = {
-		var _seed = seed
-		var sum = SingleValue(_seed, x, y)
-		var amp = 1.0f
-
-    var (_x, _y) = (x, y)
-		for(i <- 1 until fractalOctaves) {
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-
-			amp *= fractalGain
-      _seed += 1
-			sum += SingleValue(_seed, _x, _y) * amp
-		}
-
-		return sum * fractalBounding
-	}
-
-	private def SingleValueFractalBillow(x:Float, y:Float):Float = {
-		var _seed = seed
-		var sum = (Math.abs(SingleValue(_seed, x, y)) * 2 - 1).toFloat
-		var amp = 1.0f
+  private def SingleValueFractalFBM(x:Float, y:Float):Float = {
+    var _seed = seed
+    var sum = SingleValue(_seed, x, y)
+    var amp = 1.0f
 
     var (_x, _y) = (x, y)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-			amp *= fractalGain
+    for(i <- 1 until fractalOctaves) {
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+
+      amp *= fractalGain
       _seed += 1
-			sum += (Math.abs(SingleValue(_seed, _x, _y)) * 2 - 1) * amp
-		}
+      sum += SingleValue(_seed, _x, _y) * amp
+    }
 
-		return sum * fractalBounding
-	}
+    return sum * fractalBounding
+  }
 
-	private def SingleValueFractalRigidMulti(x:Float, y:Float):Float = {
-		var _seed = seed
-		var sum:Float = 1 - Math.abs(SingleValue(_seed, x, y)).toFloat
-		var amp:Float = 1.0f
+  private def SingleValueFractalBillow(x:Float, y:Float):Float = {
+    var _seed = seed
+    var sum = (Math.abs(SingleValue(_seed, x, y)) * 2 - 1).toFloat
+    var amp = 1.0f
 
     var (_x, _y) = (x, y)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-
-			amp *= fractalGain
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+      amp *= fractalGain
       _seed += 1
-			sum -= (1 - Math.abs(SingleValue(_seed, _x, _y))) * amp
-		}
+      sum += (Math.abs(SingleValue(_seed, _x, _y)) * 2 - 1) * amp
+    }
 
-		return sum
-	}
+    return sum * fractalBounding
+  }
+
+  private def SingleValueFractalRigidMulti(x:Float, y:Float):Float = {
+    var _seed = seed
+    var sum:Float = 1 - Math.abs(SingleValue(_seed, x, y)).toFloat
+    var amp:Float = 1.0f
+
+    var (_x, _y) = (x, y)
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+
+      amp *= fractalGain
+      _seed += 1
+      sum -= (1 - Math.abs(SingleValue(_seed, _x, _y))) * amp
+    }
+
+    return sum
+  }
 
   def GetValue(x:Float, y:Float):Float = {
-		return SingleValue(seed, x * frequency, y * frequency)
-	}
+    return SingleValue(seed, x * frequency, y * frequency)
+  }
 
-	private def SingleValue(_seed:Int, x:Float, y:Float):Float = {
-		val x0 = floor(x)
-		val y0 = floor(y)
-		val x1 = x0 + 1
-		val y1 = y0 + 1
+  private def SingleValue(_seed:Int, x:Float, y:Float):Float = {
+    val x0 = floor(x)
+    val y0 = floor(y)
+    val x1 = x0 + 1
+    val y1 = y0 + 1
 
-		var (xs, ys) = (0f, 0f)
-		interpolation match {
-			case InterpolationType.Linear =>
-				xs = x - x0
-				ys = y - y0
-			case InterpolationType.Hermite =>
-				xs = hermite(x - x0)
-				ys = hermite(y - y0)
-			case InterpolationType.Quintic =>
-				xs = quintic(x - x0)
-				ys = quintic(y - y0)
-		}
+    var (xs, ys) = (0f, 0f)
+    interpolation match {
+      case InterpolationType.Linear =>
+        xs = x - x0
+        ys = y - y0
+      case InterpolationType.Hermite =>
+        xs = hermite(x - x0)
+        ys = hermite(y - y0)
+      case InterpolationType.Quintic =>
+        xs = quintic(x - x0)
+        ys = quintic(y - y0)
+    }
 
-		val xf0 = lerp(ValCoord2D(_seed, x0, y0), ValCoord2D(_seed, x1, y0), xs)
-		val xf1 = lerp(ValCoord2D(_seed, x0, y1), ValCoord2D(_seed, x1, y1), xs)
+    val xf0 = lerp(ValCoord2D(_seed, x0, y0), ValCoord2D(_seed, x1, y0), xs)
+    val xf1 = lerp(ValCoord2D(_seed, x0, y1), ValCoord2D(_seed, x1, y1), xs)
 
-		return lerp(xf0, xf1, ys)
-	}
+    return lerp(xf0, xf1, ys)
+  }
 
-	// Gradient Noise
-	def GetPerlinFractal(_x:Float, _y:Float, _z:Float):Float = {
-		var (x, y, z) = (_x, _y, _z)
+  // Gradient Noise
+  def GetPerlinFractal(_x:Float, _y:Float, _z:Float):Float = {
+    var (x, y, z) = (_x, _y, _z)
     x *= frequency
-		y *= frequency
-		z *= frequency
+    y *= frequency
+    z *= frequency
 
-		fractalType match {
-			case FractalType.FBM =>
-				return SinglePerlinFractalFBM(x, y, z)
-			case FractalType.Billow =>
-				return SinglePerlinFractalBillow(x, y, z)
-			case FractalType.RigidMulti =>
-				return SinglePerlinFractalRigidMulti(x, y, z)
-			case _ =>
-				return 0
-		}
-	}
+    fractalType match {
+      case FractalType.FBM =>
+        return SinglePerlinFractalFBM(x, y, z)
+      case FractalType.Billow =>
+        return SinglePerlinFractalBillow(x, y, z)
+      case FractalType.RigidMulti =>
+        return SinglePerlinFractalRigidMulti(x, y, z)
+      case _ =>
+        return 0
+    }
+  }
 
-	private def SinglePerlinFractalFBM(x:Float, y:Float, z:Float):Float = {
-		var _seed = seed
-		var sum:Float = SinglePerlin(_seed, x, y, z)
-		var amp = 1.0f
-
-    var (_x, _y, _z) = (x, y, z)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-			_z *= fractalLacunarity
-
-			amp *= fractalGain
-      _seed += 1
-			sum += SinglePerlin(_seed, _x, _y, _z) * amp
-		}
-
-		return sum * fractalBounding
-	}
-
-	private def SinglePerlinFractalBillow(x:Float, y:Float, z:Float):Float = {
-		var _seed = seed
-		var sum:Float = Math.abs(SinglePerlin(_seed, x, y, z)) * 2 - 1
-		var amp = 1.0f
+  private def SinglePerlinFractalFBM(x:Float, y:Float, z:Float):Float = {
+    var _seed = seed
+    var sum:Float = SinglePerlin(_seed, x, y, z)
+    var amp = 1.0f
 
     var (_x, _y, _z) = (x, y, z)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-			_z *= fractalLacunarity
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+      _z *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum += (Math.abs(SinglePerlin(_seed, _x, _y, _z)) * 2 - 1) * amp
-		}
+      sum += SinglePerlin(_seed, _x, _y, _z) * amp
+    }
 
-		return sum * fractalBounding
-	}
+    return sum * fractalBounding
+  }
 
-	private def SinglePerlinFractalRigidMulti(x:Float, y:Float, z:Float):Float = {
-		var _seed = seed
-		var sum:Float = 1 - Math.abs(SinglePerlin(_seed, x, y, z))
-		var amp = 1.0f
+  private def SinglePerlinFractalBillow(x:Float, y:Float, z:Float):Float = {
+    var _seed = seed
+    var sum:Float = Math.abs(SinglePerlin(_seed, x, y, z)) * 2 - 1
+    var amp = 1.0f
 
     var (_x, _y, _z) = (x, y, z)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-			_z *= fractalLacunarity
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+      _z *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum -= (1 - Math.abs(SinglePerlin(_seed, _x, _y, _z))) * amp
-		}
+      sum += (Math.abs(SinglePerlin(_seed, _x, _y, _z)) * 2 - 1) * amp
+    }
 
-		return sum
-	}
+    return sum * fractalBounding
+  }
 
-	def GetPerlin(x:Float, y:Float, z:Float):Float = {
-		return SinglePerlin(seed, x * frequency, y * frequency, z * frequency)
-	}
+  private def SinglePerlinFractalRigidMulti(x:Float, y:Float, z:Float):Float = {
+    var _seed = seed
+    var sum:Float = 1 - Math.abs(SinglePerlin(_seed, x, y, z))
+    var amp = 1.0f
 
-	private def SinglePerlin(_seed:Int, x:Float, y:Float, z:Float):Float = {
-		val x0 = floor(x)
-		val y0 = floor(y)
-		val z0 = floor(z)
-		val x1 = x0 + 1
-		val y1 = y0 + 1
-		val z1 = z0 + 1
+    var (_x, _y, _z) = (x, y, z)
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+      _z *= fractalLacunarity
 
-		var (xs, ys, zs) = (0f,0f,0f)
-		interpolation match {
-			case InterpolationType.Linear =>
-				xs = x - x0
-				ys = y - y0
-				zs = z - z0
-			case InterpolationType.Hermite =>
-				xs = hermite(x - x0)
-				ys = hermite(y - y0)
-				zs = hermite(z - z0)
-			case InterpolationType.Quintic =>
-				xs = quintic(x - x0)
-				ys = quintic(y - y0)
-				zs = quintic(z - z0)
-		}
+      amp *= fractalGain
+      _seed += 1
+      sum -= (1 - Math.abs(SinglePerlin(_seed, _x, _y, _z))) * amp
+    }
 
-		val xd0 = x - x0
-		val yd0 = y - y0
-		val zd0 = z - z0
-		val xd1 = xd0 - 1
-		val yd1 = yd0 - 1
-		val zd1 = zd0 - 1
+    return sum
+  }
 
-		val xf00 = lerp(GradCoord3D(_seed, x0, y0, z0, xd0, yd0, zd0), GradCoord3D(_seed, x1, y0, z0, xd1, yd0, zd0), xs)
-		val xf10 = lerp(GradCoord3D(_seed, x0, y1, z0, xd0, yd1, zd0), GradCoord3D(_seed, x1, y1, z0, xd1, yd1, zd0), xs)
-		val xf01 = lerp(GradCoord3D(_seed, x0, y0, z1, xd0, yd0, zd1), GradCoord3D(_seed, x1, y0, z1, xd1, yd0, zd1), xs)
-		val xf11 = lerp(GradCoord3D(_seed, x0, y1, z1, xd0, yd1, zd1), GradCoord3D(_seed, x1, y1, z1, xd1, yd1, zd1), xs)
+  def GetPerlin(x:Float, y:Float, z:Float):Float = {
+    return SinglePerlin(seed, x * frequency, y * frequency, z * frequency)
+  }
 
-		val yf0 = lerp(xf00, xf10, ys)
-		val yf1 = lerp(xf01, xf11, ys)
+  private def SinglePerlin(_seed:Int, x:Float, y:Float, z:Float):Float = {
+    val x0 = floor(x)
+    val y0 = floor(y)
+    val z0 = floor(z)
+    val x1 = x0 + 1
+    val y1 = y0 + 1
+    val z1 = z0 + 1
 
-		return lerp(yf0, yf1, zs)
-	}
+    var (xs, ys, zs) = (0f,0f,0f)
+    interpolation match {
+      case InterpolationType.Linear =>
+        xs = x - x0
+        ys = y - y0
+        zs = z - z0
+      case InterpolationType.Hermite =>
+        xs = hermite(x - x0)
+        ys = hermite(y - y0)
+        zs = hermite(z - z0)
+      case InterpolationType.Quintic =>
+        xs = quintic(x - x0)
+        ys = quintic(y - y0)
+        zs = quintic(z - z0)
+    }
 
-	def GetPerlinFractal(_x:Float, _y:Float):Float = {
-		var (x, y) = (_x, _y)
+    val xd0 = x - x0
+    val yd0 = y - y0
+    val zd0 = z - z0
+    val xd1 = xd0 - 1
+    val yd1 = yd0 - 1
+    val zd1 = zd0 - 1
+
+    val xf00 = lerp(GradCoord3D(_seed, x0, y0, z0, xd0, yd0, zd0), GradCoord3D(_seed, x1, y0, z0, xd1, yd0, zd0), xs)
+    val xf10 = lerp(GradCoord3D(_seed, x0, y1, z0, xd0, yd1, zd0), GradCoord3D(_seed, x1, y1, z0, xd1, yd1, zd0), xs)
+    val xf01 = lerp(GradCoord3D(_seed, x0, y0, z1, xd0, yd0, zd1), GradCoord3D(_seed, x1, y0, z1, xd1, yd0, zd1), xs)
+    val xf11 = lerp(GradCoord3D(_seed, x0, y1, z1, xd0, yd1, zd1), GradCoord3D(_seed, x1, y1, z1, xd1, yd1, zd1), xs)
+
+    val yf0 = lerp(xf00, xf10, ys)
+    val yf1 = lerp(xf01, xf11, ys)
+
+    return lerp(yf0, yf1, zs)
+  }
+
+  def GetPerlinFractal(_x:Float, _y:Float):Float = {
+    var (x, y) = (_x, _y)
     x *= frequency
-		y *= frequency
+    y *= frequency
 
-		fractalType match {
-			case FractalType.FBM =>
-				return SinglePerlinFractalFBM(x, y)
-			case FractalType.Billow =>
-				return SinglePerlinFractalBillow(x, y)
-			case FractalType.RigidMulti =>
-				return SinglePerlinFractalRigidMulti(x, y)
-			case _ =>
-				return 0
-		}
-	}
+    fractalType match {
+      case FractalType.FBM =>
+        return SinglePerlinFractalFBM(x, y)
+      case FractalType.Billow =>
+        return SinglePerlinFractalBillow(x, y)
+      case FractalType.RigidMulti =>
+        return SinglePerlinFractalRigidMulti(x, y)
+      case _ =>
+        return 0
+    }
+  }
 
-	private def SinglePerlinFractalFBM(x:Float, y:Float):Float = {
-		var _seed = seed
-		var sum:Float = SinglePerlin(_seed, x, y)
-		var amp = 1.0f
-
-    var (_x, _y) = (x, y)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-
-			amp *= fractalGain
-      _seed += 1
-			sum += SinglePerlin(_seed, _x, _y) * amp
-		}
-
-		return sum * fractalBounding
-	}
-
-	private def SinglePerlinFractalBillow(x:Float, y:Float):Float = {
-		var _seed = seed
-		var sum:Float = Math.abs(SinglePerlin(_seed, x, y)) * 2 - 1
-		var amp = 1.0f
+  private def SinglePerlinFractalFBM(x:Float, y:Float):Float = {
+    var _seed = seed
+    var sum:Float = SinglePerlin(_seed, x, y)
+    var amp = 1.0f
 
     var (_x, _y) = (x, y)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum += (Math.abs(SinglePerlin(_seed, _x, _y)) * 2 - 1) * amp
-		}
+      sum += SinglePerlin(_seed, _x, _y) * amp
+    }
 
-		return sum * fractalBounding
-	}
+    return sum * fractalBounding
+  }
 
-	private def SinglePerlinFractalRigidMulti(x:Float, y:Float):Float = {
-		var _seed = seed
-		var sum:Float = 1 - Math.abs(SinglePerlin(_seed, x, y))
-		var amp = 1.0f
+  private def SinglePerlinFractalBillow(x:Float, y:Float):Float = {
+    var _seed = seed
+    var sum:Float = Math.abs(SinglePerlin(_seed, x, y)) * 2 - 1
+    var amp = 1.0f
 
     var (_x, _y) = (x, y)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum -= (1 - Math.abs(SinglePerlin(_seed, _x, _y))) * amp
-		}
+      sum += (Math.abs(SinglePerlin(_seed, _x, _y)) * 2 - 1) * amp
+    }
 
-		return sum
-	}
+    return sum * fractalBounding
+  }
 
-	def GetPerlin(x:Float, y:Float):Float = {
-		return SinglePerlin(seed, x * frequency, y * frequency)
-	}
+  private def SinglePerlinFractalRigidMulti(x:Float, y:Float):Float = {
+    var _seed = seed
+    var sum:Float = 1 - Math.abs(SinglePerlin(_seed, x, y))
+    var amp = 1.0f
 
-	private def SinglePerlin(_seed:Int, x:Float, y:Float):Float = {
-		val x0 = floor(x)
-		val y0 = floor(y)
-		val x1 = x0 + 1
-		val y1 = y0 + 1
+    var (_x, _y) = (x, y)
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
 
-		var (xs, ys) = (0f, 0f)
-		interpolation match {
-			case InterpolationType.Linear =>
-				xs = x - x0
-				ys = y - y0
-			case InterpolationType.Hermite =>
-				xs = hermite(x - x0)
-				ys = hermite(y - y0)
-			case InterpolationType.Quintic =>
-				xs = quintic(x - x0)
-				ys = quintic(y - y0)
-		}
+      amp *= fractalGain
+      _seed += 1
+      sum -= (1 - Math.abs(SinglePerlin(_seed, _x, _y))) * amp
+    }
 
-		val xd0 = x - x0
-		val yd0 = y - y0
-		val xd1 = xd0 - 1
-		val yd1 = yd0 - 1
+    return sum
+  }
 
-		val xf0 = lerp(GradCoord2D(_seed, x0, y0, xd0, yd0), GradCoord2D(_seed, x1, y0, xd1, yd0), xs)
-		val xf1 = lerp(GradCoord2D(_seed, x0, y1, xd0, yd1), GradCoord2D(_seed, x1, y1, xd1, yd1), xs)
+  def GetPerlin(x:Float, y:Float):Float = {
+    return SinglePerlin(seed, x * frequency, y * frequency)
+  }
 
-		return lerp(xf0, xf1, ys)
-	}
+  private def SinglePerlin(_seed:Int, x:Float, y:Float):Float = {
+    val x0 = floor(x)
+    val y0 = floor(y)
+    val x1 = x0 + 1
+    val y1 = y0 + 1
 
-	// Simplex Noise
-	def GetSimplexFractal(_x:Float, _y:Float, _z:Float):Float = {
-		var (x, y, z) = (_x, _y, _z)
+    var (xs, ys) = (0f, 0f)
+    interpolation match {
+      case InterpolationType.Linear =>
+        xs = x - x0
+        ys = y - y0
+      case InterpolationType.Hermite =>
+        xs = hermite(x - x0)
+        ys = hermite(y - y0)
+      case InterpolationType.Quintic =>
+        xs = quintic(x - x0)
+        ys = quintic(y - y0)
+    }
+
+    val xd0 = x - x0
+    val yd0 = y - y0
+    val xd1 = xd0 - 1
+    val yd1 = yd0 - 1
+
+    val xf0 = lerp(GradCoord2D(_seed, x0, y0, xd0, yd0), GradCoord2D(_seed, x1, y0, xd1, yd0), xs)
+    val xf1 = lerp(GradCoord2D(_seed, x0, y1, xd0, yd1), GradCoord2D(_seed, x1, y1, xd1, yd1), xs)
+
+    return lerp(xf0, xf1, ys)
+  }
+
+  // Simplex Noise
+  def GetSimplexFractal(_x:Float, _y:Float, _z:Float):Float = {
+    var (x, y, z) = (_x, _y, _z)
     x *= frequency
-		y *= frequency
-		z *= frequency
+    y *= frequency
+    z *= frequency
 
-		fractalType match {
-			case FractalType.FBM =>
-				return SingleSimplexFractalFBM(x, y, z)
-			case FractalType.Billow =>
-				return SingleSimplexFractalBillow(x, y, z)
-			case FractalType.RigidMulti =>
-				return SingleSimplexFractalRigidMulti(x, y, z)
-			case _ =>
-				return 0
-		}
-	}
+    fractalType match {
+      case FractalType.FBM =>
+        return SingleSimplexFractalFBM(x, y, z)
+      case FractalType.Billow =>
+        return SingleSimplexFractalBillow(x, y, z)
+      case FractalType.RigidMulti =>
+        return SingleSimplexFractalRigidMulti(x, y, z)
+      case _ =>
+        return 0
+    }
+  }
 
-	private def SingleSimplexFractalFBM(x:Float, y:Float, z:Float):Float = {
-		var _seed = seed
-		var sum:Float = SingleSimplex(_seed, x, y, z)
-		var amp = 1.0f
-
-    var (_x, _y, _z) = (x, y, z)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-			_z *= fractalLacunarity
-
-			amp *= fractalGain
-      _seed += 1
-			sum += SingleSimplex(_seed, _x, _y, _z) * amp
-		}
-
-		return sum * fractalBounding
-	}
-
-	private def SingleSimplexFractalBillow(x:Float, y:Float, z:Float):Float = {
-		var _seed = seed
-		var sum:Float = Math.abs(SingleSimplex(_seed, x, y, z)) * 2 - 1
-		var amp = 1.0f
+  private def SingleSimplexFractalFBM(x:Float, y:Float, z:Float):Float = {
+    var _seed = seed
+    var sum:Float = SingleSimplex(_seed, x, y, z)
+    var amp = 1.0f
 
     var (_x, _y, _z) = (x, y, z)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-			_z *= fractalLacunarity
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+      _z *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum += (Math.abs(SingleSimplex(_seed, _x, _y, _z)) * 2 - 1) * amp
-		}
+      sum += SingleSimplex(_seed, _x, _y, _z) * amp
+    }
 
-		return sum * fractalBounding
-	}
+    return sum * fractalBounding
+  }
 
-	private def SingleSimplexFractalRigidMulti(x:Float, y:Float, z:Float):Float = {
-		var _seed = seed
-		var sum:Float = 1 - Math.abs(SingleSimplex(_seed, x, y, z))
-		var amp = 1.0f
+  private def SingleSimplexFractalBillow(x:Float, y:Float, z:Float):Float = {
+    var _seed = seed
+    var sum:Float = Math.abs(SingleSimplex(_seed, x, y, z)) * 2 - 1
+    var amp = 1.0f
 
     var (_x, _y, _z) = (x, y, z)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-			_z *= fractalLacunarity
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+      _z *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum -= (1 - Math.abs(SingleSimplex(_seed, _x, _y, _z))) * amp
-		}
+      sum += (Math.abs(SingleSimplex(_seed, _x, _y, _z)) * 2 - 1) * amp
+    }
 
-		return sum
-	}
+    return sum * fractalBounding
+  }
 
-	def GetSimplex(x:Float, y:Float, z:Float):Float = {
-		return SingleSimplex(seed, x * frequency, y * frequency, z * frequency)
-	}
+  private def SingleSimplexFractalRigidMulti(x:Float, y:Float, z:Float):Float = {
+    var _seed = seed
+    var sum:Float = 1 - Math.abs(SingleSimplex(_seed, x, y, z))
+    var amp = 1.0f
 
-	private val F3 = (1.0 / 3.0).toFloat
-	private val G3 = (1.0 / 6.0).toFloat
-	private val G33 = G3 * 3 - 1
+    var (_x, _y, _z) = (x, y, z)
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+      _z *= fractalLacunarity
 
-	private def SingleSimplex(_seed:Int, x:Float, y:Float, z:Float):Float = {
-		var t = (x + y + z) * F3
-		val i = floor(x + t)
-		val j = floor(y + t)
-		val k = floor(z + t)
+      amp *= fractalGain
+      _seed += 1
+      sum -= (1 - Math.abs(SingleSimplex(_seed, _x, _y, _z))) * amp
+    }
 
-		t = (i + j + k) * G3
-		val x0:Float = x - (i - t)
-		val y0:Float = y - (j - t)
-		val z0:Float = z - (k - t)
+    return sum
+  }
 
-		var (i1, j1, k1) = (0,0,0)
-		var (i2, j2, k2) = (0,0,0)
+  def GetSimplex(x:Float, y:Float, z:Float):Float = {
+    return SingleSimplex(seed, x * frequency, y * frequency, z * frequency)
+  }
 
-		if (x0 >= y0) {
-			if (y0 >= z0) {
-				i1 = 1
-				j1 = 0
-				k1 = 0
-				i2 = 1
-				j2 = 1
-				k2 = 0
-			} else if (x0 >= z0) {
-				i1 = 1
-				j1 = 0
-				k1 = 0
-				i2 = 1
-				j2 = 0
-				k2 = 1
-			} else // x0 < z0
-			{
-				i1 = 0
-				j1 = 0
-				k1 = 1
-				i2 = 1
-				j2 = 0
-				k2 = 1
-			}
-		} else // x0 < y0
-		{
-			if (y0 < z0) {
-				i1 = 0
-				j1 = 0
-				k1 = 1
-				i2 = 0
-				j2 = 1
-				k2 = 1
-			} else if (x0 < z0) {
-				i1 = 0
-				j1 = 1
-				k1 = 0
-				i2 = 0
-				j2 = 1
-				k2 = 1
-			} else // x0 >= z0
-			{
-				i1 = 0
-				j1 = 1
-				k1 = 0
-				i2 = 1
-				j2 = 1
-				k2 = 0
-			}
-		}
+  private val F3 = (1.0 / 3.0).toFloat
+  private val G3 = (1.0 / 6.0).toFloat
+  private val G33 = G3 * 3 - 1
 
-		val x1 = x0 - i1 + G3
-		val y1 = y0 - j1 + G3
-		val z1 = z0 - k1 + G3
-		val x2 = x0 - i2 + F3
-		val y2 = y0 - j2 + F3
-		val z2 = z0 - k2 + F3
-		val x3 = x0 + G33
-		val y3 = y0 + G33
-		val z3 = z0 + G33
+  private def SingleSimplex(_seed:Int, x:Float, y:Float, z:Float):Float = {
+    var t = (x + y + z) * F3
+    val i = floor(x + t)
+    val j = floor(y + t)
+    val k = floor(z + t)
 
-		var (n0, n1, n2, n3) = (0f, 0f, 0f, 0f)
+    t = (i + j + k) * G3
+    val x0:Float = x - (i - t)
+    val y0:Float = y - (j - t)
+    val z0:Float = z - (k - t)
 
-		t = 0.6f - x0 * x0 - y0 * y0 - z0 * z0
-		if (t < 0) n0 = 0
-		else {
-			t *= t
-			n0 = t * t * GradCoord3D(_seed, i, j, k, x0, y0, z0)
-		}
+    var (i1, j1, k1) = (0,0,0)
+    var (i2, j2, k2) = (0,0,0)
 
-		t = 0.6f - x1 * x1 - y1 * y1 - z1 * z1
-		if (t < 0) n1 = 0
-		else {
-			t *= t
-			n1 = t * t * GradCoord3D(_seed, i + i1, j + j1, k + k1, x1, y1, z1)
-		}
+    if (x0 >= y0) {
+      if (y0 >= z0) {
+        i1 = 1
+        j1 = 0
+        k1 = 0
+        i2 = 1
+        j2 = 1
+        k2 = 0
+      } else if (x0 >= z0) {
+        i1 = 1
+        j1 = 0
+        k1 = 0
+        i2 = 1
+        j2 = 0
+        k2 = 1
+      } else // x0 < z0
+      {
+        i1 = 0
+        j1 = 0
+        k1 = 1
+        i2 = 1
+        j2 = 0
+        k2 = 1
+      }
+    } else // x0 < y0
+    {
+      if (y0 < z0) {
+        i1 = 0
+        j1 = 0
+        k1 = 1
+        i2 = 0
+        j2 = 1
+        k2 = 1
+      } else if (x0 < z0) {
+        i1 = 0
+        j1 = 1
+        k1 = 0
+        i2 = 0
+        j2 = 1
+        k2 = 1
+      } else // x0 >= z0
+      {
+        i1 = 0
+        j1 = 1
+        k1 = 0
+        i2 = 1
+        j2 = 1
+        k2 = 0
+      }
+    }
 
-		t = 0.6f - x2 * x2 - y2 * y2 - z2 * z2
-		if (t < 0) n2 = 0
-		else {
-			t *= t
-			n2 = t * t * GradCoord3D(_seed, i + i2, j + j2, k + k2, x2, y2, z2)
-		}
+    val x1 = x0 - i1 + G3
+    val y1 = y0 - j1 + G3
+    val z1 = z0 - k1 + G3
+    val x2 = x0 - i2 + F3
+    val y2 = y0 - j2 + F3
+    val z2 = z0 - k2 + F3
+    val x3 = x0 + G33
+    val y3 = y0 + G33
+    val z3 = z0 + G33
 
-		t = 0.6f - x3 * x3 - y3 * y3 - z3 * z3
-		if (t < 0) n3 = 0
-		else {
-			t *= t
-			n3 = t * t * GradCoord3D(_seed, i + 1, j + 1, k + 1, x3, y3, z3)
-		}
+    var (n0, n1, n2, n3) = (0f, 0f, 0f, 0f)
 
-		return 32 * (n0 + n1 + n2 + n3)
-	}
+    t = 0.6f - x0 * x0 - y0 * y0 - z0 * z0
+    if (t < 0) n0 = 0
+    else {
+      t *= t
+      n0 = t * t * GradCoord3D(_seed, i, j, k, x0, y0, z0)
+    }
 
-	def GetSimplexFractal(_x:Float, _y:Float):Float = {
-		var (x, y) = (_x, _y)
+    t = 0.6f - x1 * x1 - y1 * y1 - z1 * z1
+    if (t < 0) n1 = 0
+    else {
+      t *= t
+      n1 = t * t * GradCoord3D(_seed, i + i1, j + j1, k + k1, x1, y1, z1)
+    }
+
+    t = 0.6f - x2 * x2 - y2 * y2 - z2 * z2
+    if (t < 0) n2 = 0
+    else {
+      t *= t
+      n2 = t * t * GradCoord3D(_seed, i + i2, j + j2, k + k2, x2, y2, z2)
+    }
+
+    t = 0.6f - x3 * x3 - y3 * y3 - z3 * z3
+    if (t < 0) n3 = 0
+    else {
+      t *= t
+      n3 = t * t * GradCoord3D(_seed, i + 1, j + 1, k + 1, x3, y3, z3)
+    }
+
+    return 32 * (n0 + n1 + n2 + n3)
+  }
+
+  def GetSimplexFractal(_x:Float, _y:Float):Float = {
+    var (x, y) = (_x, _y)
     x *= frequency
-		y *= frequency
+    y *= frequency
 
-		fractalType match {
-			case FractalType.FBM =>
-				return SingleSimplexFractalFBM(x, y)
-			case FractalType.Billow =>
-				return SingleSimplexFractalBillow(x, y)
-			case FractalType.RigidMulti =>
-				return SingleSimplexFractalRigidMulti(x, y)
-			case _ =>
-				return 0
-		}
-	}
+    fractalType match {
+      case FractalType.FBM =>
+        return SingleSimplexFractalFBM(x, y)
+      case FractalType.Billow =>
+        return SingleSimplexFractalBillow(x, y)
+      case FractalType.RigidMulti =>
+        return SingleSimplexFractalRigidMulti(x, y)
+      case _ =>
+        return 0
+    }
+  }
 
-	private def SingleSimplexFractalFBM(x:Float, y:Float):Float = {
-		var _seed = seed
-		var sum:Float = SingleSimplex(_seed, x, y)
-		var amp = 1.0f
-
-    var (_x, _y) = (x, y)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-
-			amp *= fractalGain
-      _seed += 1
-			sum += SingleSimplex(_seed, _x, _y) * amp
-		}
-
-		return sum * fractalBounding
-	}
-
-	private def SingleSimplexFractalBillow(x:Float, y:Float):Float = {
-		var _seed = seed
-		var sum:Float = Math.abs(SingleSimplex(_seed, x, y)) * 2 - 1
-		var amp = 1.0f
+  private def SingleSimplexFractalFBM(x:Float, y:Float):Float = {
+    var _seed = seed
+    var sum:Float = SingleSimplex(_seed, x, y)
+    var amp = 1.0f
 
     var (_x, _y) = (x, y)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum += (Math.abs(SingleSimplex(_seed, _x, _y)) * 2 - 1) * amp
-		}
+      sum += SingleSimplex(_seed, _x, _y) * amp
+    }
 
-		return sum * fractalBounding
-	}
+    return sum * fractalBounding
+  }
 
-	private def SingleSimplexFractalRigidMulti(x:Float, y:Float):Float = {
-		var _seed = seed
-		var sum:Float = 1 - Math.abs(SingleSimplex(_seed, x, y))
-		var amp = 1.0f
+  private def SingleSimplexFractalBillow(x:Float, y:Float):Float = {
+    var _seed = seed
+    var sum:Float = Math.abs(SingleSimplex(_seed, x, y)) * 2 - 1
+    var amp = 1.0f
 
     var (_x, _y) = (x, y)
-		for(i <- 1 until fractalOctaves){
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum -= (1 - Math.abs(SingleSimplex(_seed, _x, _y))) * amp
-		}
+      sum += (Math.abs(SingleSimplex(_seed, _x, _y)) * 2 - 1) * amp
+    }
 
-		return sum
-	}
+    return sum * fractalBounding
+  }
 
-	def GetSimplex(x:Float, y:Float):Float = {
-		return SingleSimplex(seed, x * frequency, y * frequency)
-	}
+  private def SingleSimplexFractalRigidMulti(x:Float, y:Float):Float = {
+    var _seed = seed
+    var sum:Float = 1 - Math.abs(SingleSimplex(_seed, x, y))
+    var amp = 1.0f
 
-	private val F2 = (1.0 / 2.0).toFloat
-	private val G2 = (1.0 / 4.0).toFloat
+    var (_x, _y) = (x, y)
+    for(i <- 1 until fractalOctaves){
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
 
-	private def SingleSimplex(_seed:Int, x:Float, y:Float):Float = {
-		var t = (x + y) * F2
-		val i = floor(x + t)
-		val j = floor(y + t)
+      amp *= fractalGain
+      _seed += 1
+      sum -= (1 - Math.abs(SingleSimplex(_seed, _x, _y))) * amp
+    }
 
-		t = (i + j) * G2
-		val X0 = i - t
-		val Y0 = j - t
+    return sum
+  }
 
-		val x0 = x - X0
-		val y0 = y - Y0
+  def GetSimplex(x:Float, y:Float):Float = {
+    return SingleSimplex(seed, x * frequency, y * frequency)
+  }
 
-		var (i1, j1) = (0, 0)
-		if (x0 > y0) {
-			i1 = 1
-			j1 = 0
-		} else {
-			i1 = 0
-			j1 = 1
-		}
+  private val F2 = (1.0 / 2.0).toFloat
+  private val G2 = (1.0 / 4.0).toFloat
 
-		val x1 = x0 - i1 + G2
-		val y1 = y0 - j1 + G2
-		val x2 = x0 - 1 + F2
-		val y2 = y0 - 1 + F2
+  private def SingleSimplex(_seed:Int, x:Float, y:Float):Float = {
+    var t = (x + y) * F2
+    val i = floor(x + t)
+    val j = floor(y + t)
 
-		var (n0, n1, n2) = (0f, 0f, 0f)
+    t = (i + j) * G2
+    val X0 = i - t
+    val Y0 = j - t
 
-		t = 0.5f - x0 * x0 - y0 * y0
-		if (t < 0) n0 = 0
-		else {
-			t *= t
-			n0 = t * t * GradCoord2D(_seed, i, j, x0, y0)
-		}
+    val x0 = x - X0
+    val y0 = y - Y0
 
-		t = 0.5f - x1 * x1 - y1 * y1
-		if (t < 0) n1 = 0
-		else {
-			t *= t
-			n1 = t * t * GradCoord2D(_seed, i + i1, j + j1, x1, y1)
-		}
+    var (i1, j1) = (0, 0)
+    if (x0 > y0) {
+      i1 = 1
+      j1 = 0
+    } else {
+      i1 = 0
+      j1 = 1
+    }
 
-		t = 0.5f - x2 * x2 - y2 * y2
-		if (t < 0) n2 = 0
-		else {
-			t *= t
-			n2 = t * t * GradCoord2D(_seed, i + 1, j + 1, x2, y2)
-		}
+    val x1 = x0 - i1 + G2
+    val y1 = y0 - j1 + G2
+    val x2 = x0 - 1 + F2
+    val y2 = y0 - 1 + F2
 
-		return 50 * (n0 + n1 + n2)
-	}
+    var (n0, n1, n2) = (0f, 0f, 0f)
 
-	def GetSimplex(x:Float, y:Float, z:Float, w:Float):Float = {
-		return SingleSimplex(seed, x * frequency, y * frequency, z * frequency, w * frequency)
-	}
+    t = 0.5f - x0 * x0 - y0 * y0
+    if (t < 0) n0 = 0
+    else {
+      t *= t
+      n0 = t * t * GradCoord2D(_seed, i, j, x0, y0)
+    }
 
-	private val SIMPLEX_4D: Array[Byte] = Array(
-			0, 1, 2, 3, 0, 1, 3, 2, 0, 0, 0, 0, 0, 2, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0,
-			0, 2, 1, 3, 0, 0, 0, 0, 0, 3, 1, 2, 0, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 2, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			1, 2, 0, 3, 0, 0, 0, 0, 1, 3, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 1, 2, 3, 1, 0,
-			1, 0, 2, 3, 1, 0, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 3, 1, 0, 0, 0, 0, 2, 1, 3, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			2, 0, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 1, 2, 3, 0, 2, 1, 0, 0, 0, 0, 3, 1, 2, 0,
-			2, 1, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 2, 0, 0, 0, 0, 3, 2, 0, 1, 3, 2, 1, 0
+    t = 0.5f - x1 * x1 - y1 * y1
+    if (t < 0) n1 = 0
+    else {
+      t *= t
+      n1 = t * t * GradCoord2D(_seed, i + i1, j + j1, x1, y1)
+    }
+
+    t = 0.5f - x2 * x2 - y2 * y2
+    if (t < 0) n2 = 0
+    else {
+      t *= t
+      n2 = t * t * GradCoord2D(_seed, i + 1, j + 1, x2, y2)
+    }
+
+    return 50 * (n0 + n1 + n2)
+  }
+
+  def GetSimplex(x:Float, y:Float, z:Float, w:Float):Float = {
+    return SingleSimplex(seed, x * frequency, y * frequency, z * frequency, w * frequency)
+  }
+
+  private val SIMPLEX_4D: Array[Byte] = Array(
+      0, 1, 2, 3, 0, 1, 3, 2, 0, 0, 0, 0, 0, 2, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0,
+      0, 2, 1, 3, 0, 0, 0, 0, 0, 3, 1, 2, 0, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 2, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      1, 2, 0, 3, 0, 0, 0, 0, 1, 3, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 1, 2, 3, 1, 0,
+      1, 0, 2, 3, 1, 0, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 3, 1, 0, 0, 0, 0, 2, 1, 3, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      2, 0, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 1, 2, 3, 0, 2, 1, 0, 0, 0, 0, 3, 1, 2, 0,
+      2, 1, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 2, 0, 0, 0, 0, 3, 2, 0, 1, 3, 2, 1, 0
   )
 
-	private val F4 = ((2.23606797 - 1.0) / 4.0).toFloat
-	private val G4 = ((5.0 - 2.23606797) / 20.0).toFloat
+  private val F4 = ((2.23606797 - 1.0) / 4.0).toFloat
+  private val G4 = ((5.0 - 2.23606797) / 20.0).toFloat
 
-	private def SingleSimplex(_seed:Int, x:Float, y:Float, z:Float, w:Float):Float = {
-		var (n0, n1, n2, n3, n4) = (0f, 0f, 0f, 0f, 0f)
-		var t = (x + y + z + w) * F4
-		val i = floor(x + t)
-		val j = floor(y + t)
-		val k = floor(z + t)
-		val l = floor(w + t)
-		t = (i + j + k + l) * G4
-		val X0 = i - t
-		val Y0 = j - t
-		val Z0 = k - t
-		val W0 = l - t
-		val x0 = x - X0
-		val y0 = y - Y0
-		val z0 = z - Z0
-		val w0 = w - W0
+  private def SingleSimplex(_seed:Int, x:Float, y:Float, z:Float, w:Float):Float = {
+    var (n0, n1, n2, n3, n4) = (0f, 0f, 0f, 0f, 0f)
+    var t = (x + y + z + w) * F4
+    val i = floor(x + t)
+    val j = floor(y + t)
+    val k = floor(z + t)
+    val l = floor(w + t)
+    t = (i + j + k + l) * G4
+    val X0 = i - t
+    val Y0 = j - t
+    val Z0 = k - t
+    val W0 = l - t
+    val x0 = x - X0
+    val y0 = y - Y0
+    val z0 = z - Z0
+    val w0 = w - W0
 
-		var c:Int = (if(x0 > y0) 32 else 0)
-		c += (if(x0 > z0) 16 else 0)
-		c += (if(y0 > z0) 8 else 0)
-		c += (if(x0 > w0) 4 else 0)
-		c += (if(y0 > w0) 2 else 0)
-		c += (if(z0 > w0) 1 else 0)
-		c <<= 2
+    var c:Int = (if(x0 > y0) 32 else 0)
+    c += (if(x0 > z0) 16 else 0)
+    c += (if(y0 > z0) 8 else 0)
+    c += (if(x0 > w0) 4 else 0)
+    c += (if(y0 > w0) 2 else 0)
+    c += (if(z0 > w0) 1 else 0)
+    c <<= 2
 
-		val i1 = (if(SIMPLEX_4D(c) >= 3) 1 else 0)
-		val i2 = (if(SIMPLEX_4D(c) >= 2) 1 else 0)
-		val i3 = (if(SIMPLEX_4D(c) >= 1) 1 else 0)
+    val i1 = (if(SIMPLEX_4D(c) >= 3) 1 else 0)
+    val i2 = (if(SIMPLEX_4D(c) >= 2) 1 else 0)
+    val i3 = (if(SIMPLEX_4D(c) >= 1) 1 else 0)
     c += 1
-		val j1 = (if(SIMPLEX_4D(c) >= 3) 1 else 0)
-		val j2 = (if(SIMPLEX_4D(c) >= 2) 1 else 0)
-		val j3 = (if(SIMPLEX_4D(c) >= 1) 1 else 0)
+    val j1 = (if(SIMPLEX_4D(c) >= 3) 1 else 0)
+    val j2 = (if(SIMPLEX_4D(c) >= 2) 1 else 0)
+    val j3 = (if(SIMPLEX_4D(c) >= 1) 1 else 0)
     c += 1
-		val k1 = (if(SIMPLEX_4D(c) >= 3) 1 else 0)
-		val k2 = (if(SIMPLEX_4D(c) >= 2) 1 else 0)
-		val k3 = (if(SIMPLEX_4D(c) >= 1) 1 else 0)
+    val k1 = (if(SIMPLEX_4D(c) >= 3) 1 else 0)
+    val k2 = (if(SIMPLEX_4D(c) >= 2) 1 else 0)
+    val k3 = (if(SIMPLEX_4D(c) >= 1) 1 else 0)
     c += 1
-		val l1 = (if(SIMPLEX_4D(c) >= 3) 1 else 0)
-		val l2 = (if(SIMPLEX_4D(c) >= 2) 1 else 0)
-		val l3 = (if(SIMPLEX_4D(c) >= 1) 1 else 0)
+    val l1 = (if(SIMPLEX_4D(c) >= 3) 1 else 0)
+    val l2 = (if(SIMPLEX_4D(c) >= 2) 1 else 0)
+    val l3 = (if(SIMPLEX_4D(c) >= 1) 1 else 0)
 
-		val x1 = x0 - i1 + G4
-		val y1 = y0 - j1 + G4
-		val z1 = z0 - k1 + G4
-		val w1 = w0 - l1 + G4
-		val x2 = x0 - i2 + 2 * G4
-		val y2 = y0 - j2 + 2 * G4
-		val z2 = z0 - k2 + 2 * G4
-		val w2 = w0 - l2 + 2 * G4
-		val x3 = x0 - i3 + 3 * G4
-		val y3 = y0 - j3 + 3 * G4
-		val z3 = z0 - k3 + 3 * G4
-		val w3 = w0 - l3 + 3 * G4
-		val x4 = x0 - 1 + 4 * G4
-		val y4 = y0 - 1 + 4 * G4
-		val z4 = z0 - 1 + 4 * G4
-		val w4 = w0 - 1 + 4 * G4
+    val x1 = x0 - i1 + G4
+    val y1 = y0 - j1 + G4
+    val z1 = z0 - k1 + G4
+    val w1 = w0 - l1 + G4
+    val x2 = x0 - i2 + 2 * G4
+    val y2 = y0 - j2 + 2 * G4
+    val z2 = z0 - k2 + 2 * G4
+    val w2 = w0 - l2 + 2 * G4
+    val x3 = x0 - i3 + 3 * G4
+    val y3 = y0 - j3 + 3 * G4
+    val z3 = z0 - k3 + 3 * G4
+    val w3 = w0 - l3 + 3 * G4
+    val x4 = x0 - 1 + 4 * G4
+    val y4 = y0 - 1 + 4 * G4
+    val z4 = z0 - 1 + 4 * G4
+    val w4 = w0 - 1 + 4 * G4
 
-		t = 0.6f - x0 * x0 - y0 * y0 - z0 * z0 - w0 * w0
-		if (t < 0) n0 = 0
-		else {
-			t *= t
-			n0 = t * t * GradCoord4D(_seed, i, j, k, l, x0, y0, z0, w0)
-		}
-		t = 0.6f - x1 * x1 - y1 * y1 - z1 * z1 - w1 * w1
-		if (t < 0) n1 = 0
-		else {
-			t *= t
-			n1 = t * t * GradCoord4D(_seed, i + i1, j + j1, k + k1, l + l1, x1, y1, z1, w1)
-		}
-		t = 0.6f - x2 * x2 - y2 * y2 - z2 * z2 - w2 * w2
-		if (t < 0) n2 = 0
-		else {
-			t *= t
-			n2 = t * t * GradCoord4D(_seed, i + i2, j + j2, k + k2, l + l2, x2, y2, z2, w2)
-		}
-		t = 0.6f - x3 * x3 - y3 * y3 - z3 * z3 - w3 * w3
-		if (t < 0) n3 = 0
-		else {
-			t *= t
-			n3 = t * t * GradCoord4D(_seed, i + i3, j + j3, k + k3, l + l3, x3, y3, z3, w3)
-		}
-		t = 0.6f - x4 * x4 - y4 * y4 - z4 * z4 - w4 * w4
-		if (t < 0) n4 = 0
-		else {
-			t *= t
-			n4 = t * t * GradCoord4D(_seed, i + 1, j + 1, k + 1, l + 1, x4, y4, z4, w4)
-		}
+    t = 0.6f - x0 * x0 - y0 * y0 - z0 * z0 - w0 * w0
+    if (t < 0) n0 = 0
+    else {
+      t *= t
+      n0 = t * t * GradCoord4D(_seed, i, j, k, l, x0, y0, z0, w0)
+    }
+    t = 0.6f - x1 * x1 - y1 * y1 - z1 * z1 - w1 * w1
+    if (t < 0) n1 = 0
+    else {
+      t *= t
+      n1 = t * t * GradCoord4D(_seed, i + i1, j + j1, k + k1, l + l1, x1, y1, z1, w1)
+    }
+    t = 0.6f - x2 * x2 - y2 * y2 - z2 * z2 - w2 * w2
+    if (t < 0) n2 = 0
+    else {
+      t *= t
+      n2 = t * t * GradCoord4D(_seed, i + i2, j + j2, k + k2, l + l2, x2, y2, z2, w2)
+    }
+    t = 0.6f - x3 * x3 - y3 * y3 - z3 * z3 - w3 * w3
+    if (t < 0) n3 = 0
+    else {
+      t *= t
+      n3 = t * t * GradCoord4D(_seed, i + i3, j + j3, k + k3, l + l3, x3, y3, z3, w3)
+    }
+    t = 0.6f - x4 * x4 - y4 * y4 - z4 * z4 - w4 * w4
+    if (t < 0) n4 = 0
+    else {
+      t *= t
+      n4 = t * t * GradCoord4D(_seed, i + 1, j + 1, k + 1, l + 1, x4, y4, z4, w4)
+    }
 
-		return 27 * (n0 + n1 + n2 + n3 + n4)
-	}
+    return 27 * (n0 + n1 + n2 + n3 + n4)
+  }
 
-	// Cubic Noise
-	def GetCubicFractal(_x:Float, _y:Float, _z:Float):Float = {
-		var (x, y, z) = (_x, _y, _z)
+  // Cubic Noise
+  def GetCubicFractal(_x:Float, _y:Float, _z:Float):Float = {
+    var (x, y, z) = (_x, _y, _z)
     x *= frequency
-		y *= frequency
-		z *= frequency
+    y *= frequency
+    z *= frequency
 
-		fractalType match {
-			case FractalType.FBM =>
-				return SingleCubicFractalFBM(x, y, z)
-			case FractalType.Billow =>
-				return SingleCubicFractalBillow(x, y, z)
-			case FractalType.RigidMulti =>
-				return SingleCubicFractalRigidMulti(x, y, z)
-			case _ =>
-				return 0
-		}
-	}
+    fractalType match {
+      case FractalType.FBM =>
+        return SingleCubicFractalFBM(x, y, z)
+      case FractalType.Billow =>
+        return SingleCubicFractalBillow(x, y, z)
+      case FractalType.RigidMulti =>
+        return SingleCubicFractalRigidMulti(x, y, z)
+      case _ =>
+        return 0
+    }
+  }
 
-	private def SingleCubicFractalFBM(x:Float, y:Float, z:Float):Float = {
-		var _seed = seed
-		var sum:Float = SingleCubic(_seed, x, y, z)
-		var amp = 1.0f
-		var i = 1
+  private def SingleCubicFractalFBM(x:Float, y:Float, z:Float):Float = {
+    var _seed = seed
+    var sum:Float = SingleCubic(_seed, x, y, z)
+    var amp = 1.0f
+    var i = 1
 
     var (_x, _y, _z) = (x, y, z)
-		while (i < fractalOctaves) {
+    while (i < fractalOctaves) {
       i += 1
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-			_z *= fractalLacunarity
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+      _z *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum += SingleCubic(_seed, _x, _y, _z) * amp
-		}
+      sum += SingleCubic(_seed, _x, _y, _z) * amp
+    }
 
-		return sum * fractalBounding
-	}
+    return sum * fractalBounding
+  }
 
-	private def SingleCubicFractalBillow(x:Float, y:Float, z:Float):Float = {
-		var _seed = seed
-		var sum:Float = Math.abs(SingleCubic(_seed, x, y, z)) * 2 - 1
-		var amp = 1.0f
-		var i = 1
+  private def SingleCubicFractalBillow(x:Float, y:Float, z:Float):Float = {
+    var _seed = seed
+    var sum:Float = Math.abs(SingleCubic(_seed, x, y, z)) * 2 - 1
+    var amp = 1.0f
+    var i = 1
 
     var (_x, _y, _z) = (x, y, z)
-		while (i < fractalOctaves) {
+    while (i < fractalOctaves) {
       i += 1
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-			_z *= fractalLacunarity
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+      _z *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum += (Math.abs(SingleCubic(_seed, _x, _y, _z)) * 2 - 1) * amp
-		}
+      sum += (Math.abs(SingleCubic(_seed, _x, _y, _z)) * 2 - 1) * amp
+    }
 
-		return sum * fractalBounding
-	}
+    return sum * fractalBounding
+  }
 
-	private def SingleCubicFractalRigidMulti(x:Float, y:Float, z:Float):Float = {
-		var _seed = seed
-		var sum:Float = 1 - Math.abs(SingleCubic(_seed, x, y, z))
-		var amp = 1.0f
-		var i = 1
+  private def SingleCubicFractalRigidMulti(x:Float, y:Float, z:Float):Float = {
+    var _seed = seed
+    var sum:Float = 1 - Math.abs(SingleCubic(_seed, x, y, z))
+    var amp = 1.0f
+    var i = 1
 
     var (_x, _y, _z) = (x, y, z)
-		while (i < fractalOctaves) {
+    while (i < fractalOctaves) {
       i += 1
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
-			_z *= fractalLacunarity
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
+      _z *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum -= (1 - Math.abs(SingleCubic(_seed, _x, _y, _z))) * amp
-		}
+      sum -= (1 - Math.abs(SingleCubic(_seed, _x, _y, _z))) * amp
+    }
 
-		return sum
-	}
+    return sum
+  }
 
-	def GetCubic(x:Float, y:Float, z:Float):Float = {
-		return SingleCubic(seed, x * frequency, y * frequency, z * frequency)
-	}
+  def GetCubic(x:Float, y:Float, z:Float):Float = {
+    return SingleCubic(seed, x * frequency, y * frequency, z * frequency)
+  }
 
-	private val CUBIC_3D_BOUNDING:Float = (1 / (1.5 * 1.5 * 1.5)).toFloat
+  private val CUBIC_3D_BOUNDING:Float = (1 / (1.5 * 1.5 * 1.5)).toFloat
 
-	private def SingleCubic(_seed:Int, x:Float, y:Float, z:Float):Float = {
-		val x1 = floor(x)
-		val y1 = floor(y)
-		val z1 = floor(z)
+  private def SingleCubic(_seed:Int, x:Float, y:Float, z:Float):Float = {
+    val x1 = floor(x)
+    val y1 = floor(y)
+    val z1 = floor(z)
 
-		val x0 = x1 - 1
-		val y0 = y1 - 1
-		val z0 = z1 - 1
-		val x2 = x1 + 1
-		val y2 = y1 + 1
-		val z2 = z1 + 1
-		val x3 = x1 + 2
-		val y3 = y1 + 2
-		val z3 = z1 + 2
+    val x0 = x1 - 1
+    val y0 = y1 - 1
+    val z0 = z1 - 1
+    val x2 = x1 + 1
+    val y2 = y1 + 1
+    val z2 = z1 + 1
+    val x3 = x1 + 2
+    val y3 = y1 + 2
+    val z3 = z1 + 2
 
-		val xs:Float = x - x1.toFloat
-		val ys:Float = y - y1.toFloat
-		val zs:Float = z - z1.toFloat
+    val xs:Float = x - x1.toFloat
+    val ys:Float = y - y1.toFloat
+    val zs:Float = z - z1.toFloat
 
-		return cubicLerp(
-			cubicLerp(
-				cubicLerp(ValCoord3D(_seed, x0, y0, z0), ValCoord3D(_seed, x1, y0, z0), ValCoord3D(_seed, x2, y0, z0), ValCoord3D(_seed, x3, y0, z0), xs),
-				cubicLerp(ValCoord3D(_seed, x0, y1, z0), ValCoord3D(_seed, x1, y1, z0), ValCoord3D(_seed, x2, y1, z0), ValCoord3D(_seed, x3, y1, z0), xs),
-				cubicLerp(ValCoord3D(_seed, x0, y2, z0), ValCoord3D(_seed, x1, y2, z0), ValCoord3D(_seed, x2, y2, z0), ValCoord3D(_seed, x3, y2, z0), xs),
-				cubicLerp(ValCoord3D(_seed, x0, y3, z0), ValCoord3D(_seed, x1, y3, z0), ValCoord3D(_seed, x2, y3, z0), ValCoord3D(_seed, x3, y3, z0), xs),
-				ys),
-			cubicLerp(
-				cubicLerp(ValCoord3D(_seed, x0, y0, z1), ValCoord3D(_seed, x1, y0, z1), ValCoord3D(_seed, x2, y0, z1), ValCoord3D(_seed, x3, y0, z1), xs),
-				cubicLerp(ValCoord3D(_seed, x0, y1, z1), ValCoord3D(_seed, x1, y1, z1), ValCoord3D(_seed, x2, y1, z1), ValCoord3D(_seed, x3, y1, z1), xs),
-				cubicLerp(ValCoord3D(_seed, x0, y2, z1), ValCoord3D(_seed, x1, y2, z1), ValCoord3D(_seed, x2, y2, z1), ValCoord3D(_seed, x3, y2, z1), xs),
-				cubicLerp(ValCoord3D(_seed, x0, y3, z1), ValCoord3D(_seed, x1, y3, z1), ValCoord3D(_seed, x2, y3, z1), ValCoord3D(_seed, x3, y3, z1), xs),
-				ys),
-			cubicLerp(
-				cubicLerp(ValCoord3D(_seed, x0, y0, z2), ValCoord3D(_seed, x1, y0, z2), ValCoord3D(_seed, x2, y0, z2), ValCoord3D(_seed, x3, y0, z2), xs),
-				cubicLerp(ValCoord3D(_seed, x0, y1, z2), ValCoord3D(_seed, x1, y1, z2), ValCoord3D(_seed, x2, y1, z2), ValCoord3D(_seed, x3, y1, z2), xs),
-				cubicLerp(ValCoord3D(_seed, x0, y2, z2), ValCoord3D(_seed, x1, y2, z2), ValCoord3D(_seed, x2, y2, z2), ValCoord3D(_seed, x3, y2, z2), xs),
-				cubicLerp(ValCoord3D(_seed, x0, y3, z2), ValCoord3D(_seed, x1, y3, z2), ValCoord3D(_seed, x2, y3, z2), ValCoord3D(_seed, x3, y3, z2), xs),
-				ys),
-			cubicLerp(
-				cubicLerp(ValCoord3D(_seed, x0, y0, z3), ValCoord3D(_seed, x1, y0, z3), ValCoord3D(_seed, x2, y0, z3), ValCoord3D(_seed, x3, y0, z3), xs),
-				cubicLerp(ValCoord3D(_seed, x0, y1, z3), ValCoord3D(_seed, x1, y1, z3), ValCoord3D(_seed, x2, y1, z3), ValCoord3D(_seed, x3, y1, z3), xs),
-				cubicLerp(ValCoord3D(_seed, x0, y2, z3), ValCoord3D(_seed, x1, y2, z3), ValCoord3D(_seed, x2, y2, z3), ValCoord3D(_seed, x3, y2, z3), xs),
-				cubicLerp(ValCoord3D(_seed, x0, y3, z3), ValCoord3D(_seed, x1, y3, z3), ValCoord3D(_seed, x2, y3, z3), ValCoord3D(_seed, x3, y3, z3), xs),
-				ys),
-			zs) * CUBIC_3D_BOUNDING
-	}
+    return cubicLerp(
+      cubicLerp(
+        cubicLerp(ValCoord3D(_seed, x0, y0, z0), ValCoord3D(_seed, x1, y0, z0), ValCoord3D(_seed, x2, y0, z0), ValCoord3D(_seed, x3, y0, z0), xs),
+        cubicLerp(ValCoord3D(_seed, x0, y1, z0), ValCoord3D(_seed, x1, y1, z0), ValCoord3D(_seed, x2, y1, z0), ValCoord3D(_seed, x3, y1, z0), xs),
+        cubicLerp(ValCoord3D(_seed, x0, y2, z0), ValCoord3D(_seed, x1, y2, z0), ValCoord3D(_seed, x2, y2, z0), ValCoord3D(_seed, x3, y2, z0), xs),
+        cubicLerp(ValCoord3D(_seed, x0, y3, z0), ValCoord3D(_seed, x1, y3, z0), ValCoord3D(_seed, x2, y3, z0), ValCoord3D(_seed, x3, y3, z0), xs),
+        ys),
+      cubicLerp(
+        cubicLerp(ValCoord3D(_seed, x0, y0, z1), ValCoord3D(_seed, x1, y0, z1), ValCoord3D(_seed, x2, y0, z1), ValCoord3D(_seed, x3, y0, z1), xs),
+        cubicLerp(ValCoord3D(_seed, x0, y1, z1), ValCoord3D(_seed, x1, y1, z1), ValCoord3D(_seed, x2, y1, z1), ValCoord3D(_seed, x3, y1, z1), xs),
+        cubicLerp(ValCoord3D(_seed, x0, y2, z1), ValCoord3D(_seed, x1, y2, z1), ValCoord3D(_seed, x2, y2, z1), ValCoord3D(_seed, x3, y2, z1), xs),
+        cubicLerp(ValCoord3D(_seed, x0, y3, z1), ValCoord3D(_seed, x1, y3, z1), ValCoord3D(_seed, x2, y3, z1), ValCoord3D(_seed, x3, y3, z1), xs),
+        ys),
+      cubicLerp(
+        cubicLerp(ValCoord3D(_seed, x0, y0, z2), ValCoord3D(_seed, x1, y0, z2), ValCoord3D(_seed, x2, y0, z2), ValCoord3D(_seed, x3, y0, z2), xs),
+        cubicLerp(ValCoord3D(_seed, x0, y1, z2), ValCoord3D(_seed, x1, y1, z2), ValCoord3D(_seed, x2, y1, z2), ValCoord3D(_seed, x3, y1, z2), xs),
+        cubicLerp(ValCoord3D(_seed, x0, y2, z2), ValCoord3D(_seed, x1, y2, z2), ValCoord3D(_seed, x2, y2, z2), ValCoord3D(_seed, x3, y2, z2), xs),
+        cubicLerp(ValCoord3D(_seed, x0, y3, z2), ValCoord3D(_seed, x1, y3, z2), ValCoord3D(_seed, x2, y3, z2), ValCoord3D(_seed, x3, y3, z2), xs),
+        ys),
+      cubicLerp(
+        cubicLerp(ValCoord3D(_seed, x0, y0, z3), ValCoord3D(_seed, x1, y0, z3), ValCoord3D(_seed, x2, y0, z3), ValCoord3D(_seed, x3, y0, z3), xs),
+        cubicLerp(ValCoord3D(_seed, x0, y1, z3), ValCoord3D(_seed, x1, y1, z3), ValCoord3D(_seed, x2, y1, z3), ValCoord3D(_seed, x3, y1, z3), xs),
+        cubicLerp(ValCoord3D(_seed, x0, y2, z3), ValCoord3D(_seed, x1, y2, z3), ValCoord3D(_seed, x2, y2, z3), ValCoord3D(_seed, x3, y2, z3), xs),
+        cubicLerp(ValCoord3D(_seed, x0, y3, z3), ValCoord3D(_seed, x1, y3, z3), ValCoord3D(_seed, x2, y3, z3), ValCoord3D(_seed, x3, y3, z3), xs),
+        ys),
+      zs) * CUBIC_3D_BOUNDING
+  }
 
 
-	def GetCubicFractal(_x:Float, _y:Float):Float = {
-		var (x, y) = (_x, _y)
+  def GetCubicFractal(_x:Float, _y:Float):Float = {
+    var (x, y) = (_x, _y)
     x *= frequency
-		y *= frequency
+    y *= frequency
 
-		fractalType match {
-			case FractalType.FBM =>
-				return SingleCubicFractalFBM(x, y)
-			case FractalType.Billow =>
-				return SingleCubicFractalBillow(x, y)
-			case FractalType.RigidMulti =>
-				return SingleCubicFractalRigidMulti(x, y)
-			case _ =>
-				return 0
-		}
-	}
+    fractalType match {
+      case FractalType.FBM =>
+        return SingleCubicFractalFBM(x, y)
+      case FractalType.Billow =>
+        return SingleCubicFractalBillow(x, y)
+      case FractalType.RigidMulti =>
+        return SingleCubicFractalRigidMulti(x, y)
+      case _ =>
+        return 0
+    }
+  }
 
-	private def SingleCubicFractalFBM(x:Float, y:Float):Float = {
-		var _seed = seed
-		var sum:Float = SingleCubic(_seed, x, y)
-		var amp = 1.0f
-		var i = 1
+  private def SingleCubicFractalFBM(x:Float, y:Float):Float = {
+    var _seed = seed
+    var sum:Float = SingleCubic(_seed, x, y)
+    var amp = 1.0f
+    var i = 1
 
     var (_x, _y) = (x, y)
-		while (i < fractalOctaves) {
+    while (i < fractalOctaves) {
       i += 1
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum += SingleCubic(_seed, _x, _y) * amp
-		}
+      sum += SingleCubic(_seed, _x, _y) * amp
+    }
 
-		return sum * fractalBounding
-	}
+    return sum * fractalBounding
+  }
 
-	private def SingleCubicFractalBillow(x:Float, y:Float):Float = {
-		var _seed = seed
-		var sum:Float = Math.abs(SingleCubic(_seed, x, y)) * 2 - 1
-		var amp = 1.0f
-		var i = 1
+  private def SingleCubicFractalBillow(x:Float, y:Float):Float = {
+    var _seed = seed
+    var sum:Float = Math.abs(SingleCubic(_seed, x, y)) * 2 - 1
+    var amp = 1.0f
+    var i = 1
 
     var (_x, _y) = (x, y)
-		while (i < fractalOctaves) {
+    while (i < fractalOctaves) {
       i += 1
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum += (Math.abs(SingleCubic(_seed, _x, _y)) * 2 - 1) * amp
-		}
+      sum += (Math.abs(SingleCubic(_seed, _x, _y)) * 2 - 1) * amp
+    }
 
-		return sum * fractalBounding
-	}
+    return sum * fractalBounding
+  }
 
-	private def SingleCubicFractalRigidMulti(x:Float, y:Float):Float = {
-		var _seed = seed
-		var sum:Float = 1 - Math.abs(SingleCubic(_seed, x, y))
-		var amp = 1.0f
-		var i = 1
+  private def SingleCubicFractalRigidMulti(x:Float, y:Float):Float = {
+    var _seed = seed
+    var sum:Float = 1 - Math.abs(SingleCubic(_seed, x, y))
+    var amp = 1.0f
+    var i = 1
 
     var (_x, _y) = (x, y)
-		while (i < fractalOctaves) {
+    while (i < fractalOctaves) {
       i += 1
-			_x *= fractalLacunarity
-			_y *= fractalLacunarity
+      _x *= fractalLacunarity
+      _y *= fractalLacunarity
 
-			amp *= fractalGain
+      amp *= fractalGain
       _seed += 1
-			sum -= (1 - Math.abs(SingleCubic(_seed, _x, _y))) * amp
-		}
+      sum -= (1 - Math.abs(SingleCubic(_seed, _x, _y))) * amp
+    }
 
-		return sum
-	}
+    return sum
+  }
 
-	def GetCubic(_x:Float, _y:Float):Float = {
-		var (x, y) = (_x, _y)
+  def GetCubic(_x:Float, _y:Float):Float = {
+    var (x, y) = (_x, _y)
     x *= frequency
-		y *= frequency
+    y *= frequency
 
-		return SingleCubic(0, x, y)
-	}
+    return SingleCubic(0, x, y)
+  }
 
-	private val CUBIC_2D_BOUNDING:Float = (1 / (1.5 * 1.5)).toFloat
+  private val CUBIC_2D_BOUNDING:Float = (1 / (1.5 * 1.5)).toFloat
 
-	private def SingleCubic(_seed:Int, x:Float, y:Float):Float = {
-		val x1 = floor(x)
-		val y1 = floor(y)
+  private def SingleCubic(_seed:Int, x:Float, y:Float):Float = {
+    val x1 = floor(x)
+    val y1 = floor(y)
 
-		val x0 = x1 - 1
-		val y0 = y1 - 1
-		val x2 = x1 + 1
-		val y2 = y1 + 1
-		val x3 = x1 + 2
-		val y3 = y1 + 2
+    val x0 = x1 - 1
+    val y0 = y1 - 1
+    val x2 = x1 + 1
+    val y2 = y1 + 1
+    val x3 = x1 + 2
+    val y3 = y1 + 2
 
-		val xs:Float = x - x1.toFloat
-		val ys:Float = y - y1.toFloat
+    val xs:Float = x - x1.toFloat
+    val ys:Float = y - y1.toFloat
 
-		return cubicLerp(
-			cubicLerp(ValCoord2D(_seed, x0, y0), ValCoord2D(_seed, x1, y0), ValCoord2D(_seed, x2, y0), ValCoord2D(_seed, x3, y0),
-					  xs),
-			cubicLerp(ValCoord2D(_seed, x0, y1), ValCoord2D(_seed, x1, y1), ValCoord2D(_seed, x2, y1), ValCoord2D(_seed, x3, y1),
-					  xs),
-			cubicLerp(ValCoord2D(_seed, x0, y2), ValCoord2D(_seed, x1, y2), ValCoord2D(_seed, x2, y2), ValCoord2D(_seed, x3, y2),
-					  xs),
-			cubicLerp(ValCoord2D(_seed, x0, y3), ValCoord2D(_seed, x1, y3), ValCoord2D(_seed, x2, y3), ValCoord2D(_seed, x3, y3),
-					  xs),
-			ys) * CUBIC_2D_BOUNDING
-	}
+    return cubicLerp(
+      cubicLerp(ValCoord2D(_seed, x0, y0), ValCoord2D(_seed, x1, y0), ValCoord2D(_seed, x2, y0), ValCoord2D(_seed, x3, y0),
+            xs),
+      cubicLerp(ValCoord2D(_seed, x0, y1), ValCoord2D(_seed, x1, y1), ValCoord2D(_seed, x2, y1), ValCoord2D(_seed, x3, y1),
+            xs),
+      cubicLerp(ValCoord2D(_seed, x0, y2), ValCoord2D(_seed, x1, y2), ValCoord2D(_seed, x2, y2), ValCoord2D(_seed, x3, y2),
+            xs),
+      cubicLerp(ValCoord2D(_seed, x0, y3), ValCoord2D(_seed, x1, y3), ValCoord2D(_seed, x2, y3), ValCoord2D(_seed, x3, y3),
+            xs),
+      ys) * CUBIC_2D_BOUNDING
+  }
 
-	// Cellular Noise
-	def GetCellular(_x:Float, _y:Float, _z:Float):Float = {
-		var (x, y, z) = (_x, _y, _z)
+  // Cellular Noise
+  def GetCellular(_x:Float, _y:Float, _z:Float):Float = {
+    var (x, y, z) = (_x, _y, _z)
     x *= frequency
-		y *= frequency
-		z *= frequency
+    y *= frequency
+    z *= frequency
 
-		cellularReturnType match {
-			case CellularReturnType.CellValue => return SingleCellular(x, y, z)
-			case CellularReturnType.NoiseLookup => return SingleCellular(x, y, z)
-			case CellularReturnType.Distance => return SingleCellular(x, y, z)
-				
-			case _ =>
-				return SingleCellular2Edge(x, y, z)
-		}
-	}
+    cellularReturnType match {
+      case CellularReturnType.CellValue => return SingleCellular(x, y, z)
+      case CellularReturnType.NoiseLookup => return SingleCellular(x, y, z)
+      case CellularReturnType.Distance => return SingleCellular(x, y, z)
+        
+      case _ =>
+        return SingleCellular2Edge(x, y, z)
+    }
+  }
 
-	private def SingleCellular(x:Float, y:Float, z:Float):Float = {
-		val xr = round(x)
-		val yr = round(y)
-		val zr = round(z)
+  private def SingleCellular(x:Float, y:Float, z:Float):Float = {
+    val xr = round(x)
+    val yr = round(y)
+    val zr = round(z)
 
-		var distance = 999999.0f
-		var (xc, yc, zc) = (0, 0, 0)
+    var distance = 999999.0f
+    var (xc, yc, zc) = (0, 0, 0)
 
-		cellularDistanceFunction match {
-			case CellularDistanceFunction.Euclidean =>
-				for(xi <- xr - 1 to xr + 1){
-					for(yi <- yr - 1 to yr + 1){
-						for(zi <- zr - 1 to zr + 1){
-							val vec:Float3 = CELL_3D(Hash3D(seed, xi, yi, zi) & 255)
+    cellularDistanceFunction match {
+      case CellularDistanceFunction.Euclidean =>
+        for(xi <- xr - 1 to xr + 1){
+          for(yi <- yr - 1 to yr + 1){
+            for(zi <- zr - 1 to zr + 1){
+              val vec:Float3 = CELL_3D(Hash3D(seed, xi, yi, zi) & 255)
 
-							val vecX = xi - x + vec.x
-							val vecY = yi - y + vec.y
-							val vecZ = zi - z + vec.z
+              val vecX = xi - x + vec.x
+              val vecY = yi - y + vec.y
+              val vecZ = zi - z + vec.z
 
-							val newDistance = vecX * vecX + vecY * vecY + vecZ * vecZ
+              val newDistance = vecX * vecX + vecY * vecY + vecZ * vecZ
 
-							if (newDistance < distance) {
-								distance = newDistance
-								xc = xi
-								yc = yi
-								zc = zi
-							}
-						}
-					}
-				}
-			case CellularDistanceFunction.Manhattan =>
-				for(xi <- xr - 1 to xr + 1){
-					for(yi <- yr - 1 to yr + 1){
-						for(zi <- zr - 1 to zr + 1){
-							val vec = CELL_3D(Hash3D(seed, xi, yi, zi) & 255)
+              if (newDistance < distance) {
+                distance = newDistance
+                xc = xi
+                yc = yi
+                zc = zi
+              }
+            }
+          }
+        }
+      case CellularDistanceFunction.Manhattan =>
+        for(xi <- xr - 1 to xr + 1){
+          for(yi <- yr - 1 to yr + 1){
+            for(zi <- zr - 1 to zr + 1){
+              val vec = CELL_3D(Hash3D(seed, xi, yi, zi) & 255)
 
-							val vecX = xi - x + vec.x
-							val vecY = yi - y + vec.y
-							val vecZ = zi - z + vec.z
+              val vecX = xi - x + vec.x
+              val vecY = yi - y + vec.y
+              val vecZ = zi - z + vec.z
 
-							val newDistance = Math.abs(vecX) + Math.abs(vecY) + Math.abs(vecZ)
+              val newDistance = Math.abs(vecX) + Math.abs(vecY) + Math.abs(vecZ)
 
-							if (newDistance < distance) {
-								distance = newDistance
-								xc = xi
-								yc = yi
-								zc = zi
-							}
-						}
-					}
-				}
-			case CellularDistanceFunction.Natural =>
-				for(xi <- xr - 1 to xr + 1){
-					for(yi <- yr - 1 to yr + 1){
-						for(zi <- zr - 1 to zr + 1){
-							val vec = CELL_3D(Hash3D(seed, xi, yi, zi) & 255)
+              if (newDistance < distance) {
+                distance = newDistance
+                xc = xi
+                yc = yi
+                zc = zi
+              }
+            }
+          }
+        }
+      case CellularDistanceFunction.Natural =>
+        for(xi <- xr - 1 to xr + 1){
+          for(yi <- yr - 1 to yr + 1){
+            for(zi <- zr - 1 to zr + 1){
+              val vec = CELL_3D(Hash3D(seed, xi, yi, zi) & 255)
 
-							val vecX = xi - x + vec.x
-							val vecY = yi - y + vec.y
-							val vecZ = zi - z + vec.z
+              val vecX = xi - x + vec.x
+              val vecY = yi - y + vec.y
+              val vecZ = zi - z + vec.z
 
-							val newDistance = (Math.abs(vecX) + Math.abs(vecY) + Math.abs(vecZ)) + (vecX * vecX + vecY * vecY + vecZ * vecZ)
+              val newDistance = (Math.abs(vecX) + Math.abs(vecY) + Math.abs(vecZ)) + (vecX * vecX + vecY * vecY + vecZ * vecZ)
 
-							if (newDistance < distance) {
-								distance = newDistance
-								xc = xi
-								yc = yi
-								zc = zi
-							}
-						}
-					}
-				}
-		}
+              if (newDistance < distance) {
+                distance = newDistance
+                xc = xi
+                yc = yi
+                zc = zi
+              }
+            }
+          }
+        }
+    }
 
-		cellularReturnType match {
-			case CellularReturnType.CellValue =>
-				return ValCoord3D(0, xc, yc, zc)
+    cellularReturnType match {
+      case CellularReturnType.CellValue =>
+        return ValCoord3D(0, xc, yc, zc)
 
-			case CellularReturnType.NoiseLookup =>
-				val vec = CELL_3D(Hash3D(seed, xc, yc, zc) & 255)
-				return cellularNoiseLookup(xc + vec.x, yc + vec.y, zc + vec.z)
+      case CellularReturnType.NoiseLookup =>
+        val vec = CELL_3D(Hash3D(seed, xc, yc, zc) & 255)
+        return cellularNoiseLookup(xc + vec.x, yc + vec.y, zc + vec.z)
 
-			case CellularReturnType.Distance =>
-				return distance - 1
-			case _ =>
-				return 0
-		}
-	}
+      case CellularReturnType.Distance =>
+        return distance - 1
+      case _ =>
+        return 0
+    }
+  }
 
-	private def SingleCellular2Edge(x:Float, y:Float, z:Float):Float = {
-		val xr = round(x)
-		val yr = round(y)
-		val zr = round(z)
+  private def SingleCellular2Edge(x:Float, y:Float, z:Float):Float = {
+    val xr = round(x)
+    val yr = round(y)
+    val zr = round(z)
 
-		var distance = 999999.0f
-		var distance2 = 999999.0f
+    var distance = 999999.0f
+    var distance2 = 999999.0f
 
-		cellularDistanceFunction match {
-			case CellularDistanceFunction.Euclidean =>
-				for(xi <- xr - 1 to xr + 1){
-					for(yi <- yr - 1 to yr + 1){
-						for(zi <- zr - 1 to zr + 1){
-							val vec = CELL_3D(Hash3D(seed, xi, yi, zi) & 255)
+    cellularDistanceFunction match {
+      case CellularDistanceFunction.Euclidean =>
+        for(xi <- xr - 1 to xr + 1){
+          for(yi <- yr - 1 to yr + 1){
+            for(zi <- zr - 1 to zr + 1){
+              val vec = CELL_3D(Hash3D(seed, xi, yi, zi) & 255)
 
-							val vecX = xi - x + vec.x
-							val vecY = yi - y + vec.y
-							val vecZ = zi - z + vec.z
+              val vecX = xi - x + vec.x
+              val vecY = yi - y + vec.y
+              val vecZ = zi - z + vec.z
 
-							val newDistance = vecX * vecX + vecY * vecY + vecZ * vecZ
+              val newDistance = vecX * vecX + vecY * vecY + vecZ * vecZ
 
-							distance2 = Math.max(Math.min(distance2, newDistance), distance)
-							distance = Math.min(distance, newDistance)
-						}
-					}
-				}
-			case CellularDistanceFunction.Manhattan =>
-				for(xi <- xr - 1 to xr + 1){
-					for(yi <- yr - 1 to yr + 1){
-						for(zi <- zr - 1 to zr + 1){
-							val vec = CELL_3D(Hash3D(seed, xi, yi, zi) & 255)
+              distance2 = Math.max(Math.min(distance2, newDistance), distance)
+              distance = Math.min(distance, newDistance)
+            }
+          }
+        }
+      case CellularDistanceFunction.Manhattan =>
+        for(xi <- xr - 1 to xr + 1){
+          for(yi <- yr - 1 to yr + 1){
+            for(zi <- zr - 1 to zr + 1){
+              val vec = CELL_3D(Hash3D(seed, xi, yi, zi) & 255)
 
-							val vecX = xi - x + vec.x
-							val vecY = yi - y + vec.y
-							val vecZ = zi - z + vec.z
+              val vecX = xi - x + vec.x
+              val vecY = yi - y + vec.y
+              val vecZ = zi - z + vec.z
 
-							val newDistance = Math.abs(vecX) + Math.abs(vecY) + Math.abs(vecZ)
+              val newDistance = Math.abs(vecX) + Math.abs(vecY) + Math.abs(vecZ)
 
-							distance2 = Math.max(Math.min(distance2, newDistance), distance)
-							distance = Math.min(distance, newDistance)
-						}
-					}
-				}
-			case CellularDistanceFunction.Natural =>
-				for(xi <- xr - 1 to xr + 1){
-					for(yi <- yr - 1 to yr + 1){
-						for(zi <- zr - 1 to zr + 1){
-							val vec = CELL_3D(Hash3D(seed, xi, yi, zi) & 255)
+              distance2 = Math.max(Math.min(distance2, newDistance), distance)
+              distance = Math.min(distance, newDistance)
+            }
+          }
+        }
+      case CellularDistanceFunction.Natural =>
+        for(xi <- xr - 1 to xr + 1){
+          for(yi <- yr - 1 to yr + 1){
+            for(zi <- zr - 1 to zr + 1){
+              val vec = CELL_3D(Hash3D(seed, xi, yi, zi) & 255)
 
-							val vecX = xi - x + vec.x
-							val vecY = yi - y + vec.y
-							val vecZ = zi - z + vec.z
+              val vecX = xi - x + vec.x
+              val vecY = yi - y + vec.y
+              val vecZ = zi - z + vec.z
 
-							val newDistance = (Math.abs(vecX) + Math.abs(vecY) + Math.abs(vecZ)) + (vecX * vecX + vecY * vecY + vecZ * vecZ)
+              val newDistance = (Math.abs(vecX) + Math.abs(vecY) + Math.abs(vecZ)) + (vecX * vecX + vecY * vecY + vecZ * vecZ)
 
-							distance2 = Math.max(Math.min(distance2, newDistance), distance)
-							distance = Math.min(distance, newDistance)
-						}
-					}
-				}
-			case _ => ()
-		}
+              distance2 = Math.max(Math.min(distance2, newDistance), distance)
+              distance = Math.min(distance, newDistance)
+            }
+          }
+        }
+      case _ => ()
+    }
 
-		cellularReturnType match {
-			case CellularReturnType.Distance2 =>
-				return distance2 - 1
-			case CellularReturnType.Distance2Add =>
-				return distance2 + distance - 1
-			case CellularReturnType.Distance2Sub =>
-				return distance2 - distance - 1
-			case CellularReturnType.Distance2Mul =>
-				return distance2 * distance - 1
-			case CellularReturnType.Distance2Div =>
-				return distance / distance2 - 1
-			case _ =>
-				return 0
-		}
-	}
+    cellularReturnType match {
+      case CellularReturnType.Distance2 =>
+        return distance2 - 1
+      case CellularReturnType.Distance2Add =>
+        return distance2 + distance - 1
+      case CellularReturnType.Distance2Sub =>
+        return distance2 - distance - 1
+      case CellularReturnType.Distance2Mul =>
+        return distance2 * distance - 1
+      case CellularReturnType.Distance2Div =>
+        return distance / distance2 - 1
+      case _ =>
+        return 0
+    }
+  }
 
-	def GetCellular(_x:Float, _y:Float):Float = {
-		var (x, y) = (_x, _y)
+  def GetCellular(_x:Float, _y:Float):Float = {
+    var (x, y) = (_x, _y)
     x *= frequency
-		y *= frequency
+    y *= frequency
 
-		cellularReturnType match {
-			case CellularReturnType.CellValue => return SingleCellular(x, y)
-			case CellularReturnType.NoiseLookup => return SingleCellular(x, y)
-			case CellularReturnType.Distance => return SingleCellular(x, y)
-				
-			case _ =>
-				return SingleCellular2Edge(x, y)
-		}
-	}
+    cellularReturnType match {
+      case CellularReturnType.CellValue => return SingleCellular(x, y)
+      case CellularReturnType.NoiseLookup => return SingleCellular(x, y)
+      case CellularReturnType.Distance => return SingleCellular(x, y)
+        
+      case _ =>
+        return SingleCellular2Edge(x, y)
+    }
+  }
 
-	private def SingleCellular(x:Float, y:Float):Float = {
-		val xr = round(x)
-		val yr = round(y)
+  private def SingleCellular(x:Float, y:Float):Float = {
+    val xr = round(x)
+    val yr = round(y)
 
-		var distance = 999999.0f
-		var (xc, yc) = (0, 0)
+    var distance = 999999.0f
+    var (xc, yc) = (0, 0)
 
-		cellularDistanceFunction match {
-			case CellularDistanceFunction.Euclidean =>
-				for(xi <- xr - 1 to xr + 1){
-					for(yi <- yr - 1 to yr + 1){
-						val vec = CELL_2D(Hash2D(seed, xi, yi) & 255)
+    cellularDistanceFunction match {
+      case CellularDistanceFunction.Euclidean =>
+        for(xi <- xr - 1 to xr + 1){
+          for(yi <- yr - 1 to yr + 1){
+            val vec = CELL_2D(Hash2D(seed, xi, yi) & 255)
 
-						val vecX = xi - x + vec.x
-						val vecY = yi - y + vec.y
+            val vecX = xi - x + vec.x
+            val vecY = yi - y + vec.y
 
-						val newDistance = vecX * vecX + vecY * vecY
+            val newDistance = vecX * vecX + vecY * vecY
 
-						if (newDistance < distance) {
-							distance = newDistance
-							xc = xi
-							yc = yi
-						}
-					}
-				}
-			case CellularDistanceFunction.Manhattan =>
-				for(xi <- xr - 1 to xr + 1){
-					for(yi <- yr - 1 to yr + 1){
-						val vec = CELL_2D(Hash2D(seed, xi, yi) & 255)
+            if (newDistance < distance) {
+              distance = newDistance
+              xc = xi
+              yc = yi
+            }
+          }
+        }
+      case CellularDistanceFunction.Manhattan =>
+        for(xi <- xr - 1 to xr + 1){
+          for(yi <- yr - 1 to yr + 1){
+            val vec = CELL_2D(Hash2D(seed, xi, yi) & 255)
 
-						val vecX = xi - x + vec.x
-						val vecY = yi - y + vec.y
+            val vecX = xi - x + vec.x
+            val vecY = yi - y + vec.y
 
-						val newDistance = (Math.abs(vecX) + Math.abs(vecY))
+            val newDistance = (Math.abs(vecX) + Math.abs(vecY))
 
-						if (newDistance < distance) {
-							distance = newDistance
-							xc = xi
-							yc = yi
-						}
-					}
-				}
-			case CellularDistanceFunction.Natural =>
-				for(xi <- xr - 1 to xr + 1){
-					for(yi <- yr - 1 to yr + 1){
-						val vec = CELL_2D(Hash2D(seed, xi, yi) & 255)
+            if (newDistance < distance) {
+              distance = newDistance
+              xc = xi
+              yc = yi
+            }
+          }
+        }
+      case CellularDistanceFunction.Natural =>
+        for(xi <- xr - 1 to xr + 1){
+          for(yi <- yr - 1 to yr + 1){
+            val vec = CELL_2D(Hash2D(seed, xi, yi) & 255)
 
-						val vecX = xi - x + vec.x
-						val vecY = yi - y + vec.y
+            val vecX = xi - x + vec.x
+            val vecY = yi - y + vec.y
 
-						val newDistance = (Math.abs(vecX) + Math.abs(vecY)) + (vecX * vecX + vecY * vecY)
+            val newDistance = (Math.abs(vecX) + Math.abs(vecY)) + (vecX * vecX + vecY * vecY)
 
-						if (newDistance < distance) {
-							distance = newDistance
-							xc = xi
-							yc = yi
-						}
-					}
-				}
-		}
+            if (newDistance < distance) {
+              distance = newDistance
+              xc = xi
+              yc = yi
+            }
+          }
+        }
+    }
 
-		cellularReturnType match {
-			case CellularReturnType.CellValue =>
-				return ValCoord2D(0, xc, yc)
+    cellularReturnType match {
+      case CellularReturnType.CellValue =>
+        return ValCoord2D(0, xc, yc)
 
-			case CellularReturnType.NoiseLookup =>
-				val vec = CELL_2D(Hash2D(seed, xc, yc) & 255)
-				return cellularNoiseLookup(xc + vec.x, yc + vec.y)
+      case CellularReturnType.NoiseLookup =>
+        val vec = CELL_2D(Hash2D(seed, xc, yc) & 255)
+        return cellularNoiseLookup(xc + vec.x, yc + vec.y)
 
-			case CellularReturnType.Distance =>
-				return distance - 1
-			case _ =>
-				return 0
-		}
-	}
+      case CellularReturnType.Distance =>
+        return distance - 1
+      case _ =>
+        return 0
+    }
+  }
 
-	private def SingleCellular2Edge(x:Float, y:Float):Float = {
-		val xr = round(x)
-		val yr = round(y)
+  private def SingleCellular2Edge(x:Float, y:Float):Float = {
+    val xr = round(x)
+    val yr = round(y)
 
-		var distance = 999999.0f
-		var distance2 = 999999.0f
+    var distance = 999999.0f
+    var distance2 = 999999.0f
 
-		cellularDistanceFunction match {
-			case CellularDistanceFunction.Euclidean =>
-				for(xi <- xr - 1 to xr + 1){
-					for(yi <- yr - 1 to yr + 1){
-						val vec = CELL_2D(Hash2D(seed, xi, yi) & 255)
+    cellularDistanceFunction match {
+      case CellularDistanceFunction.Euclidean =>
+        for(xi <- xr - 1 to xr + 1){
+          for(yi <- yr - 1 to yr + 1){
+            val vec = CELL_2D(Hash2D(seed, xi, yi) & 255)
 
-						val vecX = xi - x + vec.x
-						val vecY = yi - y + vec.y
+            val vecX = xi - x + vec.x
+            val vecY = yi - y + vec.y
 
-						val newDistance = vecX * vecX + vecY * vecY
+            val newDistance = vecX * vecX + vecY * vecY
 
-						distance2 = Math.max(Math.min(distance2, newDistance), distance)
-						distance = Math.min(distance, newDistance)
-					}
-				}
-			case CellularDistanceFunction.Manhattan =>
-				for(xi <- xr - 1 to xr + 1){
-					for(yi <- yr - 1 to yr + 1){
-						val vec = CELL_2D(Hash2D(seed, xi, yi) & 255)
+            distance2 = Math.max(Math.min(distance2, newDistance), distance)
+            distance = Math.min(distance, newDistance)
+          }
+        }
+      case CellularDistanceFunction.Manhattan =>
+        for(xi <- xr - 1 to xr + 1){
+          for(yi <- yr - 1 to yr + 1){
+            val vec = CELL_2D(Hash2D(seed, xi, yi) & 255)
 
-						val vecX = xi - x + vec.x
-						val vecY = yi - y + vec.y
+            val vecX = xi - x + vec.x
+            val vecY = yi - y + vec.y
 
-						val newDistance = Math.abs(vecX) + Math.abs(vecY)
+            val newDistance = Math.abs(vecX) + Math.abs(vecY)
 
-						distance2 = Math.max(Math.min(distance2, newDistance), distance)
-						distance = Math.min(distance, newDistance)
-					}
-				}
-			case CellularDistanceFunction.Natural =>
-				for(xi <- xr - 1 to xr + 1){
-					for(yi <- yr - 1 to yr + 1){
-						val vec = CELL_2D(Hash2D(seed, xi, yi) & 255)
+            distance2 = Math.max(Math.min(distance2, newDistance), distance)
+            distance = Math.min(distance, newDistance)
+          }
+        }
+      case CellularDistanceFunction.Natural =>
+        for(xi <- xr - 1 to xr + 1){
+          for(yi <- yr - 1 to yr + 1){
+            val vec = CELL_2D(Hash2D(seed, xi, yi) & 255)
 
-						val vecX = xi - x + vec.x
-						val vecY = yi - y + vec.y
+            val vecX = xi - x + vec.x
+            val vecY = yi - y + vec.y
 
-						val newDistance = (Math.abs(vecX) + Math.abs(vecY)) + (vecX * vecX + vecY * vecY)
+            val newDistance = (Math.abs(vecX) + Math.abs(vecY)) + (vecX * vecX + vecY * vecY)
 
-						distance2 = Math.max(Math.min(distance2, newDistance), distance)
-						distance = Math.min(distance, newDistance)
-					}
-				}
-		}
+            distance2 = Math.max(Math.min(distance2, newDistance), distance)
+            distance = Math.min(distance, newDistance)
+          }
+        }
+    }
 
-		cellularReturnType match {
-			case CellularReturnType.Distance2 =>
-				return distance2 - 1
-			case CellularReturnType.Distance2Add =>
-				return distance2 + distance - 1
-			case CellularReturnType.Distance2Sub =>
-				return distance2 - distance - 1
-			case CellularReturnType.Distance2Mul =>
-				return distance2 * distance - 1
-			case CellularReturnType.Distance2Div =>
-				return distance / distance2 - 1
-			case _ =>
-				return 0
-		}
-	}
+    cellularReturnType match {
+      case CellularReturnType.Distance2 =>
+        return distance2 - 1
+      case CellularReturnType.Distance2Add =>
+        return distance2 + distance - 1
+      case CellularReturnType.Distance2Sub =>
+        return distance2 - distance - 1
+      case CellularReturnType.Distance2Mul =>
+        return distance2 * distance - 1
+      case CellularReturnType.Distance2Div =>
+        return distance / distance2 - 1
+      case _ =>
+        return 0
+    }
+  }
 
-	def GradientPerturb(v3:Vec3) = {
-		SingleGradientPerturb(seed, gradientPerturbAmp, frequency, v3)
-	}
+  def GradientPerturb(v3:Vec3) = {
+    SingleGradientPerturb(seed, gradientPerturbAmp, frequency, v3)
+  }
 
-	def GradientPerturbFractal(v3:Vec3) = {
-		var _seed = seed
-		var amp = gradientPerturbAmp * fractalBounding
-		var freq = frequency
+  def GradientPerturbFractal(v3:Vec3) = {
+    var _seed = seed
+    var amp = gradientPerturbAmp * fractalBounding
+    var freq = frequency
 
-		SingleGradientPerturb(_seed, amp, frequency, v3)
+    SingleGradientPerturb(_seed, amp, frequency, v3)
 
-		for(i <- 1 until fractalOctaves){
-			freq *= fractalLacunarity
-			amp *= fractalGain
+    for(i <- 1 until fractalOctaves){
+      freq *= fractalLacunarity
+      amp *= fractalGain
       _seed += 1
-			SingleGradientPerturb(_seed, amp, freq, v3)
-		}
-	}
+      SingleGradientPerturb(_seed, amp, freq, v3)
+    }
+  }
 
-	private def SingleGradientPerturb(_seed:Int, perturbAmp:Float, frequency:Float, v3:Vec3) = {
-		val xf = v3.x * frequency
-		val yf = v3.y * frequency
-		val zf = v3.z * frequency
+  private def SingleGradientPerturb(_seed:Int, perturbAmp:Float, frequency:Float, v3:Vec3) = {
+    val xf = v3.x * frequency
+    val yf = v3.y * frequency
+    val zf = v3.z * frequency
 
-		val x0 = floor(xf)
-		val y0 = floor(yf)
-		val z0 = floor(zf)
-		val x1 = x0 + 1
-		val y1 = y0 + 1
-		val z1 = z0 + 1
+    val x0 = floor(xf)
+    val y0 = floor(yf)
+    val z0 = floor(zf)
+    val x1 = x0 + 1
+    val y1 = y0 + 1
+    val z1 = z0 + 1
 
-		var (xs, ys, zs) = (0f, 0f, 0f)
-		interpolation match {
-			case InterpolationType.Linear =>
-				xs = xf - x0
-				ys = yf - y0
-				zs = zf - z0
-			case InterpolationType.Hermite =>
-				xs = hermite(xf - x0)
-				ys = hermite(yf - y0)
-				zs = hermite(zf - z0)
-			case InterpolationType.Quintic =>
-				xs = quintic(xf - x0)
-				ys = quintic(yf - y0)
-				zs = quintic(zf - z0)
-		}
+    var (xs, ys, zs) = (0f, 0f, 0f)
+    interpolation match {
+      case InterpolationType.Linear =>
+        xs = xf - x0
+        ys = yf - y0
+        zs = zf - z0
+      case InterpolationType.Hermite =>
+        xs = hermite(xf - x0)
+        ys = hermite(yf - y0)
+        zs = hermite(zf - z0)
+      case InterpolationType.Quintic =>
+        xs = quintic(xf - x0)
+        ys = quintic(yf - y0)
+        zs = quintic(zf - z0)
+    }
 
-		var vec0 = CELL_3D(Hash3D(_seed, x0, y0, z0) & 255)
-		var vec1 = CELL_3D(Hash3D(_seed, x1, y0, z0) & 255)
+    var vec0 = CELL_3D(Hash3D(_seed, x0, y0, z0) & 255)
+    var vec1 = CELL_3D(Hash3D(_seed, x1, y0, z0) & 255)
 
-		var lx0x = lerp(vec0.x, vec1.x, xs)
-		var ly0x = lerp(vec0.y, vec1.y, xs)
-		var lz0x = lerp(vec0.z, vec1.z, xs)
+    var lx0x = lerp(vec0.x, vec1.x, xs)
+    var ly0x = lerp(vec0.y, vec1.y, xs)
+    var lz0x = lerp(vec0.z, vec1.z, xs)
 
-		vec0 = CELL_3D(Hash3D(_seed, x0, y1, z0) & 255)
-		vec1 = CELL_3D(Hash3D(_seed, x1, y1, z0) & 255)
+    vec0 = CELL_3D(Hash3D(_seed, x0, y1, z0) & 255)
+    vec1 = CELL_3D(Hash3D(_seed, x1, y1, z0) & 255)
 
-		var lx1x = lerp(vec0.x, vec1.x, xs)
-		var ly1x = lerp(vec0.y, vec1.y, xs)
-		var lz1x = lerp(vec0.z, vec1.z, xs)
+    var lx1x = lerp(vec0.x, vec1.x, xs)
+    var ly1x = lerp(vec0.y, vec1.y, xs)
+    var lz1x = lerp(vec0.z, vec1.z, xs)
 
-		val lx0y = lerp(lx0x, lx1x, ys)
-		val ly0y = lerp(ly0x, ly1x, ys)
-		val lz0y = lerp(lz0x, lz1x, ys)
+    val lx0y = lerp(lx0x, lx1x, ys)
+    val ly0y = lerp(ly0x, ly1x, ys)
+    val lz0y = lerp(lz0x, lz1x, ys)
 
-		vec0 = CELL_3D(Hash3D(_seed, x0, y0, z1) & 255)
-		vec1 = CELL_3D(Hash3D(_seed, x1, y0, z1) & 255)
+    vec0 = CELL_3D(Hash3D(_seed, x0, y0, z1) & 255)
+    vec1 = CELL_3D(Hash3D(_seed, x1, y0, z1) & 255)
 
-		lx0x = lerp(vec0.x, vec1.x, xs)
-		ly0x = lerp(vec0.y, vec1.y, xs)
-		lz0x = lerp(vec0.z, vec1.z, xs)
+    lx0x = lerp(vec0.x, vec1.x, xs)
+    ly0x = lerp(vec0.y, vec1.y, xs)
+    lz0x = lerp(vec0.z, vec1.z, xs)
 
-		vec0 = CELL_3D(Hash3D(_seed, x0, y1, z1) & 255)
-		vec1 = CELL_3D(Hash3D(_seed, x1, y1, z1) & 255)
+    vec0 = CELL_3D(Hash3D(_seed, x0, y1, z1) & 255)
+    vec1 = CELL_3D(Hash3D(_seed, x1, y1, z1) & 255)
 
-		lx1x = lerp(vec0.x, vec1.x, xs)
-		ly1x = lerp(vec0.y, vec1.y, xs)
-		lz1x = lerp(vec0.z, vec1.z, xs)
+    lx1x = lerp(vec0.x, vec1.x, xs)
+    ly1x = lerp(vec0.y, vec1.y, xs)
+    lz1x = lerp(vec0.z, vec1.z, xs)
 
-		v3.x += lerp(lx0y, lerp(lx0x, lx1x, ys), zs) * perturbAmp
-		v3.y += lerp(ly0y, lerp(ly0x, ly1x, ys), zs) * perturbAmp
-		v3.z += lerp(lz0y, lerp(lz0x, lz1x, ys), zs) * perturbAmp
-	}
+    v3.x += lerp(lx0y, lerp(lx0x, lx1x, ys), zs) * perturbAmp
+    v3.y += lerp(ly0y, lerp(ly0x, ly1x, ys), zs) * perturbAmp
+    v3.z += lerp(lz0y, lerp(lz0x, lz1x, ys), zs) * perturbAmp
+  }
 
-	def GradientPerturb(v2:Vec2) = {
-		SingleGradientPerturb(seed, gradientPerturbAmp, frequency, v2)
-	}
+  def GradientPerturb(v2:Vec2) = {
+    SingleGradientPerturb(seed, gradientPerturbAmp, frequency, v2)
+  }
 
-	def GradientPerturbFractal(v2:Vec2) = {
-		var _seed = seed
-		var amp = gradientPerturbAmp * fractalBounding
-		var freq = frequency
+  def GradientPerturbFractal(v2:Vec2) = {
+    var _seed = seed
+    var amp = gradientPerturbAmp * fractalBounding
+    var freq = frequency
 
-		SingleGradientPerturb(_seed, amp, frequency, v2)
+    SingleGradientPerturb(_seed, amp, frequency, v2)
 
-		for(i <- 1 until fractalOctaves){
-			freq *= fractalLacunarity
-			amp *= fractalGain
+    for(i <- 1 until fractalOctaves){
+      freq *= fractalLacunarity
+      amp *= fractalGain
       _seed += 1
-			SingleGradientPerturb(_seed, amp, freq, v2)
-		}
-	}
+      SingleGradientPerturb(_seed, amp, freq, v2)
+    }
+  }
 
-	private def SingleGradientPerturb(_seed:Int, perturbAmp:Float, frequency:Float, v2:Vec2)  = {
-		val xf = v2.x * frequency
-		val yf = v2.y * frequency
+  private def SingleGradientPerturb(_seed:Int, perturbAmp:Float, frequency:Float, v2:Vec2)  = {
+    val xf = v2.x * frequency
+    val yf = v2.y * frequency
 
-		val x0 = floor(xf)
-		val y0 = floor(yf)
-		val x1 = x0 + 1
-		val y1 = y0 + 1
+    val x0 = floor(xf)
+    val y0 = floor(yf)
+    val x1 = x0 + 1
+    val y1 = y0 + 1
 
-		var (xs, ys) = (0f, 0f)
-		interpolation match {
-			case InterpolationType.Linear =>
-				xs = xf - x0
-				ys = yf - y0
-			case InterpolationType.Hermite =>
-				xs = hermite(xf - x0)
-				ys = hermite(yf - y0)
-			case InterpolationType.Quintic =>
-				xs = quintic(xf - x0)
-				ys = quintic(yf - y0)
-		}
+    var (xs, ys) = (0f, 0f)
+    interpolation match {
+      case InterpolationType.Linear =>
+        xs = xf - x0
+        ys = yf - y0
+      case InterpolationType.Hermite =>
+        xs = hermite(xf - x0)
+        ys = hermite(yf - y0)
+      case InterpolationType.Quintic =>
+        xs = quintic(xf - x0)
+        ys = quintic(yf - y0)
+    }
 
-		var vec0 = CELL_2D(Hash2D(_seed, x0, y0) & 255)
-		var vec1 = CELL_2D(Hash2D(_seed, x1, y0) & 255)
+    var vec0 = CELL_2D(Hash2D(_seed, x0, y0) & 255)
+    var vec1 = CELL_2D(Hash2D(_seed, x1, y0) & 255)
 
-		val lx0x = lerp(vec0.x, vec1.x, xs)
-		val ly0x = lerp(vec0.y, vec1.y, xs)
+    val lx0x = lerp(vec0.x, vec1.x, xs)
+    val ly0x = lerp(vec0.y, vec1.y, xs)
 
-		vec0 = CELL_2D(Hash2D(_seed, x0, y1) & 255)
-		vec1 = CELL_2D(Hash2D(_seed, x1, y1) & 255)
+    vec0 = CELL_2D(Hash2D(_seed, x0, y1) & 255)
+    vec1 = CELL_2D(Hash2D(_seed, x1, y1) & 255)
 
-		val lx1x = lerp(vec0.x, vec1.x, xs)
-		val ly1x = lerp(vec0.y, vec1.y, xs)
+    val lx1x = lerp(vec0.x, vec1.x, xs)
+    val ly1x = lerp(vec0.y, vec1.y, xs)
 
-		v2.x += lerp(lx0x, lx1x, ys) * perturbAmp
-		v2.y += lerp(ly0x, ly1x, ys) * perturbAmp
-	}
+    v2.x += lerp(lx0x, lx1x, ys) * perturbAmp
+    v2.y += lerp(ly0x, ly1x, ys) * perturbAmp
+  }
 
 }

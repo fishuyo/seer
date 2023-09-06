@@ -9,10 +9,10 @@ import scala.io.Source
 
 object ShaderToy extends SeerApp {
 
-	var timer = 0.0
+  var timer = 0.0
   var shader:ShaderProgram = _
-  val vertpath = "src/main/scala/live/shaders/vert.glsl"
-  val fragpath = "src/main/scala/live/shaders/frag.glsl"
+  val vertpath = "src/main/scala/live/shaders/test.vert"
+  val fragpath = "src/main/scala/live/shaders/test.frag"
 
   var vertcode = Source.fromFile(vertpath).mkString
   var fragcode = Source.fromFile(fragpath).mkString
@@ -46,15 +46,15 @@ object ShaderToy extends SeerApp {
     mesh.update()
   }
 
-	graphics.onUpdate = (dt:Double) => {
-		timer += dt
-	}
+  graphics.onUpdate = (dt:Double) => {
+    timer += dt
+  }
 
-	graphics.onDraw = (g:Graphics) => {
-		import g.gl._
+  graphics.onDraw = (g:Graphics) => {
+    import g.gl._
 
     shader.bind()
     mesh.draw()
-	}
+  }
 
 }

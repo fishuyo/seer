@@ -2,14 +2,14 @@
 package seer.math
 
 object Ray{
-	def apply(o:Vec3,d:Vec3) = new Ray(o,d)
+  def apply(o:Vec3,d:Vec3) = new Ray(o,d)
 }
 
 class Ray( val o: Vec3, val d: Vec3 ){
 
-  d.normalize
+  d.normalize()
 
-	def apply( t: Float ) : Vec3 = o + d*t
+  def apply( t: Float ) : Vec3 = o + d*t
 
   def intersectPlane(p0:Vec3, n:Vec3):Option[Float] = {
     val den = n.dot(d);
@@ -27,7 +27,7 @@ class Ray( val o: Vec3, val d: Vec3 ){
   }
 
   def intersectSphere(cen:Vec3, r:Float) : Option[Float] = {
- 		val o_c = o - cen
+    val o_c = o - cen
     val A = d dot d
     val B = 2 * ( d dot o_c )
     val C = (o_c dot o_c) - r*r
@@ -85,11 +85,11 @@ class Ray( val o: Vec3, val d: Vec3 ){
   }
 
   def intersectQuad(cen:Vec3, w:Float, h:Float, quat:Quat=Quat()) : Option[Float] = {
-    val n = quat.toZ
+    val n = quat.toZ()
     val dn = d dot n
 
-    val nx = quat.toX
-    val ny = quat.toY
+    val nx = quat.toX()
+    val ny = quat.toY()
 
     // val vertices = (cen + Vec3(-w,-h,0), cen + Vec3(w,-h,0), cen + Vec3(w,h,0), cen + Vec3(-w,h,0))
     val vertices = (cen + nx * -w + ny * -h, cen + nx*w + ny * -h, cen + nx*w + ny*h, cen + nx * -w + ny*h)
@@ -109,5 +109,5 @@ class Ray( val o: Vec3, val d: Vec3 ){
   }
 
 
-	override def toString() = o + " -> " + d
+  override def toString() = o.toString() + " -> " + d.toString()
 }

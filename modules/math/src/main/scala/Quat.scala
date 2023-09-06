@@ -5,9 +5,11 @@
 */
 
 package seer.math
+import scala.language.implicitConversions
+
 
 object Quat {
-  implicit def toF( d: Double ) = d.toFloat
+  implicit def toF( d: Double ):Float = d.toFloat
   
   val eps = 0.0000001
   val acc_max = 1.000001
@@ -29,7 +31,7 @@ object Quat {
 }
 
 class Quat(var w:Float, var x:Float, var y:Float, var z:Float ) extends Serializable {
-  implicit def toF( d: Double ) = d.toFloat
+  implicit def toF( d: Double ):Float = d.toFloat
 
   def unary_- = Quat( -w, -x, -y, -z ) 
   def +(v: Quat) = Quat( w+v.w, x+v.x, y+v.y, z+v.z )
@@ -49,7 +51,7 @@ class Quat(var w:Float, var x:Float, var y:Float, var z:Float ) extends Serializ
   def dot(v: Quat) : Float = w*v.w + x*v.x + y*v.y + z*v.z
   //def cross( v: Quat) = Quat( y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x )
   def magSq() = this dot this
-  def mag() = math.sqrt( magSq() )
+  def mag() = math.sqrt( magSq() ).toFloat
   def normalize() = {
     val m = magSq()
     if( m*m < Quat.eps ) Quat().setIdentity()
@@ -58,9 +60,9 @@ class Quat(var w:Float, var x:Float, var y:Float, var z:Float ) extends Serializ
   }
 
   def conj = Quat( w, -x,-y,-z )
-  def sgn = Quat(w,x,y,z).normalize
+  def sgn = Quat(w,x,y,z).normalize()
   def inverse = sgn.conj
-  def recip = conj / magSq   
+  def recip = conj / magSq()  
 
   def zero() = {w=0;x=0;y=0;z=0;this}
   def setIdentity() = {w=1;x=0;y=0;z=0;this}
@@ -202,7 +204,7 @@ class Quat(var w:Float, var x:Float, var y:Float, var z:Float ) extends Serializ
     }
 
     val quat = Quat(a*w+b*q.w, a*x+b*q.x, a*y+b*q.y, a*z+b*q.z)
-    quat.normalize
+    quat.normalize()
   }
 
   def slerpTo(q:Quat, d:Float) = this.set( this.slerp(q,d))
@@ -260,7 +262,7 @@ class Quat(var w:Float, var x:Float, var y:Float, var z:Float ) extends Serializ
   }
 
   def fromForwardUp(dir:Vec3, up:Vec3):Quat = { 
-    val v2 = up.cross(dir).normalize
+    val v2 = up.cross(dir).normalize()
     val v3 = dir.cross(v2)
     val Vec3(m00,m01,m02) = v2
     val Vec3(m10,m11,m12) = v3
@@ -288,7 +290,7 @@ class Quat(var w:Float, var x:Float, var y:Float, var z:Float ) extends Serializ
       return q
     }
     if(m11 > m22){
-      val num6 = math.sqrt(((1 + m11) - m00) - m22)
+      val num6 = math.sqrt(((1 + m11) - m00) - m22).toFloat
       val num3 = 0.5 / num6
       q.x = (m10 + m01) * num3
       q.y = 0.5 * num6
@@ -296,7 +298,7 @@ class Quat(var w:Float, var x:Float, var y:Float, var z:Float ) extends Serializ
       q.w = (m20 - m02) * num3
       return q
     }
-    val num5 = math.sqrt(((1 + m22) - m00) - m11)
+    val num5 = math.sqrt(((1 + m22) - m00) - m11).toFloat
     val num2 = 0.5 / num5
     q.x = (m20 + m02) * num2
     q.y = (m21 + m12) * num2
@@ -308,10 +310,10 @@ class Quat(var w:Float, var x:Float, var y:Float, var z:Float ) extends Serializ
   def pow(v:Float):Quat = {
     val m = mag()
     if( m == 0f) return Quat()
-    val theta = math.acos(w / m)
-    val imag = Vec3(x,y,z) / (m * math.sin(theta))
-    imag *= math.sin(v*theta)
-    Quat(math.cos(v*theta), imag.x, imag.y, imag.z) * math.pow(m,v)
+    val theta = math.acos(w / m).toFloat
+    val imag = Vec3(x,y,z) / (m * math.sin(theta).toFloat)
+    imag *= math.sin(v*theta).toFloat
+    Quat(math.cos(v*theta).toFloat, imag.x, imag.y, imag.z) * math.pow(m,v).toFloat
   }
 
   override def toString() = "[" + w + " " + x + " " + y + " " + z + "]"

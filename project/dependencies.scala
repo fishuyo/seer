@@ -4,11 +4,12 @@ import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
 object Dependencies {
 
   object akka {
-    val version = "2.6.17"
+    val version = "2.8.2"
+    // val version = "2.6.20" // last opensource version
   }
 
   object lwjgl {
-    val version = "3.3.1"
+    val version = "3.3.2"
     val natives = "natives-macos-arm64"
     val libs = Def.setting(Seq(
       "org.lwjgl" % "lwjgl" % version,
@@ -16,20 +17,22 @@ object Dependencies {
       "org.lwjgl" % "lwjgl-glfw" % version,
       "org.lwjgl" % "lwjgl-glfw" % version classifier natives,
       "org.lwjgl" % "lwjgl-opengl" % version,
-      "org.lwjgl" % "lwjgl-opengl" % version classifier natives
+      "org.lwjgl" % "lwjgl-opengl" % version classifier natives,
+      "org.lwjgl" % "lwjgl-vulkan" % version,
+      "org.lwjgl" % "lwjgl-vulkan" % version classifier natives,
     ))
   }
 
   val chillV = "0.9.5" 
 
-  val spatial = Def.setting(Seq(
-    "org.typelevel" %%% "spire" % "0.17.0-RC1",
+  val math = Def.setting(Seq(
+    "org.typelevel" %%% "spire" % "0.18.0",
     "javax.vecmath" % "vecmath" % "1.5.2"
   ))
 
   val audio = Def.setting(Seq(
     "net.sourceforge.jtransforms" % "jtransforms" % "2.4.0",
-    "de.sciss" %%% "audiofile" % "2.3.3"
+    "de.sciss" %%% "audiofile" % "2.4.2"
   ))
 
   val runtime = Def.setting(Seq(
@@ -42,10 +45,10 @@ object Dependencies {
     "com.twitter" %% "chill-bijection" % "0.10.0",
     "com.twitter" %% "chill-akka" % "0.10.0",
 
-    "com.github.pathikrit" %% "better-files" % "3.9.1",
-    "com.github.pathikrit" %% "better-files-akka" % "3.9.1",
-    "io.methvin" % "directory-watcher" % "0.10.1",
-    "io.methvin" %% "directory-watcher-better-files" % "0.10.1",
+    "com.github.pathikrit" %% "better-files" % "3.9.2",
+    "com.github.pathikrit" %% "better-files-akka" % "3.9.2",
+    "io.methvin" % "directory-watcher" % "0.18.0",
+    "io.methvin" %% "directory-watcher-better-files" % "0.18.0",
 
     "de.sciss" %% "scalaosc" % "1.2.1",
     "com.lihaoyi" %% "os-lib" % "0.7.2"
@@ -56,25 +59,25 @@ object Dependencies {
     "com.chuusai" %%% "shapeless" % "2.3.3",
     // "org.typelevel" %%% "spire" % "0.17.0-RC1",
     // "net.sourceforge.jtransforms" % "jtransforms" % "2.4.0",
-    "com.lihaoyi" %%% "scalarx" % "0.4.3",
+    // "com.lihaoyi" %%% "scalarx" % "0.4.3",
     // "javax.vecmath" % "vecmath" % "1.5.2"
   ))
 
-  val coreJvm = Def.setting(core.value ++ Seq(
-    "com.typesafe.akka" %% "akka-actor" % akka.version,
-    "com.typesafe.akka" %% "akka-remote" % akka.version,
-    // "com.typesafe.akka" %% "akka-stream" % akka.version,
-    "io.altoo" %% "akka-kryo-serialization" % "1.1.5",
-    "com.twitter" %% "chill" % chillV,
-    "com.twitter" %% "chill-bijection" % chillV,
-    "com.twitter" %% "chill-akka" % chillV,
-    "de.sciss" %% "scalaosc" % "1.2.1",
-    // "com.beachape.filemanagement" %% "schwatcher" % "0.3.5",
-    "com.github.pathikrit" %% "better-files" % "3.9.1",
-    "com.github.pathikrit" %% "better-files-akka" % "3.9.1",
-    "io.methvin" % "directory-watcher" % "0.10.1",
-    "io.methvin" %% "directory-watcher-better-files" % "0.10.1"
-  ))
+  // val coreJvm = Def.setting(core.value ++ Seq(
+  //   "com.typesafe.akka" %% "akka-actor" % akka.version,
+  //   "com.typesafe.akka" %% "akka-remote" % akka.version,
+  //   // "com.typesafe.akka" %% "akka-stream" % akka.version,
+  //   "io.altoo" %% "akka-kryo-serialization" % "1.1.5",
+  //   "com.twitter" %% "chill" % chillV,
+  //   "com.twitter" %% "chill-bijection" % chillV,
+  //   "com.twitter" %% "chill-akka" % chillV,
+  //   "de.sciss" %% "scalaosc" % "1.2.1",
+  //   // "com.beachape.filemanagement" %% "schwatcher" % "0.3.5",
+  //   "com.github.pathikrit" %% "better-files" % "3.9.1",
+  //   "com.github.pathikrit" %% "better-files-akka" % "3.9.1",
+  //   "io.methvin" % "directory-watcher" % "0.10.1",
+  //   "io.methvin" %% "directory-watcher-better-files" % "0.10.1"
+  // ))
 
   val coreJs = Def.setting(core.value ++ Seq(
     "org.akka-js" %%% "akkajsactor" % "2.2.6.9",

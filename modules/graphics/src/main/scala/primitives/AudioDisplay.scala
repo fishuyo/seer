@@ -56,7 +56,6 @@ import scala.collection.mutable.Queue
 */
 class AudioDisplay(val size:Int){
   lazy val gl = Graphics().gl
-  import gl._
 
   // var color = RGBA(0,1,0,1)
   // var cursorColor = RGBA(1,1,0,1)
@@ -68,14 +67,14 @@ class AudioDisplay(val size:Int){
   cursorMesh.resize(12)
   // mesh.vertices ++= (0 until size*2).map( _ => Vec3())
   // cursorMesh.vertices ++= (0 until 12).map( _ => Vec3())
-  cursorMesh.primitive = GL_LINES
+  cursorMesh.primitive = gl.GL_LINES
   var dirty = true
   var cursorDirty = true
   var samples:Array[Float] = _
   var left = 0
   var right = 0
 
-  def setSamplesSimple(s:Array[Float], l:Int=0, r:Int=0){
+  def setSamplesSimple(s:Array[Float], l:Int=0, r:Int=0) = {
     samples = s
     left = l
     right = if(r == 0) s.size-1 else r-1
@@ -89,12 +88,12 @@ class AudioDisplay(val size:Int){
       mesh.vertices.put(samples(si)*(1f-f) + samples(si2)*f)
       mesh.vertices.put(0f)
     }
-    mesh.primitive = GL_LINE_STRIP
+    mesh.primitive = gl.GL_LINE_STRIP
     mesh.size = size
     dirty = true
   }
 
-  def setSamples(s:Array[Float], l:Int=0, r:Int=0){
+  def setSamples(s:Array[Float], l:Int=0, r:Int=0) = {
     samples = s
     left = l
     right = if(r == 0) s.size-1 else r-1
@@ -146,12 +145,12 @@ class AudioDisplay(val size:Int){
       mesh.vertices.put(min)
       mesh.vertices.put(0f)
     }
-    mesh.primitive = GL_LINES
+    mesh.primitive = gl.GL_LINES
     mesh.size = 2*size
     dirty = true
   }
 
-  def setCursor(i:Int,sample:Int){
+  def setCursor(i:Int,sample:Int) = {
     val x = (sample - left).toFloat / (right-left).toFloat - .5f
     cursorMesh.vertices.position(2*3*i)
     cursorMesh.vertices.put(x)
@@ -163,13 +162,13 @@ class AudioDisplay(val size:Int){
     cursorDirty = true
   }
 
-  def draw(){ 
+  def draw() = { 
     if( dirty ){
-      mesh.update
+      mesh.update()
       dirty = false
     }
     if( cursorDirty ){
-      cursorMesh.update
+      cursorMesh.update()
       cursorDirty = false
     }
 
@@ -184,9 +183,9 @@ class AudioDisplay(val size:Int){
     // Renderer().shader.setUniforms()
 
       //// Renderer().setMatrices()
-    mesh.draw 
+    mesh.draw()
       //// Renderer().setColor(cursorColor)
-    cursorMesh.draw
+    cursorMesh.draw()
     // MatrixStack.pop()
   }
 

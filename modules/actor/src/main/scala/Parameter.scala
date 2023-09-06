@@ -10,10 +10,11 @@ import collection.mutable.ArrayBuffer
 import collection.mutable.HashSet
 import concurrent.Await
 import scala.util.Success
-import concurrent.duration._
+
+import scala.concurrent.duration._
 import akka.pattern.ask
 
-import com.twitter.chill.KryoInjection
+// import com.twitter.chill.KryoInjection
 
 object Var {
   def apply[T: ClassTag](path:String, v:T) = {
@@ -58,7 +59,7 @@ class Parameter[T: ClassTag](initialValue:T, path:String){
 
   def setCachedValue(v:T) = { cachedValue = v }
   def updateCachedValue() = {    
-    implicit val t = Timeout(1.second)
+    implicit val t = Timeout(Duration(1,"second"))
     val f = actorRef ? "get" 
     Await.ready(f, 1.second).value.get match {
       case Success(value:T) => cachedValue = value
@@ -80,7 +81,7 @@ object ParameterActor {
   def props[T: ClassTag](v:T) = Props(new ParameterActor[T](v))
 
   def apply[T: ClassTag](v:T, path:String):ActorRef = {
-    var name = path.replaceAllLiterally("/",".")
+    var name = path.replace("/",".")
     if(name.startsWith(".")) name = name.substring(1)
     if(name.isEmpty) name = s"${v.getClass.getSimpleName}"
     
@@ -117,41 +118,42 @@ class ParameterActor[T: ClassTag](initialValue:T) extends Actor {
     case ("remove", f:(T=>Unit)) => changeCallbacks -= f
     case "clearCallbacks" => changeCallbacks.clear
 
-    case Save(name) => Preset.save(name, self.path.name, value)
-    case Load(name) => Preset.load[T](name, self.path.name).foreach(self ! _)
+    // case Save(name) => Preset.save(name, self.path.name, value)
+    // case Load(name) => Preset.load[T](name, self.path.name).foreach(self ! _)
 
+    case x => println(s"Parameter not implemented: received: $x")
   }
 
 }
 
 
-object Preset {
-  val pwd = os.pwd / "_presets"
+// object Preset {
+//   val pwd = os.pwd / "_presets"
 
-  def save[T: ClassTag](name:String, path:String, value:T) = {
-    try{
-      val wd = pwd / name
-      os.makeDir.all(wd)
-      val bytes = KryoInjection(value)
-      os.write.over(wd / path, bytes)
-    } catch {
-      case e:Exception => println(s"Error saving preset for: $name $path")
-    }
-  }
+//   def save[T: ClassTag](name:String, path:String, value:T) = {
+//     try{
+//       val wd = pwd / name
+//       os.makeDir.all(wd)
+//       val bytes = KryoInjection(value)
+//       os.write.over(wd / path, bytes)
+//     } catch {
+//       case e:Exception => println(s"Error saving preset for: $name $path")
+//     }
+//   }
 
-  def load[T: ClassTag](name:String, path:String):Option[T] = {
-    try{
-      val wd = pwd / name
-      val bytes = os.read.bytes(wd / path)
-      val decode = KryoInjection.invert(bytes)
-      decode match {
-        case Success(v:T) => return Some(v)
-        case m => println(s"Preset load invert failed: $name $path $m  ${m.getClass.getSimpleName}"); return None
-      }
-    } catch {
-      case e:Exception => println(s"Error loading preset for: $name $path")
-    }
-    None
-  }
+//   def load[T: ClassTag](name:String, path:String):Option[T] = {
+//     try{
+//       val wd = pwd / name
+//       val bytes = os.read.bytes(wd / path)
+//       val decode = KryoInjection.invert(bytes)
+//       decode match {
+//         case Success(v:T) => return Some(v)
+//         case m => println(s"Preset load invert failed: $name $path $m  ${m.getClass.getSimpleName}"); return None
+//       }
+//     } catch {
+//       case e:Exception => println(s"Error loading preset for: $name $path")
+//     }
+//     None
+//   }
 
-}
+// }

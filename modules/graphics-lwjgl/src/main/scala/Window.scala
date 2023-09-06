@@ -33,7 +33,7 @@ object Window {
 
     def destroy(w:Window) = {
         windows -= w
-        w.destroy
+        w.destroy()
     }
     
     def apply(index:Int=0) = windows(index)
@@ -44,7 +44,7 @@ object Window {
 class Window {
 
     // The window handle
-	var handle:Long = _
+    var handle:Long = _
     var capabilities:GLCapabilities = _
     var fullscreen = false
     var lastSize = (0, 0)
@@ -69,8 +69,8 @@ class Window {
 
     def create(width:Int = 640, height:Int = 480) = {
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
-		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -82,15 +82,15 @@ class Window {
         // glfwWindowHint(GLFW_DECORATED, mDecorated ? GLFW_TRUE : GLFW_FALSE);
         // glfwWindowHint(GLFW_STEREO, should_create_stereo);
 
-		// debug
-		// glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+        // debug
+        // glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 
-		// Create the window
-		handle = glfwCreateWindow(width, height, "seer", NULL, NULL);
-		if ( handle == NULL )
-			throw new RuntimeException("Failed to create the GLFW window");
+        // Create the window
+        handle = glfwCreateWindow(width, height, "seer", NULL, NULL);
+        if ( handle == NULL )
+            throw new RuntimeException("Failed to create the GLFW window");
 
-		// Setup callbacks...
+        // Setup callbacks...
         glfwSetWindowSizeCallback(handle, (window, width, height) => {
             println(s"window size callback: $width x $height")
             onResize(width, height)
@@ -102,7 +102,7 @@ class Window {
         })
 
 
-		glfwSetKeyCallback(handle, (window, keycode, scancode, action, mods) => {
+        glfwSetKeyCallback(handle, (window, keycode, scancode, action, mods) => {
             var name:String = null
             try{
                 name = glfwGetKeyName(keycode,scancode)
@@ -111,7 +111,7 @@ class Window {
             this.onKeyEvent(KeyEvent(name, keycode, scancode, action, mods))
         })
 
-		glfwSetCharCallback(handle, (window, codepoint) => {
+        glfwSetCharCallback(handle, (window, codepoint) => {
             // println(s"char callback: $codepoint")
         })
 
@@ -149,41 +149,41 @@ class Window {
         })
 
         // Make the OpenGL context current
-		glfwMakeContextCurrent(handle);
+        glfwMakeContextCurrent(handle);
         capabilities = GL.createCapabilities()
 
         // debug
-		// val debugProc = GLUtil.setupDebugMessageCallback()
+        // val debugProc = GLUtil.setupDebugMessageCallback()
 
         this
     }
 
     def destroy() = {
         // Free the window callbacks and destroy the window
-		glfwFreeCallbacks(handle);
-		glfwDestroyWindow(handle);
+        glfwFreeCallbacks(handle);
+        glfwDestroyWindow(handle);
         glfwPollEvents();
     }
 
 
     def getSize(): (Int,Int) = {
         Using(stackPush()){ case stack =>
-			val pWidth = stack.mallocInt(1); // int*
-			val pHeight = stack.mallocInt(1); // int*
+            val pWidth = stack.mallocInt(1); // int*
+            val pHeight = stack.mallocInt(1); // int*
 
-			// Get the framebuffer size in pixels
-			glfwGetWindowSize(handle, pWidth, pHeight);
+            // Get the framebuffer size in pixels
+            glfwGetWindowSize(handle, pWidth, pHeight);
             (pWidth.get(0), pHeight.get(0))
         }.get
     }
 
     def getBufferSize(): (Int,Int) = {
         Using(stackPush()){ case stack =>
-			val pWidth = stack.mallocInt(1); // int*
-			val pHeight = stack.mallocInt(1); // int*
+            val pWidth = stack.mallocInt(1); // int*
+            val pHeight = stack.mallocInt(1); // int*
 
-			// Get the framebuffer size in pixels
-			glfwGetFramebufferSize(handle, pWidth, pHeight);
+            // Get the framebuffer size in pixels
+            glfwGetFramebufferSize(handle, pWidth, pHeight);
             (pWidth.get(0), pHeight.get(0))
         }.get
     }
@@ -206,11 +206,11 @@ class Window {
 
     def getPosition() = {
         Using(stackPush()){ case stack =>
-			val pX = stack.mallocInt(1); // int*
-			val pY = stack.mallocInt(1); // int*
+            val pX = stack.mallocInt(1); // int*
+            val pY = stack.mallocInt(1); // int*
 
-			// Get the framebuffer size in pixels
-			glfwGetWindowPos(handle, pX, pY);
+            // Get the framebuffer size in pixels
+            glfwGetWindowPos(handle, pX, pY);
             (pX.get(0), pY.get(0))
         }.get
     }
@@ -224,10 +224,10 @@ class Window {
     }
 
     def show() = {
-		// Enable v-sync
-		glfwSwapInterval(1);
-		// Make the window visible
-		glfwShowWindow(handle);
+        // Enable v-sync
+        glfwSwapInterval(1);
+        // Make the window visible
+        glfwShowWindow(handle);
     }
 
     def setShouldClose(close:Boolean=true) = glfwSetWindowShouldClose(handle, close)

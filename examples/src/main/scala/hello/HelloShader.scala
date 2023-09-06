@@ -7,7 +7,7 @@ import math.Random
 
 object HelloShader extends SeerApp {
 
-	var timer = 0.0
+  var timer = 0.0
   var shader:ShaderProgram = _
   var mesh:Mesh = _
   val coords = Array(-0.8f,-0.3f,0.0f,  0.3f,-0.3f,0.0f,  0.0f,0.3f,0.0f,  0.2f,0.2f,0.0f, 0.6f,0.6f,0.0f,  0.4f,-0.4f,0.0f)
@@ -39,18 +39,18 @@ object HelloShader extends SeerApp {
     mesh.resize(coords.length / 3)
   }
 
-	graphics.onUpdate = (dt:Double) => {
-		timer += dt
-		if(timer > 0.5) timer = 0.0
+  graphics.onUpdate = (dt:Double) => {
+    timer += dt
+    if(timer > 0.5) timer = 0.0
 
     for(i <- 0 until coords.length) coords(i) += Random.float(-0.005f, 0.005f)()
     mesh.vertices.put(coords)
     mesh.update()
     
-	}
+  }
 
-	graphics.onDraw = (g:Graphics) => {
-		import g.gl._
+  graphics.onDraw = (g:Graphics) => {
+    import g.gl._
 
     val r = Random.float 
     if(timer == 0.0) glClearColor(r(), r(), r(), 1.0f)
@@ -60,6 +60,6 @@ object HelloShader extends SeerApp {
     if(timer == 0.0) shader.uniform("color", Array(r(),r(),r(),1.0f))
 
     mesh.draw()
-	}
+  }
 
 }

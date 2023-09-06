@@ -1,5 +1,5 @@
 package seer
-package script
+package live
 
 import actor._
 

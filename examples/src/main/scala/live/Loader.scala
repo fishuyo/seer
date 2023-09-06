@@ -3,15 +3,15 @@ package examples
 
 import graphics._
 import actor._
-import script._
+import live._
 
 object LiveLoader extends SeerApp {
 
-	graphics.onDraw = (g:Graphics) => {
-		import g.gl._
-		glClearColor(0.0f, 1.0f, 0.0f, 0.0f)
-		glClear(GL_COLOR_BUFFER_BIT)
-	}
+  graphics.onDraw = (g:Graphics) => {
+    import g.gl._
+    glClearColor(0.0f, 1.0f, 0.0f, 0.0f)
+    glClear(GL_COLOR_BUFFER_BIT)
+  }
 
 
   override def parseArgs(args:Array[String]) = {

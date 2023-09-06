@@ -14,9 +14,9 @@ trait Gen extends AudioSource {
   var value = 0f
 
   def apply():Float
-	def apply(in:Float):Float = apply()
+  def apply(in:Float):Float = apply()
 
-	override def audioIO( io:AudioIO ) = { 
+  override def audioIO( io:AudioIO ) = { 
     while(io()){
       val s = self()
       for( c <- 0 until io.config.outputs)
@@ -172,7 +172,7 @@ class StereoPanner(in:Gen, var pan:Gen = 0.5f) extends Gen {
     in()
   }
 
-  override def audioIO( io:AudioIO ){ 
+  override def audioIO( io:AudioIO ) = { 
     while(io()){
       val s = apply()
       val p = pan()

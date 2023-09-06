@@ -1,14 +1,17 @@
 package seer
-package script
+package live
 
 import actor._
 
 import java.io.File
 import scala.io.Source
 
-import reflect.runtime.universe._
-import reflect.runtime.currentMirror
-import tools.reflect.ToolBox
+// import reflect.runtime.universe._
+// import reflect.runtime.currentMirror
+// import tools.reflect.ToolBox
+
+// import com.github.dmytromitin.eval._
+import com.eed3si9n.eval._
 
 import akka.actor._
 import akka.event.Logging
@@ -31,8 +34,9 @@ object ScriptLoaderActor {
   case object Unload
   case object Status
 
-  def props = propsToolbox
-  def propsToolbox = Props(new ScriptLoaderActor(new ToolboxScriptLoader()))
+  def props = propsEval
+  def propsEval = Props(new ScriptLoaderActor(new EvalScriptLoader()))
+  // def propsToolbox = Props(new ScriptLoaderActor(new ToolboxScriptLoader()))
 }
 
 /**
@@ -73,6 +77,8 @@ class ScriptLoaderActor(val loader:ScriptLoader) extends Actor with ActorLogging
   */
 trait ScriptLoader {
 
+  var gid = 0
+
   var code=""
   var path:Option[String] = None
   var result:AnyRef = null              // result of evaluating code
@@ -88,7 +94,7 @@ trait ScriptLoader {
   }
 
   // compile / recompile and evaluate script
-  def reload(){
+  def reload() = {
     try{
       // notify running script about to reload
       result match {
@@ -99,7 +105,7 @@ trait ScriptLoader {
 
       errors = Seq()
       unload()
-      val ret = eval[AnyRef]()
+      val ret = Eval[AnyRef](getCode())//eval[AnyRef]()
       ret match{
         case s:Script =>
           result = ret
@@ -113,14 +119,16 @@ trait ScriptLoader {
         case l:List[ActorRef] =>
           result = ret
           l.foreach{ case a => a ! "load" }
-        // case c:Class[_] if c.getSuperclass == classOf[SeerActor] =>
-        //   val r = ".*\\$(.*)\\$.".r
-        //   val r(simple) = c.getName
-        //   val id = s"live.$simple.${util.Random.int()}"
-        //   val a = System().actorOf( SeerActor.props(c), id )
-        //   result = a
-        //   a ! SeerActor.Name(id)
-        //   a ! "load"
+        case c:Class[_] if c.getSuperclass == classOf[SeerActor] =>
+          val r = ".*\\$(.*)\\$.".r
+          val r(simple) = c.getName
+          // val id = s"live.$simple.${util.Random.int()}"
+          val id = s"live.$simple.$gid"
+          gid += 1
+          val a = System().actorOf( SeerActor.props(c), id )
+          result = a
+          a ! SeerActor.Name(id)
+          a ! "load"
         case x => println(s"Unrecognized return value from script: $x")
       }
 
@@ -131,7 +139,7 @@ trait ScriptLoader {
     }
   }
 
-  def unload(){
+  def unload() = {
     result match {
       case s:Script => 
         s.unload()
@@ -149,38 +157,55 @@ trait ScriptLoader {
     }
   }
 
-  def checkErrors(){}
+  def checkErrors() = {}
   def eval[T]():T
 }
+
+
+// Eval Script Loader scala3
+class EvalScriptLoader extends ScriptLoader {
+
+  def eval[T]() : T = {
+    val source = getCode()
+    // Eval[T](source)
+    Eval[T](source)
+
+  }
+  
+  // override def checkErrors() = {
+  // }
+
+}
+
 
 /**
   * Toolbox implementation of a ScriptLoader
   */
-class ToolboxScriptLoader extends ScriptLoader {
-  val toolbox = ScriptManager.toolbox //currentMirror.mkToolBox() 
+// class ToolboxScriptLoader extends ScriptLoader {
+//   val toolbox = ScriptManager.toolbox //currentMirror.mkToolBox() 
 
-  def eval[T]() : T = {
-    val source = getCode()
-    val tree = toolbox.parse(source)
-    toolbox.eval(tree).asInstanceOf[T]
-  }
+//   def eval[T]() : T = {
+//     val source = getCode()
+//     val tree = toolbox.parse(source)
+//     toolbox.eval(tree).asInstanceOf[T]
+//   }
   
-  override def checkErrors() = {
-    if(toolbox.frontEnd.hasErrors){
-      val errs = toolbox.frontEnd.infos.map { case info =>
-        val line = info.pos.line
-        val msg = s"""
-          ${info.msg}
-          ${info.pos.lineContent}
-          ${info.pos.lineCaret} 
-        """
-        (line,msg)
-      }.toSeq
-      errors = errs
-    } else errors = Seq()
-  }
+//   override def checkErrors() = {
+//     if(toolbox.frontEnd.hasErrors){
+//       val errs = toolbox.frontEnd.infos.map { case info =>
+//         val line = info.pos.line
+//         val msg = s"""
+//           ${info.msg}
+//           ${info.pos.lineContent}
+//           ${info.pos.lineCaret} 
+//         """
+//         (line,msg)
+//       }.toSeq
+//       errors = errs
+//     } else errors = Seq()
+//   }
 
-}
+// }
 
 
 // import javax.script.ScriptEngineManager

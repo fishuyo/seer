@@ -6,7 +6,7 @@ import math.Vec2
 import math.Vec3
 
 class ShaderProgram {
-  lazy val gl = Graphics().gl
+  val gl = Graphics().gl
   import gl._
 
   var id:Option[Int] = None

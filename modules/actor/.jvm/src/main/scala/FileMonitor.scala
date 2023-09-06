@@ -19,10 +19,10 @@ object FileMonitor {
 
   val watchers = collection.mutable.HashMap[String,RecursiveFileMonitor]()
 
-  implicit val sys = System()
+  implicit val sys:ActorSystem = System()
   // val monitorActor = System().actorOf(MonitorActor(concurrency = 2))
 
-  def apply(path:String, rec:Boolean=false)(f:(File)=>Unit){
+  def apply(path:String, rec:Boolean=false)(f:(File)=>Unit) = {
     val myDir = File(path)
     val watcher = new RecursiveFileMonitor(myDir) {
       override def onCreate(file: File, count: Int) = f(file) //println(s"$file got created")
@@ -42,7 +42,7 @@ object FileMonitor {
     // )
   }
 
-  def stop(path:String, rec:Boolean=false){
+  def stop(path:String, rec:Boolean=false) = {
     try {
       if(watchers.contains(path)){
         val w = watchers(path)
@@ -58,7 +58,7 @@ object FileMonitor {
     //   )
   }
 
-  def kill(){
+  def kill() = {
     // monitorActor ! Kill
   }
 }

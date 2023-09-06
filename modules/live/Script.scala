@@ -1,7 +1,7 @@
 package seer
-package script
+package live
 
 class Script {
-  def load(){}
-  def unload(){}
+  def load() = {}
+  def unload() = {}
 }

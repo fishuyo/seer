@@ -6,6 +6,6 @@ getLibs := {
 }
 
 // compile in Compile <<= (compile in Compile).dependsOn(getLibs)
-compile in Compile := ((compile in Compile).dependsOn(getLibs)).value
+Compile / compile := ((Compile / compile).dependsOn(getLibs)).value
 
-libraryDependencies += "com.lihaoyi" %% "scalarx" % "0.4.3"
+// libraryDependencies += "com.lihaoyi" %% "scalarx" % "0.4.3"

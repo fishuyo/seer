@@ -1,3 +1,8 @@
+import seer.live._
 
-println("test")
+class TestActor extends SeerActor {
 
+  println("hotdog")
+}
+
+classOf[TestActor]

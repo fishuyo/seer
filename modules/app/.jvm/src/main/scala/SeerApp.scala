@@ -8,9 +8,9 @@ class SeerApp {
 
   val runtime = new Runtime
   val graphics = new LwjglGraphicsModule()
-	val audio = new PortAudioModule()
+  val audio = new PortAudioModule()
 
-	runtime.useModules(audio :: graphics :: List())
+  runtime.useModules(audio :: graphics :: List())
 
   def parseArgs(as:Array[String]) = {}
 

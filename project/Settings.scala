@@ -4,7 +4,7 @@ import Keys._
 object Settings {
 
   val seerV = "0.1-SNAPSHOT"
-  val scalaV = "2.13.8" //2.13.3"
+  val scalaV = "3.2.0" //"2.13.8" //2.13.3"
 
   lazy val common = Seq(
     organization := "seer",
@@ -48,7 +48,7 @@ object Settings {
         id = "fishuyo",
         name = "Timothy Wood",
         email = "fishuyo@gmail.com",
-        url = url("http://fishuyo.com")
+        url = url("http://embodiedworlds.com")
       )
     ),
     publishMavenStyle := true,
@@ -65,8 +65,8 @@ object Settings {
     // libraryDependencies ++= Seq(
     //   "net.sf.proguard" % "proguard-base" % "4.11" % "provided"
     // ),
-    fork in Compile := true,
-    fork in run := true,
+    Compile / fork := true,
+    // run / fork := true,
     // javaOptions in run := "-javaagent:/Users/fishuyo/Downloads/lwjglx-debug-1.0.0.jar" +: javaOptions.value
     
     // javaOptions in run += "-Xcheck:jni"
@@ -77,8 +77,8 @@ object Settings {
   ) ++ {
     if (System.getProperty("os.name").contains("Mac"))
       Seq(
-        javaOptions in run += "-XstartOnFirstThread",
-        javaOptions in run += "-Djava.awt.headless=true",
+        run / javaOptions += "-XstartOnFirstThread",
+        run / javaOptions += "-Djava.awt.headless=true",
         envVars := Map("DYLD_LIBRARY_PATH" -> file("lib").getAbsolutePath)
       )
     else Seq()

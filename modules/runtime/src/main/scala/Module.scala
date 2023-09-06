@@ -20,8 +20,5 @@ trait Module {
   def update() = {}
 }
 
-// trait BlockingModule extends Module {
-
-// }
 
 

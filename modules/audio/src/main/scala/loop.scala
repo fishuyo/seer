@@ -54,7 +54,7 @@ class LoopBuffer( var maxSize:Int = 0) extends Gen {
   }
   
   //write sample data, appended to buffer
-  def append( in:Array[Float], numSamples:Int, offset:Int=0 ){
+  def append( in:Array[Float], numSamples:Int, offset:Int=0 ):Unit = {
     if( maxSize == 0 ) return
     else if( curSize + numSamples >= maxSize ) resize(2*maxSize)
 
@@ -86,7 +86,7 @@ class LoopBuffer( var maxSize:Int = 0) extends Gen {
   }
 
   //read sample data at r_head, between r_min and r_max
-  def read( out:Array[Float], numSamples:Int, gain:Float=1f){
+  def read( out:Array[Float], numSamples:Int, gain:Float=1f):Unit = {
     if( rPos < rMin || rPos >= rMax){ rPos = rMin; times+=1; }
 
     var read = 0
@@ -121,7 +121,7 @@ class LoopBuffer( var maxSize:Int = 0) extends Gen {
     // }
   }
 
-  def readR( out:Array[Float], numSamples:Int, gain:Float=1f ){
+  def readR( out:Array[Float], numSamples:Int, gain:Float=1f ):Unit = {
     this.synchronized{
       if( rPos < rMin || rPos >= rMax){ rPos = rMax-1; times+=1; }
 
@@ -166,7 +166,7 @@ class LoopBuffer( var maxSize:Int = 0) extends Gen {
     }
   }
   
-  def addFrom( from:Array[Float], numSamples:Int, off:Double=0.0, inOff:Int=0 ){
+  def addFrom( from:Array[Float], numSamples:Int, off:Double=0.0, inOff:Int=0 ):Unit = {
     
     var offset = off
     if( offset < rMin || offset >= rMax) offset = rMin
@@ -202,7 +202,7 @@ class LoopBuffer( var maxSize:Int = 0) extends Gen {
     //   }
     // }
   }
-  def addFromR( from:Array[Float], numSamples:Int, off:Double, inOff:Int=0 ){
+  def addFromR( from:Array[Float], numSamples:Int, off:Double, inOff:Int=0 ):Unit = {
 
     var offset = off
     if( offset < rMin || offset >= rMax) offset = rMax-1;
@@ -242,7 +242,7 @@ class LoopBuffer( var maxSize:Int = 0) extends Gen {
     // }
   }
   
-  def applyGain( gain:Float, numSamples:Int, offset:Double ){
+  def applyGain( gain:Float, numSamples:Int, offset:Double ) = {
     var num = numSamples//*speed
     var off = offset
     if( offset < rMin ) off = rMin
@@ -255,16 +255,16 @@ class LoopBuffer( var maxSize:Int = 0) extends Gen {
   }
   
   //get root mean square of numSamples starting at offset
-  def getRMS( numSamples:Int, offset:Int){
+  def getRMS( numSamples:Int, offset:Int) = {
 
   }
   //get root mean square of numSamples ago
-  def getRMSR( numSamples:Int ){
+  def getRMSR( numSamples:Int ) = {
 
   }
 
   //read between b1 and b2, uses smaller value as min (in samples)
-  def setBounds( b1:Int, b2:Int){
+  def setBounds( b1:Int, b2:Int) = {
     this.synchronized{
       var (min,max) = (0,0)
       if(b1 < b2){
@@ -333,19 +333,19 @@ class Loop( var seconds:Float=0f, var sampleRate:Int=Audio().config.sampleRate) 
 
   // }
   
-  def allocate( n:Int ){
+  def allocate( n:Int ) = {
     b.resize(n)
     numSamples = n
   }
   
-  def gain(g:Float){ gain = g }
-  def play(){ playing = true; recording = false;}
-  def togglePlay(){ if(playing) stop() else play()}
-  def play(t:Int){ b.times=0; times = t; play() }
-  def stop(){ playing = false; recording = false}
-  def rewind(){ b.rPos = b.rMin }
-  def record(){ startRecord = true; recording = true; playing = false; dirty = true }
-  def toggleRecord(){ if( recording ) play() else record() }
+  def setGain(g:Float) = { gain = g }
+  def play():Unit = { playing = true; recording = false;}
+  def togglePlay() = { if(playing) stop() else play()}
+  def play(t:Int):Unit = { b.times=0; times = t; play() }
+  def stop() = { playing = false; recording = false}
+  def rewind() = { b.rPos = b.rMin }
+  def record() = { startRecord = true; recording = true; playing = false; dirty = true }
+  def toggleRecord() = { if( recording ) play() else record() }
   def stack() = { startStack = true; stacking = !stacking; dirty = true }
   def reverse() = reversing = !reversing
   def reverse(b:Boolean) = reversing = b
@@ -358,17 +358,17 @@ class Loop( var seconds:Float=0f, var sampleRate:Int=Audio().config.sampleRate) 
     b.curSize = 0
   }
 
-  def analyze(){
+  def analyze() = {
     if(b.curSize > 0 && vocoderAnalyze){
-      vocoder.clear
+      vocoder.clear()
       vocoder.setSamples(b.samples,b.curSize)
       vocoderActive = true
       vocoderAnalyze = false
     }
   }
-  def vocoderActive(b:Boolean){ vocoderActive = b}
+  def setVocoderActive(b:Boolean) = { vocoderActive = b}
 
-  def duplicate(times:Int){
+  def duplicate(times:Int) = {
     val size = b.curSize
     for( i <- (0 until times)) b.append( b.samples, size)
     dirty = true

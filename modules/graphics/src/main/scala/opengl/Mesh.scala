@@ -42,7 +42,7 @@ class VAO {
 
 
 class Mesh {
-  lazy val gl = Graphics().gl
+  val gl = Graphics().gl
   import gl._
 
   case class Attribute(index:Int, size:Int, buffer:Buffer=Buffer())

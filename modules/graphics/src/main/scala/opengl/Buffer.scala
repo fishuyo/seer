@@ -3,11 +3,11 @@ package seer.graphics
 
 object Buffer {
   def apply() = new Buffer()
-  def create() = new Buffer().create
+  def create() = new Buffer().create()
 }
 
 class Buffer {
-  lazy val gl = Graphics().gl
+  val gl = Graphics().gl
   import gl._
 
   var id = 0

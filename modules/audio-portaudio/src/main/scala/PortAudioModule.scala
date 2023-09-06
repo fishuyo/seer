@@ -7,10 +7,10 @@ import com.github.rjeschke.jpa._
 
 class PortAudioModule extends PaCallback with Module with AudioIO { 
 
-	// var onAudioIO = (io:AudioIO) => {}
+  // var onAudioIO = (io:AudioIO) => {}
 
   // var callback = new PaCallback {
-  	def paCallback(paIn:PaBuffer, paOut:PaBuffer, nframes:Int) = {
+    def paCallback(paIn:PaBuffer, paOut:PaBuffer, nframes:Int) = {
 
         paIn.getFloatBuffer.get(in(0))
 
@@ -38,7 +38,7 @@ class PortAudioModule extends PaCallback with Module with AudioIO {
           // outFile.write(out,0,bufferSize)
         // }
 
-  	}
+    }
   // }
 
   override def init() = {
@@ -47,8 +47,8 @@ class PortAudioModule extends PaCallback with Module with AudioIO {
     try{ JPA.initialize() }
     catch { case e:Exception => println(e) }
     
-  	JPA.setCallback( this )
-  	JPA.openDefaultStream(config.inputs, config.outputs, PaSampleFormat.paFloat32, config.sampleRate, config.bufferSize)
+    JPA.setCallback( this )
+    JPA.openDefaultStream(config.inputs, config.outputs, PaSampleFormat.paFloat32, config.sampleRate, config.bufferSize)
     Audio() = this
   }
 

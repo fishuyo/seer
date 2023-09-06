@@ -7,7 +7,7 @@ import math._
 
 object Bubbles0 extends SeerApp {
 
-	var timer = 0.0
+  var timer = 0.0
   var shader:ShaderProgram = _
   var mesh:Mesh = _
 
@@ -103,21 +103,21 @@ object Bubbles0 extends SeerApp {
     mesh.indices.put(Array(0,1,2,2,3,0))
   }
 
-	graphics.onUpdate = (dt:Double) => {
-		timer += dt
-		// if(timer > 0.5) timer = 0.0
+  graphics.onUpdate = (dt:Double) => {
+    timer += dt
+    // if(timer > 0.5) timer = 0.0
 
     mesh.update()    
-	}
+  }
 
-	graphics.onDraw = (g:Graphics) => {
-		import g.gl._
+  graphics.onDraw = (g:Graphics) => {
+    import g.gl._
 
     shader.bind()
     shader.uniform("time", timer)
     shader.uniform("mouse", Vec2(0.5f,0.5f))
 
     mesh.draw()
-	}
+  }
 
 }

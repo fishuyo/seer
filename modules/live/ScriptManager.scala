@@ -1,5 +1,5 @@
 package seer
-package script
+package live
 
 import actor._
 
@@ -8,9 +8,9 @@ import scala.io.Source
 
 import scala.language.dynamics
 
-// import reflect.runtime.universe._
-import reflect.runtime.currentMirror
-import tools.reflect.ToolBox
+//// import reflect.runtime.universe._
+// import reflect.runtime.currentMirror
+// import tools.reflect.ToolBox
 
 import akka.actor._
 import akka.event.Logging
@@ -34,38 +34,43 @@ object ScriptManager {
   case class Create(name:String="")
   case object Reset
 
-  val toolbox = currentMirror.mkToolBox() 
-  val manager = System().actorOf( Props[ScriptManagerActor], name="ScriptManager" )
+  // val toolbox = currentMirror.mkToolBox() 
+  val manager = System().actorOf( Props[ScriptManagerActor](), name="ScriptManager" )
   
-  implicit val timeout = Timeout(4 seconds)
+  // implicit val timeout = Timeout(Duration(4,"seconds"))
 
   val imports = ListBuffer[String]()
-  imports += "seer._"
-  imports += "seer.script._"
-  imports += "seer.actor._"
-  imports += "seer.spatial._"
-  imports += "seer.graphics._"
-  imports += "seer.audio._"
-  imports += "seer.io._"
-  imports += "seer.util._"
-  imports += "scala.concurrent.duration._"
-  imports += "collection.mutable.ListBuffer"
-  imports += "collection.mutable.ArrayBuffer"
-  imports += "collection.mutable.HashMap"
-  imports += "akka.actor._"
-  imports += "akka.stream._"
-  imports += "akka.stream.scaladsl._"
-  imports += "seer.flow._"
+  // imports += "seer._"
+  // imports += "seer.script._"
+  // imports += "seer.actor._"
+  // imports += "seer.spatial._"
+  // imports += "seer.graphics._"
+  // imports += "seer.audio._"
+  // imports += "seer.io._"
+  // imports += "seer.util._"
+  // imports += "scala.concurrent.duration._"
+  // imports += "collection.mutable.ListBuffer"
+  // imports += "collection.mutable.ArrayBuffer"
+  // imports += "collection.mutable.HashMap"
+  // imports += "akka.actor._"
+  // imports += "akka.stream._"
+  // imports += "akka.stream.scaladsl._"
+  // imports += "seer.flow._"
 
-  def apply() = Await.result(manager ? Create(), 3 seconds).asInstanceOf[ActorRef]
+  def apply() = {
+    implicit val timeout = Timeout(Duration(3,"seconds"))
+    Await.result(manager ? Create(), 3 seconds).asInstanceOf[ActorRef]
+  }
 
   def load(path:String, reloadOnChange:Boolean=true) = {
+    implicit val timeout = Timeout(Duration(3,"seconds"))
     val f = manager ? Path(path,reloadOnChange)
     val actor = Await.result(f, 3 seconds).asInstanceOf[ActorRef]
     actor ! Load
     actor
   }
   def loadCode(code:String) = {
+    implicit val timeout = Timeout(Duration(3,"seconds"))
     val f = manager ? Create()
     val actor = Await.result(f, 3 seconds).asInstanceOf[ActorRef]
     actor ! Code(code)
@@ -74,15 +79,16 @@ object ScriptManager {
   }
 
   def reset = manager ! Reset
-  def reset(address:Address) = System().actorSelection(address + "/user/ScriptManager") ! Reset
+  def reset(address:Address) = System().actorSelection(address.toString() + "/user/ScriptManager") ! Reset
 
-  def remote(address:Address)(path:String, reloadOnChange:Boolean=true){
-    val remoteManager = System().actorSelection(address + "/user/ScriptManager")
+  def remote(address:Address)(path:String, reloadOnChange:Boolean=true) = {
+    val remoteManager = System().actorSelection(address.toString() + "/user/ScriptManager")
 
     val file = new File(path)
     if(file.isDirectory){
 
       file.listFiles.filter(_.getPath.endsWith(".scala")).foreach { case f =>
+        implicit val timeout = Timeout(Duration(10,"seconds"))
         val fu = remoteManager ? Create(f.getName)
         val actor = Await.result(fu, 10 seconds).asInstanceOf[ActorRef]
 
@@ -97,6 +103,7 @@ object ScriptManager {
       }
 
     }else if(file.isFile){
+      implicit val timeout = Timeout(Duration(10,"seconds"))
       val f = remoteManager ? Create(file.getName)
       val actor = Await.result(f, 10 seconds).asInstanceOf[ActorRef]
 
@@ -129,7 +136,7 @@ class ScriptManagerActor extends Actor with ActorLogging {
 
   override val supervisorStrategy =
     OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute, loggingEnabled=false) {
-      case _:scala.tools.reflect.ToolBoxError => logToolboxErrorLocation(); Resume
+      // case _:scala.tools.reflect.ToolBoxError => logToolboxErrorLocation(); Resume
       case t => super.supervisorStrategy.decider.applyOrElse(t, (_: Any) => Escalate)
     }
 
@@ -141,32 +148,32 @@ class ScriptManagerActor extends Actor with ActorLogging {
     case Create(n) => 
       var name = n
       if(n.isEmpty) name += "script"+scripts.size
-      if(scripts.isDefinedAt(name)) sender ! scripts(name)
+      if(scripts.isDefinedAt(name)) sender() ! scripts(name)
       else {
         val loader = context.actorOf( ScriptLoaderActor.props, name)
         scripts(name) = loader
-        sender ! loader
+        sender() ! loader
       }
     case Path(path,reload) =>
       val file = new File(path)
       val name = file.getName
       if(file.isDirectory){
         // log.info(s"create ScriptDirectoryLoaderActor for $path")
-        if(dirs.isDefinedAt(name)) sender ! scripts(name)
+        if(dirs.isDefinedAt(name)) sender() ! scripts(name)
         else {
-          val loader = context.actorOf( Props[ScriptDirectoryLoaderActor], name)
+          val loader = context.actorOf( Props[ScriptDirectoryLoaderActor](), name)
           dirs(name) = loader
           loader ! Path(path,reload)
-          sender ! loader
+          sender() ! loader
         }
       }else if(file.isFile){
-        if(scripts.isDefinedAt(name)) sender ! scripts(name)
+        if(scripts.isDefinedAt(name)) sender() ! scripts(name)
         else{
           val loader = context.actorOf( ScriptLoaderActor.props, name)
           scripts(name) = loader
           loader ! Path(path,reload)
           // loader ! Load
-          sender ! loader
+          sender() ! loader
         }
       } else {
         log.error("Invalid path..")
@@ -174,20 +181,20 @@ class ScriptManagerActor extends Actor with ActorLogging {
     case x => () //log.warning("Received unknown message: {}", x)
   }
 
-  def logToolboxErrorLocation(){
-    if(toolbox.frontEnd.hasErrors){
-      toolbox.frontEnd.infos.foreach{ case info =>
-        val line = info.pos.line - imports.length //+ 1
-        val msg = s"""
-          ${info.msg}
-          at line ${line}:${info.pos.column}
-          ${info.pos.lineContent}
-          ${info.pos.lineCaret} 
-        """
-        log.error(msg)
-      }
-    }
-  }
+  // def logToolboxErrorLocation(){
+  //   if(toolbox.frontEnd.hasErrors){
+  //     toolbox.frontEnd.infos.foreach{ case info =>
+  //       val line = info.pos.line - imports.length //+ 1
+  //       val msg = s"""
+  //         ${info.msg}
+  //         at line ${line}:${info.pos.column}
+  //         ${info.pos.lineContent}
+  //         ${info.pos.lineCaret} 
+  //       """
+  //       log.error(msg)
+  //     }
+  //   }
+  // }
 }
 
 

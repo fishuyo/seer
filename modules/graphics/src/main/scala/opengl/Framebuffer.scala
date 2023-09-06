@@ -4,7 +4,7 @@ package graphics
 
 
 class RenderBuffer {
-  lazy val gl = Graphics().gl
+  val gl = Graphics().gl
   import gl._
 
   var id = 0
@@ -33,7 +33,7 @@ class RenderBuffer {
 
 
 class FrameBuffer {
-  lazy val gl = Graphics().gl
+  val gl = Graphics().gl
   import gl._
 
   var id = 0

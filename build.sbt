@@ -9,7 +9,7 @@ lazy val examples = project //crossProject(JVMPlatform, JSPlatform)
   // .crossType(CrossType.Pure)
   .in(file("examples"))
   // .dependsOn(math)
-  .dependsOn(app.jvm, math.jvm, live, multitouch)
+  .dependsOn(app.jvm, math.jvm, live) // multitouch, video)
   .settings(Settings.app: _*)
 
 // lazy val examplesJVM = examples.jvm.dependsOn(graphics_lwjgl, audio_portaudio, audio_jack, live, multitouch)
@@ -26,6 +26,11 @@ lazy val examplesjs = project.enablePlugins(ScalaJSPlugin)
 /*
  * Core Modules
  */
+lazy val actor = crossProject(JVMPlatform, JSPlatform)
+  .crossType(CrossType.Pure)
+  .in(file("modules/actor"))
+  .settings(Settings.common: _*)
+
 lazy val runtime = crossProject(JVMPlatform, JSPlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/runtime"))
@@ -49,10 +54,6 @@ lazy val math = crossProject(JVMPlatform, JSPlatform)
   .in(file("modules/math"))
   .settings(Settings.common: _*)
 
-lazy val actor = crossProject(JVMPlatform, JSPlatform)
-  .crossType(CrossType.Pure)
-  .in(file("modules/actor"))
-  .settings(Settings.common: _*)
 
 
 /**
@@ -120,3 +121,10 @@ lazy val multitouch = project
   .dependsOn(math.jvm)
   .settings(Settings.common: _*)
 
+
+/// VideoPlayer (VLC)
+val video = project
+  .in(file("modules/video-vlc"))
+  .dependsOn()
+  .settings(Settings.common: _*)
+  .settings(libraryDependencies += "uk.co.caprica" % "vlcj" % "4.8.2")
