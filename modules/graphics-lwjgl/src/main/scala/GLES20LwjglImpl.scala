@@ -74,17 +74,17 @@ class GLES20LwjglImpl extends GLES20 {
 
   def glGetIntegerv (pname:Int, params:IntBuffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
 
-  def glGetString (name:Int):String = ""
+  def glGetString (name:Int):String = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName); ""}
 
   def glHint (target:Int, mode:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
 
-  def glLineWidth (width:Float):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
+  def glLineWidth(width:Float):Unit = GL11.glLineWidth(width)
 
   def glPixelStorei (pname:Int, param:Int):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
 
   def glPolygonOffset (factor:Float, units:Float):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}
 
-  def glReadPixels (x:Int, y:Int, width:Int, height:Int, format:Int, `type`:Int, pixels:Buffer):Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)}//glReadPixels(x,y,width, height, format, `type`, pixels)
+  def glReadPixels (x:Int, y:Int, width:Int, height:Int, format:Int, `type`:Int, pixels:Buffer):Unit = GL11.glReadPixels(x,y,width, height, format, `type`, pixels.asInstanceOf[java.nio.ByteBuffer])
 
   def glScissor (x:Int, y:Int, width:Int, height:Int):Unit = glScissor(x,y,width,height)
 

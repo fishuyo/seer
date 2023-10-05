@@ -38,6 +38,8 @@ class FrameBuffer {
 
   var id = 0
 
+  var attach0:Texture = _
+
   def create() = {
     id = glGenFramebuffer()
     this
@@ -61,9 +63,18 @@ class FrameBuffer {
   }
 
   def attachTexture(tex:Texture, attachment:Int = GL_COLOR_ATTACHMENT0, level:Int = 0) = {
+    attach0 = tex
     glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, GL_TEXTURE_2D, tex.id, level)
   }
   def detachTexture(attachment:Int = GL_COLOR_ATTACHMENT0, level:Int = 0) = {
+    attach0 = null
     glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, GL_TEXTURE_2D, 0, level)
+  }
+
+
+  def readBytes(byteBuffer:java.nio.ByteBuffer):Unit = {
+    if(attach0 == null) return
+    glReadBuffer(GL_COLOR_ATTACHMENT0)
+    glReadPixels(0, 0, attach0.w, attach0.h, attach0.format, attach0._type, byteBuffer);
   }
 }

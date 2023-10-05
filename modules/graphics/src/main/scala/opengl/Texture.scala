@@ -40,12 +40,13 @@ class Texture {
     }
   }
 
-  def bind(i:Int) = {
+  def bind(i:Int=0) = {
     gl.glActiveTexture(gl.GL_TEXTURE0+i)
     gl.glBindTexture(target, id)
     updateParameters()
+    this
   }
-  def unbind(i:Int) = {
+  def unbind(i:Int=0) = {
     gl.glActiveTexture(gl.GL_TEXTURE0+i)
     gl.glBindTexture(target, 0)
     updateParameters()

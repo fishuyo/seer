@@ -1,6 +1,7 @@
 package seer.graphics
 package lwjgl 
 
+import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL20
 import org.lwjgl.opengl.GL30
 
@@ -9,7 +10,7 @@ class GLES30LwjglImpl extends GLES20LwjglImpl with GLES30 {
   
   // C function void glReadBuffer ( GLenum mode )
 
-  def glReadBuffer (mode:Int): Unit = {println("Err: Not implemented " + Thread.currentThread.getStackTrace()(1).getMethodName)} //Gdx.gl30.glReadBuffer(mode)
+  def glReadBuffer (mode:Int): Unit = GL11.glReadBuffer(mode)
 
   // C function void glDrawRangeElements ( GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum `type`, const GLvoid
 // *indices )

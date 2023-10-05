@@ -59,7 +59,7 @@ class Window {
     var onMouseEvent = (event:MouseEvent) => {}
 
 
-    private def defaultKeyHandler(event:KeyEvent) = {
+    def defaultKeyHandler(event:KeyEvent) = {
         if(event.keycode == GLFW_KEY_ESCAPE && event.action == GLFW_RELEASE)
             if(event.mods == GLFW_MOD_SHIFT)
                 this.setShouldClose(true); 
@@ -187,6 +187,11 @@ class Window {
             (pWidth.get(0), pHeight.get(0))
         }.get
     }
+
+    def setPos(x:Int,y:Int) = glfwSetWindowPos(handle, x, y)
+
+    def setSize(w:Int,h:Int) = glfwSetWindowSize(handle, w, h)
+    
 
     def toggleFullscreen() = {
         if(!fullscreen){

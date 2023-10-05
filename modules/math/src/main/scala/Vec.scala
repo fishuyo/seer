@@ -18,55 +18,6 @@ object Vec3 {
 
   def unapply( v: Vec3): Some[(Float,Float,Float)] = Some((v.x,v.y,v.z))
 
-  // implicit object Vec3IsField extends spire.algebra.Field[Vec3] {
-  //      // Members declared in spire.algebra.AdditiveGroup
-  //   def negate(x:Vec3):Vec3 = -x
-
-  //   // Members declared in spire.algebra.AdditiveMonoid
-  //   def zero:Vec3 = Vec3(0)
-
-  //   // Members declared in spire.algebra.AdditiveSemigroup
-  //   def plus(x:Vec3,y:Vec3):Vec3 = x + y
-
-  //   // Members declared in spire.algebra.EuclideanRing
-  //   def gcd(a:Vec3,b:Vec3):Vec3 = a*b
-  //   def mod(a:Vec3,b:Vec3):Vec3 = a/b
-  //   def quot(a:Vec3,b:Vec3):Vec3 = a/b
-
-  //   // Members declared in spire.algebra.MultiplicativeGroup
-  //   def div(x:Vec3,y:Vec3):Vec3 = x/y
-
-  //   // Members declared in spire.algebra.MultiplicativeMonoid
-  //   def one:Vec3 = Vec3(1)
-
-  //   // Members declared in spire.algebra.MultiplicativeSemigroup
-  //   def times(x:Vec3,y:Vec3):Vec3 = x*y
-  // }
-
-  // implicit object Vec3IsNumeric extends spire.math.Numeric[Vec3] {
-  //      // Members declared in spire.algebra.AdditiveGroup
-  //   def negate(x:Vec3):Vec3 = -x
-
-  //   // Members declared in spire.algebra.AdditiveMonoid
-  //   def zero:Vec3 = Vec3(0)
-
-  //   // Members declared in spire.algebra.AdditiveSemigroup
-  //   def plus(x:Vec3,y:Vec3):Vec3 = x + y
-
-  //   // Members declared in spire.algebra.EuclideanRing
-  //   def gcd(a:Vec3,b:Vec3):Vec3 = a*b
-  //   def mod(a:Vec3,b:Vec3):Vec3 = a/b
-  //   def quot(a:Vec3,b:Vec3):Vec3 = a/b
-
-  //   // Members declared in spire.algebra.MultiplicativeGroup
-  //   def div(x:Vec3,y:Vec3):Vec3 = x/y
-
-  //   // Members declared in spire.algebra.MultiplicativeMonoid
-  //   def one:Vec3 = Vec3(1)
-
-  //   // Members declared in spire.algebra.MultiplicativeSemigroup
-  //   def times(x:Vec3,y:Vec3):Vec3 = x*y
-  // }
 
   implicit object Vec3Numeric extends scala.math.Numeric[Vec3] {
     def plus(x: Vec3, y: Vec3) = x+y

@@ -4,6 +4,8 @@ package seer.graphics
 import java.nio.FloatBuffer
 import java.nio.IntBuffer
 
+import math._
+
 object VAO {
   def apply() = new VAO()
   def create() = new VAO().create()
@@ -176,5 +178,29 @@ object Mesh {
     quad
   }
 
-  
+
+  def circle(vertexCount:Int=20, radius:Float=1.0f, filled:Boolean=false) = {
+    val mesh = new Mesh()
+    if(!filled){
+      mesh.primitive = Graphics().gl.GL_LINE_STRIP
+      mesh.resize(vertexCount)
+      mesh.vertices.put(generateCircle(vertexCount, radius))
+    } else {
+      mesh.primitive = Graphics().gl.GL_TRIANGLE_FAN
+      mesh.resize(vertexCount)
+      mesh.vertices.put(Array(0f,0f,0f))
+      mesh.vertices.put(generateCircle(vertexCount-1, radius))
+    }
+    mesh.update()
+    mesh
+  }
+
+
+
+
+  private def generateCircle(n:Int, r:Float):Array[Float] = (0 until n).flatMap{ case i => 
+    val phs = i.toFloat/(n-1)*2*Pi
+    Array(r*scala.math.cos(phs).toFloat, r*scala.math.sin(phs).toFloat, 0f)
+  }.toArray  
+
 }

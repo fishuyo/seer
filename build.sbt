@@ -53,6 +53,7 @@ lazy val math = crossProject(JVMPlatform, JSPlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/math"))
   .settings(Settings.common: _*)
+  .settings(libraryDependencies ++= Dependencies.math.value)
 
 
 
