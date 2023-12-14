@@ -3,7 +3,7 @@ import Keys._
 
 object Settings {
 
-  val seerV = "0.1-SNAPSHOT"
+  val seerV = "0.2-SNAPSHOT"
   val scalaV = "3.2.0" //"2.13.8" //2.13.3"
 
   lazy val common = Seq(

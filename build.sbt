@@ -84,13 +84,13 @@ lazy val audio_portaudio = project
   .in(file("modules/audio-portaudio"))
   .dependsOn(audio.jvm, runtime.jvm)
   .settings(Settings.common: _*)
-  .settings(libraryDependencies ++= Dependencies.audio.value)
+  // .settings(libraryDependencies ++= Dependencies.audio.value)
 
 lazy val audio_jack = project
   .in(file("modules/audio-jack"))
   .dependsOn(audio.jvm, runtime.jvm)
   .settings(Settings.common: _*)
-  .settings(libraryDependencies ++= Dependencies.audio.value)
+  // .settings(libraryDependencies ++= Dependencies.audio.value)
 
 /**
  * SeerApp - Default module configurations for simple projects

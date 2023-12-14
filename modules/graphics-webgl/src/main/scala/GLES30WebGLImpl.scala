@@ -16,7 +16,7 @@ import collection.mutable.HashMap
 
 object VertexArrayUtil {
   val buffers = HashMap[Int,WebGLVertexArrayObject]()
-  implicit def int2buffer(id:Int) = buffers(id) 
+  implicit def int2buffer(id:Int):WebGLVertexArrayObject = buffers(id) 
   
   buffers(0) = null
 
@@ -42,7 +42,7 @@ object VertexArrayUtil {
 class GLES30WebGLImpl(gl:WebGLRenderingContext) extends GLES20WebGLImpl(gl) with GLES30 {
   import VertexArrayUtil._
 
-  implicit val gl2 = gl.asInstanceOf[WebGL2RenderingContext]
+  implicit val gl2:WebGL2RenderingContext = gl.asInstanceOf[WebGL2RenderingContext]
 
   // C function void glReadBuffer ( GLenum mode )
 

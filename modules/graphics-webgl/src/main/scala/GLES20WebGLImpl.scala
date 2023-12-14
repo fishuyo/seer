@@ -17,7 +17,7 @@ import scalajs.js.typedarray.TypedArrayBufferOps._
 
 object TextureUtil {
   val textures = HashMap[Int,WebGLTexture]()
-  implicit def int2texture(id:Int) = textures(id) 
+  implicit def int2texture(id:Int):WebGLTexture = textures(id) 
   
   def apply(id:Int) = textures(id)
   def nextId():Int = {
@@ -40,7 +40,7 @@ object TextureUtil {
 
 object BufferUtil {
   val buffers = HashMap[Int,WebGLBuffer]()
-  implicit def int2buffer(id:Int) = buffers(id) 
+  implicit def int2buffer(id:Int):WebGLBuffer = buffers(id) 
   
   def apply(id:Int) = buffers(id)
   def nextId():Int = {
@@ -63,7 +63,7 @@ object BufferUtil {
 
 object ShaderUtil {
   val shaders = HashMap[Int,WebGLShader]()
-  implicit def int2shader(id:Int) = shaders(id) 
+  implicit def int2shader(id:Int):WebGLShader = shaders(id) 
   
   def apply(id:Int) = shaders(id)
   def nextId():Int = {
@@ -86,7 +86,7 @@ object ShaderUtil {
 
 object ProgramUtil {
   val programs = HashMap[Int,WebGLProgram]()
-  implicit def int2program(id:Int) = programs(id) 
+  implicit def int2program(id:Int):WebGLProgram = programs(id) 
   
   def apply(id:Int) = programs(id)
   def nextId():Int = {
@@ -109,7 +109,7 @@ object ProgramUtil {
 
 object UniformLocationUtil {
   val uniforms = HashMap[Int,WebGLUniformLocation]()
-  implicit def int2uniform(id:Int) = uniforms(id) 
+  implicit def int2uniform(id:Int):WebGLUniformLocation = uniforms(id) 
   
   def apply(id:Int) = uniforms(id)
   def nextId():Int = {
@@ -132,7 +132,7 @@ object UniformLocationUtil {
 
 object RenderbufferUtil {
   val buffers = HashMap[Int,WebGLRenderbuffer]()
-  implicit def int2renderbuffer(id:Int) = buffers(id) 
+  implicit def int2renderbuffer(id:Int):WebGLRenderbuffer = buffers(id) 
   
   buffers(0) = null
 
@@ -157,7 +157,7 @@ object RenderbufferUtil {
 
 object FramebufferUtil {
   val buffers = HashMap[Int,WebGLFramebuffer]()
-  implicit def int2framebuffer(id:Int) = buffers(id) 
+  implicit def int2framebuffer(id:Int):WebGLFramebuffer = buffers(id) 
   buffers(0) = null
   
   def apply(id:Int) = buffers(id)
@@ -188,7 +188,7 @@ class GLES20WebGLImpl(gl:WebGLRenderingContext) extends GLES20 {
   import RenderbufferUtil._
   import FramebufferUtil._
 
-  implicit val g = gl
+  implicit val g:WebGLRenderingContext = gl
 
   def glActiveTexture (texture:Int):Unit = gl.activeTexture(texture)
 
