@@ -4,5 +4,4 @@ class TestActor extends SeerActor {
 
   println("hotdog")
 }
-
 classOf[TestActor]

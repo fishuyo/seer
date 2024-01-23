@@ -6,7 +6,8 @@ libraryDependencies ++= Seq(
   // "org.scala-lang" % "scala-library" % scalaVersion.value,
   // "com.github.dmytromitin" %% "eval" % "0.1",
 
-  "com.eed3si9n.eval" %% "eval" % "0.2.0" cross CrossVersion.full,
+  // "com.eed3si9n.eval" %% "eval" % "0.2.0" cross CrossVersion.full,
+  "com.eed3si9n.eval" %% "eval" % "0.3.0" cross CrossVersion.full,
 
   "com.typesafe.akka" %% "akka-actor" % Dependencies.akka.version,
   // "com.typesafe.akka" %% "akka-remote" % Dependencies.akka.version,

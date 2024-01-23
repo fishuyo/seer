@@ -81,7 +81,7 @@ trait ScriptLoader {
 
   var code=""
   var path:Option[String] = None
-  var result:AnyRef = null              // result of evaluating code
+  var result:Any = null              // result of evaluating code
   var errors:Seq[(Int,String)] = Seq()  // seq of lineNumber -> message tuples
 
   def setPath(s:String) = path = Some(s)
@@ -105,7 +105,7 @@ trait ScriptLoader {
 
       errors = Seq()
       unload()
-      val ret = Eval[AnyRef](getCode())//eval[AnyRef]()
+      val ret = Eval[Any](getCode())//eval[AnyRef]()
       ret match{
         case s:Script =>
           result = ret
@@ -122,6 +122,8 @@ trait ScriptLoader {
         case c:Class[_] if c.getSuperclass == classOf[SeerActor] =>
           val r = ".*\\$(.*)\\$.".r
           val r(simple) = c.getName
+          println(c)
+          println(c.getName)
           // val id = s"live.$simple.${util.Random.int()}"
           val id = s"live.$simple.$gid"
           gid += 1
