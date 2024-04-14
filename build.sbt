@@ -12,12 +12,12 @@ ThisBuild / updateOptions := updateOptions.value.withCachedResolution(true)
  * Core Modules
  */
 
-// Runtime modules provide an interface for building applications from modular components
+// Runtime modules provide an interface for building up applications from modular components at runtime
 lazy val runtime = crossProject(JVMPlatform, JSPlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/core/runtime"))
 
-// Base spatial math and data handling
+// Base spatial math and types
 lazy val math = crossProject(JVMPlatform, JSPlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/core/math"))
@@ -37,19 +37,24 @@ lazy val audio = crossProject(JVMPlatform, JSPlatform)
   .settings(libraryDependencies ++= Dependencies.audio.value)
 
 
-// ?? split up into: Parameter
+// Compiler interface enabling Scripting / Live-coding / Runtime compilation
+lazy val compiler = project
+  .in(file("modules/core/compiler"))
+  // .dependsOn(actor.jvm)
+
+lazy val osc = project
+  .in(file("modules/core/osc"))
+  .settings(libraryDependencies += "de.sciss" %% "scalaosc" % "1.3.1")
+  // .dependsOn(actor.jvm)
+
+
+// Base Pekko actor utilities 
 lazy val actor = crossProject(JVMPlatform, JSPlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/core/actor"))
 
-// Live-coding interface
-lazy val live = project
-  .in(file("modules/core/live"))
-  .dependsOn(actor.jvm)
-
-
 /**
- * Backend Implementations
+ * Backend Audio/Graphics Implementations
  */
 lazy val graphics_lwjgl = project
   .in(file("modules/backends/graphics-lwjgl"))
@@ -103,10 +108,10 @@ lazy val examples = project //crossProject(JVMPlatform, JSPlatform)
   // .crossType(CrossType.Pure)
   .in(file("examples"))
   // .dependsOn(math)
-  .dependsOn(app.jvm, math.jvm, live) // multitouch, video)
+  .dependsOn(app.jvm, math.jvm, compiler, ndi, osc) // multitouch, video)
   .settings(Settings.app: _*)
 
-// lazy val examplesJVM = examples.jvm.dependsOn(graphics_lwjgl, audio_portaudio, audio_jack, live, multitouch)
+// lazy val examplesJVM = examples.jvm.dependsOn(graphics_lwjgl, audio_portaudio, audio_jack, compiler, multitouch)
 // lazy val examplesJS = examples.js.dependsOn(graphics_webgl)
 
 lazy val examplesjs = project.enablePlugins(ScalaJSPlugin)
@@ -138,7 +143,7 @@ lazy val examplesjs = project.enablePlugins(ScalaJSPlugin)
 //   .settings(libraryDependencies += "uk.co.caprica" % "vlcj" % "4.8.2")
 
 
-
-lazy val server_base = project
-  .in(file("modules/server/server-base"))
-  
+// val ndi = project
+//   .in(file("modules/extensions/video-ndi"))
+//   .dependsOn(app.jvm)
+//   .settings(Settings.app: _*)
