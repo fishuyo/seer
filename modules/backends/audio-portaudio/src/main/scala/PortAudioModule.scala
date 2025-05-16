@@ -41,7 +41,7 @@ class PortAudioModule extends PaCallback with Module with AudioIO {
     }
   // }
 
-  override def init() = {
+  override def create() = {
     println("Initializing PortAudio Module..")
 
     try{ JPA.initialize() }
@@ -54,10 +54,9 @@ class PortAudioModule extends PaCallback with Module with AudioIO {
 
 
   override def start() = JPA.startStream 
-  override def startBlocking() = {}
 
 
-  override def cleanup() = JPA.stopStream 
+  override def destroy() = JPA.stopStream 
   
 
 

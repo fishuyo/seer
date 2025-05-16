@@ -11,31 +11,29 @@ object ShaderToy extends SeerApp {
 
   var timer = 0.0
   var shader:ShaderProgram = _
-  val vertpath = "src/main/scala/live/shaders/test.vert"
-  val fragpath = "src/main/scala/live/shaders/test.frag"
+  val shaderpath = os.pwd / "src/main/scala/live/shaders"
 
-  var vertcode = Source.fromFile(vertpath).mkString
-  var fragcode = Source.fromFile(fragpath).mkString
+
+  var vertcode = os.read(shaderpath / "test.vert")
+  var fragcode = os.read(shaderpath / "test.frag")
 
   var mesh:Mesh = _
   var texture:Texture = _
 
-  graphics.onInit = () => {
+  graphics.onCreate = () => {
     val gl = Graphics().gl
     import gl._ 
 
     shader = new ShaderProgram()
     shader.setCode(vertcode, fragcode)
 
-    FileMonitor(vertpath){ (f) => 
-      vertcode = Source.fromFile(f.pathAsString).mkString
+    // FileMonitor(shaderpath){ (paths:Set[os.Path]) => 
+    FileMonitor(shaderpath.toString){ (f) => 
+      println("files changed: " + f.toString)
+      vertcode = os.read(shaderpath / "test.vert")
+      fragcode = os.read(shaderpath / "test.frag")
       shader.setCode(vertcode, fragcode)
     }
-    FileMonitor(fragpath){ (f) => 
-      fragcode = Source.fromFile(f.pathAsString).mkString
-      shader.setCode(vertcode, fragcode)
-    }
-
     
     mesh = new Mesh()
     mesh.resize(4, hasTexcoords=true)

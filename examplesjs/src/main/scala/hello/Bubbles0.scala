@@ -9,12 +9,12 @@ import scala.scalajs.js.annotation._
 @JSExportTopLevel("Bubbles0")
 object Bubbles0 extends SeerApp {
 
-	var timer = 0.001
+  var timer = 0.001
   var shader:ShaderProgram = _
   var mesh:Mesh = _
 
 
-  graphics.onInit = () => {
+  graphics.onCreate = () => {
     val gl = Graphics().gl
     import gl._ 
 
@@ -108,20 +108,20 @@ object Bubbles0 extends SeerApp {
 
   }
 
-	graphics.onUpdate = (dt:Double) => {
-		timer += dt
-		// if(timer > 0.5) timer = 0.0
+  graphics.onUpdate = (dt:Double) => {
+    timer += dt
+    // if(timer > 0.5) timer = 0.0
     // mesh.update()    
-	}
+  }
 
-	graphics.onDraw = (g:Graphics) => {
-		import g.gl._
+  graphics.onDraw = (g:Graphics) => {
+    import g.gl._
 
     shader.bind()
     shader.uniform("time", timer)
     shader.uniform("mouse", Vec2(0.5f,0.5f))
 
     mesh.draw()
-	}
+  }
 
 }

@@ -1,86 +1,63 @@
-// import scala.reflect.internal.util.{AbstractFileClassLoader, BatchSourceFile}
-// import scala.reflect.io.{AbstractFile, VirtualDirectory}
-// import scala.reflect.runtime
-// import scala.reflect.runtime.universe
-// import scala.reflect.runtime.universe._
-// import scala.tools.nsc.{Global, Settings}
-// import scala.collection.mutable
-// import java.security.MessageDigest
-// import java.math.BigInteger
+package seer
+package compiler
 
-// class Compiler(targetDir: Option[File]) {
 
-//   val target = targetDir match {
-//     case Some(dir) => AbstractFile.getDirectory(dir)
-//     case None => new VirtualDirectory("(memory)", None)
+import java.io.File
+import scala.io.Source
+
+import com.eed3si9n.eval._
+
+
+object Compiler {
+
+  def eval[T](source:String) : T = {
+    Eval[T](source)
+  }
+
+}
+
+
+/**
+  * Toolbox implementation of a ScriptLoader
+  */
+// class ToolboxScriptLoader extends ScriptLoader {
+//   val toolbox = ScriptManager.toolbox //currentMirror.mkToolBox() 
+
+//   def eval[T]() : T = {
+//     val source = getCode()
+//     val tree = toolbox.parse(source)
+//     toolbox.eval(tree).asInstanceOf[T]
+//   }
+  
+//   override def checkErrors() = {
+//     if(toolbox.frontEnd.hasErrors){
+//       val errs = toolbox.frontEnd.infos.map { case info =>
+//         val line = info.pos.line
+//         val msg = s"""
+//           ${info.msg}
+//           ${info.pos.lineContent}
+//           ${info.pos.lineCaret} 
+//         """
+//         (line,msg)
+//       }.toSeq
+//       errors = errs
+//     } else errors = Seq()
 //   }
 
-//   val classCache = mutable.Map[String, Class[_]]()
-
-//   private val settings = new Settings()
-//   settings.deprecation.value = true // enable detailed deprecation warnings
-//   settings.unchecked.value = true // enable detailed unchecked warnings
-//   settings.outputDirs.setSingleOutput(target)
-//   settings.usejavacp.value = true
-
-//   private val global = new Global(settings)
-//   private lazy val run = new global.Run
-
-//   val classLoader = new AbstractFileClassLoader(target, this.getClass.getClassLoader)
-
-//   /**Compiles the code as a class into the class loader of this compiler.
-//    *
-//    * @param code
-//    * @return
-//    */
-//   def compile(code: String) = {
-//     val className = classNameForCode(code)
-//     findClass(className).getOrElse {
-//       val sourceFiles = List(new BatchSourceFile("(inline)", wrapCodeInClass(className, code)))
-//       run.compileSources(sourceFiles)
-//       findClass(className).get
-//     }
-//   }
-
-//   /** Compiles the source string into the class loader and
-//    * evaluates it.
-//    *
-//    * @param code
-//    * @tparam T
-//    * @return
-//    */
-//   def eval[T](code: String): T = {
-//     val cls = compile(code)
-//     cls.getConstructor().newInstance().asInstanceOf[() => Any].apply().asInstanceOf[T]
-//   }
-
-//   def findClass(className: String): Option[Class[_]] = {
-//     synchronized {
-//       classCache.get(className).orElse {
-//         try {
-//           val cls = classLoader.loadClass(className)
-//           classCache(className) = cls
-//           Some(cls)
-//         } catch {
-//           case e: ClassNotFoundException => None
-//         }
-//       }
-//     }
-//   }
-
-//   protected def classNameForCode(code: String): String = {
-//     val digest = MessageDigest.getInstance("SHA-1").digest(code.getBytes)
-//     "sha"+new BigInteger(1, digest).toString(16)
-//   }
-
-//   /*
-//   * Wrap source code in a new class with an apply method.
-//   */
-//   private def wrapCodeInClass(className: String, code: String) = {
-//     "class " + className + " extends (() => Any) {\n" +
-//       "  def apply() = {\n" +
-//       code + "\n" +
-//       "  }\n" +
-//       "}\n"
-//   }
 // }
+
+
+// import javax.script.ScriptEngineManager
+
+// class DummyClass
+
+// object Evaluator {
+//   val engine = new ScriptEngineManager().getEngineByName("scala")
+//   val settings = engine.asInstanceOf[scala.tools.nsc.interpreter.IMain].settings
+//   settings.embeddedDefaults[DummyClass]
+//   engine.eval("val x: Int = 5")
+//   val thing = engine.eval("x + 9").asInstanceOf[Int]
+// }
+
+
+

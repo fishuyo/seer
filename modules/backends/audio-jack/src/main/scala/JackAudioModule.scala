@@ -48,7 +48,7 @@ class JackAudioModule extends JackProcessCallback with Module with AudioIO {
     true
   }
 
-  override def init() = {
+  override def create() = {
     var o = EnumSet.of(JackOptions.JackNullOption)
     var s = EnumSet.of(JackStatus.JackFailure)
     val client = jack.openClient("seer", o, s)

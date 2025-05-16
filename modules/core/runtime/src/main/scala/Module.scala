@@ -10,10 +10,9 @@ package seer
 
 trait Module {
 
-  def init() = {}
-  def cleanup() = {}
+  def create() = {}
+  def destroy() = {}
 
-  def startBlocking() = {}
   def start() = {}
   def stop() = {}
 

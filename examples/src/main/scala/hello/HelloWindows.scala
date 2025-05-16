@@ -12,7 +12,7 @@ object HelloWindows extends SeerApp {
   var timers = collection.mutable.ArrayBuffer[Double]()
 
   // We create 15 windows in onInit each with its own draw function
-  graphics.onInit = () => {
+  graphics.onCreate = () => {
 
     val numWindows = 15
     val (sw,sh) = Screen.size()

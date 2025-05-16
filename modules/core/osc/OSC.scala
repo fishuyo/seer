@@ -38,6 +38,7 @@ trait OSCReceiver {
   def listen(port:Int=8000) = {
 
     cfg = UDP.Config()
+    cfg.codec = PacketCodec().doublesAsFloats().booleansAsInts()
     cfg.localPort = port  // 0x53 0x4F or 'SO'
     rcv = UDP.Receiver( cfg )
 

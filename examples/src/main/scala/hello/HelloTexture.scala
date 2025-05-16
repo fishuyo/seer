@@ -21,7 +21,7 @@ object HelloTexture extends SeerApp {
   val bytes = 4
   val image = Image(w,h,channels,bytes)
 
-  graphics.onInit = () => {
+  graphics.onCreate = () => {
     val gl = Graphics().gl
     import gl._ 
 

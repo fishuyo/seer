@@ -11,11 +11,11 @@ import actor._
 // import flow._
 // import openni._
 
-import akka.actor._
-import akka.event.Logging
+import org.apache.pekko.actor._
+import org.apache.pekko.event.Logging
 
-import akka.stream._
-import akka.stream.scaladsl._
+// import org.apache.pekko.stream._
+// import org.apache.pekko.stream.scaladsl._
 import scala.concurrent.duration._
 
 object SeerActor {
@@ -35,7 +35,7 @@ class SeerActor extends Actor { //with ActorLogging with Animatable with AudioSo
   var active = true
 
   implicit val system:ActorSystem = System()
-  implicit val materializer:ActorMaterializer = ActorMaterializer()
+  // implicit val materializer:ActorMaterializer = ActorMaterializer()
 
   // implicit def source2io[T,M](src:Source[T,M]) = IOSource(src)
   // implicit val kill = KillSwitches.shared("script")

@@ -1,7 +1,30 @@
 
 package seer.actor
 
-import akka.actor._
+// object FileMonitor {
+
+//   val watchers = collection.mutable.HashMap[os.Path, AutoCloseable]()
+
+//   def apply(path: os.Path)(callback: Set[os.Path] => Unit) = {
+
+//     println("watching: " + path.toString)
+//     val w = os.watch.watch(Seq(path), callback)
+//     watchers(path) = w
+
+//   }
+
+//   def close(path: os.Path) = {
+//     if(watchers.contains(path)){
+//       watchers(path).close()
+//       watchers.remove(path)
+//     }
+//   }
+// }
+
+
+// old code
+
+// import org.apache.pekko.actor._
 
 import better.files._
 import io.methvin.better.files._
@@ -19,7 +42,7 @@ object FileMonitor {
 
   val watchers = collection.mutable.HashMap[String,RecursiveFileMonitor]()
 
-  implicit val sys:ActorSystem = System()
+  // implicit val sys:ActorSystem = System()
   // val monitorActor = System().actorOf(MonitorActor(concurrency = 2))
 
   def apply(path:String, rec:Boolean=false)(f:(File)=>Unit) = {

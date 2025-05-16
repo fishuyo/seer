@@ -5,7 +5,7 @@ import audio._
 
 object HelloAudio extends App {
 
-  val runtime = new Runtime()
+  val runtime = new SeerRuntime()
   val audio = new PortAudioModule()
 
   runtime.useModules(audio :: List())
@@ -19,7 +19,7 @@ object HelloAudio extends App {
     }
   }
 
-  runtime.onInit = () => {}
+  runtime.onCreate = () => {}
   runtime.onStart = () => { while(true){Thread.sleep(100)} }
 
   runtime.run()

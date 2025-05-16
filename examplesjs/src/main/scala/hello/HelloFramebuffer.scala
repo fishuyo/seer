@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation._
 @JSExportTopLevel("HelloFramebuffer")
 object HelloFramebuffer extends SeerApp {
 
-	var timer = 0.0
+  var timer = 0.0
   var shader:ShaderProgram = _
   var texshader:ShaderProgram = _
   var mesh:Mesh = _
@@ -26,7 +26,7 @@ object HelloFramebuffer extends SeerApp {
   val image = Image(w,h,channels,bytes)
 
 
-  graphics.onInit = () => {
+  graphics.onCreate = () => {
     val gl = Graphics().gl
     import gl._ 
 
@@ -97,18 +97,18 @@ object HelloFramebuffer extends SeerApp {
 
   }
 
-	graphics.onUpdate = (dt:Double) => {
-		timer += dt
-		if(timer > 0.5) timer = 0.0
+  graphics.onUpdate = (dt:Double) => {
+    timer += dt
+    if(timer > 0.5) timer = 0.0
 
     for(i <- 0 until coords.length) coords(i) += Random.float(-0.005f, 0.005f)()
     mesh.vertices.put(coords)
     mesh.update()
     
-	}
+  }
 
-	graphics.onDraw = (g:Graphics) => {
-		import g.gl._
+  graphics.onDraw = (g:Graphics) => {
+    import g.gl._
 
     fbo.begin()
     glViewport(0,0,w,h)
@@ -132,6 +132,6 @@ object HelloFramebuffer extends SeerApp {
     tex.bind(0)
     quad.draw()
 
-	}
+  }
 
 }

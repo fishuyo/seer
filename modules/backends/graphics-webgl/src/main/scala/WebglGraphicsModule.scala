@@ -20,6 +20,7 @@ class WebglGraphicsModule extends Module {
   var g:GraphicsWebGLImpl = _
   
   var onInit = () => {}
+  var onCreate = () => {}
   var onUpdate = (dt:Double) => {}
   var onDraw = (g:Graphics) => {}
 
@@ -31,7 +32,7 @@ class WebglGraphicsModule extends Module {
 
   var (w,h) = (0,0)
 
-  override def init() = {
+  override def create() = {
     println("Initializing WebGL Graphics RuntimeModule..")
     // println("WebGL Version " + Version.getVersion())
 
@@ -94,7 +95,7 @@ class WebglGraphicsModule extends Module {
     dom.window.requestAnimationFrame(run)
   }
 
-  override def cleanup() = {
+  override def destroy() = {
   }
 
 }

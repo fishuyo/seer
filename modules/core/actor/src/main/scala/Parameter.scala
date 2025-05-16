@@ -2,8 +2,8 @@
 package seer
 package actor
 
-import akka.actor._
-import akka.util._
+import org.apache.pekko.actor._
+import org.apache.pekko.util._
 import scala.reflect.ClassTag
 import collection.mutable.ListBuffer
 import collection.mutable.ArrayBuffer
@@ -12,7 +12,7 @@ import concurrent.Await
 import scala.util.Success
 
 import scala.concurrent.duration._
-import akka.pattern.ask
+import org.apache.pekko.pattern.ask
 
 // import com.twitter.chill.KryoInjection
 

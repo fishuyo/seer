@@ -6,8 +6,8 @@ import audio._
 
 class SeerApp {
 
-  val runtime = new Runtime
-  val graphics = new LwjglGraphicsModule()
+  val runtime = new SeerRuntime
+  val graphics = new GraphicsModule()
   val audio = new PortAudioModule()
 
   runtime.useModules(audio :: graphics :: List())

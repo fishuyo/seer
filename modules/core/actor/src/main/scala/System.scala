@@ -2,11 +2,11 @@
 package seer
 package actor
 
-import akka.actor._
-import akka.actor.Props
+import org.apache.pekko.actor._
+import org.apache.pekko.actor.Props
 import com.typesafe.config.ConfigFactory
-// import akka.event.Logging
-// import akka.actor.ActorSystem
+// import org.apache.pekko.event.Logging
+// import org.apache.pekko.actor.ActorSystem
 
 import collection.mutable.ListBuffer
 
@@ -19,7 +19,7 @@ object System {
   }
   def update(s:ActorSystem) = system = s
 
-  def address = System().asInstanceOf[akka.actor.ExtendedActorSystem].provider.getDefaultAddress
+  def address = System().asInstanceOf[ExtendedActorSystem].provider.getDefaultAddress
 
   def broadcast(msg:Any) = apply().actorSelection("/user/live.*") ! msg
   def send(name:String, msg:Any) = apply().actorSelection(s"/user/live.$name.*") ! msg
@@ -36,9 +36,9 @@ object ActorSystemManager {
 
   def apply(address:Address) = {
     address.protocol match {
-      case "akka" => artery(address.host.get,address.port.get,address.system)
-      case "akka.tcp" => tcp(address.host.get,address.port.get,address.system)
-      case "akka.udp" => udp(address.host.get,address.port.get,address.system)
+      case "pekko" => artery(address.host.get,address.port.get,address.system)
+      case "pekko.tcp" => tcp(address.host.get,address.port.get,address.system)
+      case "pekko.udp" => udp(address.host.get,address.port.get,address.system)
       case _ => default(address.system)
     }
   }
@@ -51,13 +51,13 @@ object ActorSystemManager {
 
 
   def config_artery(hostname:String=Hostname(), port:Int=2552) = ConfigFactory.parseString(s"""
-    akka {
+    pekko {
       actor {
         provider = remote
         allow-java-serialization = off
         $kryo
         serializers {
-          kryo = "io.altoo.akka.serialization.kryo.KryoSerializer"
+          kryo = "io.altoo.serialization.kryo.pekko.PekkoKryoSerializer"
         }
         serialization-bindings {
           "java.io.Serializable" = kryo
@@ -78,17 +78,16 @@ object ActorSystemManager {
           }
         }
       }
-      extensions = ["com.romix.akka.serialization.kryo.KryoSerializationExtension$$"]
     }
   """)
 
   def config_tcp(hostname:String=Hostname(), port:Int=2552) = ConfigFactory.parseString(s"""
-    akka {
+    pekko {
       actor {
         provider = remote
       }
       remote {
-        enabled-transports = ["akka.remote.netty.tcp"]
+        enabled-transports = ["pekko.remote.netty.tcp"]
         netty.tcp {
           send-buffer-size = 20MiB
           receive-buffer-size = 20MiB
@@ -101,21 +100,21 @@ object ActorSystemManager {
      }
     }
   """)
-    // akka.actor.serializers {
-    //   kryo = "com.twitter.chill.akka.AkkaSerializer"
+    // pekko.actor.serializers {
+    //   kryo = "com.twitter.chill.pekko.AkkaSerializer"
     // }
-    // akka.actor.serialization-bindings {
+    // pekko.actor.serialization-bindings {
     //  "seer.spatial.Vec3" = kryo
     // }
   // """)
 
   def config_udp(hostname:String=Hostname(), port:Int=2552) = ConfigFactory.parseString(s"""
-    akka {
+    pekko {
       actor {
         provider = remote
       }
       remote {
-        enabled-transports = ["akka.remote.netty.udp"]
+        enabled-transports = ["pekko.remote.netty.udp"]
         netty.udp {
           send-buffer-size = 20MiB
           receive-buffer-size = 20MiB
@@ -127,10 +126,10 @@ object ActorSystemManager {
         zlib-compression-level = 1
      }
     }
-    akka.actor.serializers {
-      kryo = "com.twitter.chill.akka.AkkaSerializer"
+    pekko.actor.serializers {
+      kryo = "com.twitter.chill.pekko.AkkaSerializer"
     }
-    akka.actor.serialization-bindings {
+    pekko.actor.serialization-bindings {
       "scala.Product" = kryo
       "scala.collection.mutable.ArrayBuffer" = kryo
       "seer.graphics.MeshLike" = kryo
@@ -147,9 +146,10 @@ object ActorSystemManager {
   """)
 
 
+  val kryo = """"""
 
-  val kryo = """
-  akka-kryo-serialization {
+  val kryo_less_old = """
+  pekko-kryo-serialization {
   # Possibles values for type are: graph or nograph
   # graph supports serialization of object graphs with shared nodes
   # and cyclic references, but this comes at the expense of a small overhead
@@ -182,14 +182,14 @@ object ActorSystemManager {
 
   # The serialization byte buffers are doubled as needed until they exceed
   # maxBufferSize and an exception is thrown. Can be -1 for no maximum.
-  # must be < akka.remote.artery.advanced.maximum-frame-size
+  # must be < pekko.remote.artery.advanced.maximum-frame-size
   max-buffer-size = -1
 
-  # To use a custom queue the [[io.altoo.akka.serialization.kryo.DefaultQueueBuilder]]
+  # To use a custom queue the [[io.altoo.pekko.serialization.kryo.DefaultQueueBuilder]]
   # can be extended and registered here.
-  queue-builder = "io.altoo.akka.serialization.kryo.DefaultQueueBuilder"
+  queue-builder = "io.altoo.pekko.serialization.kryo.DefaultQueueBuilder"
 
-  # If set, akka uses manifests to put a class name
+  # If set, pekko uses manifests to put a class name
   # of the top-level object into each message
   use-manifests = false
 
@@ -209,15 +209,15 @@ object ActorSystemManager {
 
   # Settings for aes encryption, if included in transformations AES
   # algo mode, key and custom key class can be specified AES algo mode.
-  # The configured key provider class `io.altoo.akka.serialization.kryo.DefaultKeyProvider`
+  # The configured key provider class `io.altoo.pekko.serialization.kryo.DefaultKeyProvider`
   # derives a key from the configured password and salt.
-  # To dynamically provide an aes key extend the `io.altoo.akka.serialization.kryo.DefaultKeyProvider`
+  # To dynamically provide an aes key extend the `io.altoo.pekko.serialization.kryo.DefaultKeyProvider`
   # and configure it here.
   #
   # Example configuration:
   # encryption {
   #   aes {
-  #     key-provider = "io.altoo.akka.serialization.kryo.DefaultKeyProvider"
+  #     key-provider = "io.altoo.pekko.serialization.kryo.DefaultKeyProvider"
   #     mode = "AES/GCM/NoPadding"
   #     iv-length = 12
   #     # password/salt properties are only required when using the default key provider
@@ -240,11 +240,11 @@ object ActorSystemManager {
   # better performance.
   kryo-reference-map = true
 
-  # For more advanced customizations the [[io.altoo.akka.serialization.kryo.DefaultKryoInitializer]]
+  # For more advanced customizations the [[io.altoo.pekko.serialization.kryo.DefaultKryoInitializer]]
   # can be subclassed and configured here.
   # The preInit can be used to change the default field serializer.
   # The postInit can be used to register additional serializers and classes.
-  kryo-initializer = "io.altoo.akka.serialization.kryo.DefaultKryoInitializer"
+  kryo-initializer = "io.altoo.pekko.serialization.kryo.DefaultKryoInitializer"
 
   # If enabled, allows Kryo to resolve subclasses of registered Types.
   #
@@ -276,7 +276,7 @@ object ActorSystemManager {
   # Some helpful mappings are provided through `supplied-basic-mappings`
   # and can be added/extended by:
   #
-  # mappings = ${akka-kryo-serialization.optional-basic-mappings} {
+  # mappings = ${pekko-kryo-serialization.optional-basic-mappings} {
   #   fully.qualified.classname1 = id1
   #   fully.qualified.classname2 = id2
   # }
@@ -445,7 +445,7 @@ object ActorSystemManager {
       # for no maximum.
       max-buffer-size = -1
 
-      # If set, akka uses manifests to put a class name
+      # If set, pekko uses manifests to put a class name
       # of the top-level object into each message
       use-manifests = false
 

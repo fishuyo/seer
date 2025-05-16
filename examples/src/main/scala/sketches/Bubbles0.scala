@@ -12,7 +12,7 @@ object Bubbles0 extends SeerApp {
   var mesh:Mesh = _
 
 
-  graphics.onInit = () => {
+  graphics.onCreate = () => {
     val gl = Graphics().gl
     import gl._ 
 

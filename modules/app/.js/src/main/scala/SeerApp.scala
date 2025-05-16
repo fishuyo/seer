@@ -8,18 +8,18 @@ import graphics._
 
 class SeerApp {
 
-  val runtime = new Runtime
+  val runtime = new SeerRuntime
   val graphics = new WebglGraphicsModule()
-	// val audio = new PortAudioModule()
+  // val audio = new PortAudioModule()
 
-	runtime.useModules(graphics :: List())
+  runtime.useModules(graphics :: List())
 
   def parseArgs(args:Array[String]) = {}
 
-  @JSExport
-  def main(args: Array[String]): Unit = {
-    parseArgs(args)
+  //@JSExport
+  // def main(args: Array[String]): Unit = {
+  //   parseArgs(args)
 
-    runtime.run()
-  }
+  //   runtime.run()
+  // }
 }

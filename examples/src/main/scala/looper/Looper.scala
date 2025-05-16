@@ -18,7 +18,7 @@ object LooperMain extends SeerApp {
     looper.audioIO(io)
   }
 
-  graphics.onInit = () => {
+  graphics.onCreate = () => {
     val gl = Graphics().gl
     import gl._ 
 

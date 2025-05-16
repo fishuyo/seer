@@ -24,7 +24,7 @@ object HelloFramebuffer extends SeerApp {
   val image = Image(w,h,channels,bytes)
 
 
-  graphics.onInit = () => {
+  graphics.onCreate = () => {
     val gl = Graphics().gl
     import gl._ 
 
