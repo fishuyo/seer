@@ -112,7 +112,7 @@ lazy val graphics_webgl = project.enablePlugins(ScalaJSPlugin)
     Compile / npmDependencies ++= Seq(
       "@types/webgl2" -> "0.0.6"
     ),
-    useYarn := true
+    // useYarn := true
   )
 
 lazy val audio_portaudio = project
