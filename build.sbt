@@ -1,22 +1,27 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
+import xerial.sbt.Sonatype.sonatypeCentralHost
 
 
-ThisBuild / organization := "com.fishuyo.seer"
+ThisBuild / organization := "io.github.fishuyo"
 ThisBuild / scalaVersion := "3.3.3"
 ThisBuild / version      := "0.2.0-SNAPSHOT"
 ThisBuild / updateOptions := updateOptions.value.withCachedResolution(true)
 
+
+ThisBuild / sonatypeCredentialHost := sonatypeCentralHost
+// ThisBuild / sbtPluginPublishLegacyMavenStyle := false
 ThisBuild / versionScheme := Some("early-semver")
 ThisBuild / publishMavenStyle := true
-ThisBuild / publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases" at nexus + "service/local/staging/deploy/maven2")
-}
+ThisBuild / publishTo := sonatypePublishTo.value
+// {
+//   val nexus = "https://oss.sonatype.org/"
+//   if (isSnapshot.value)
+//     Some("snapshots" at nexus + "content/repositories/snapshots")
+//   else
+//     Some("releases" at nexus + "service/local/staging/deploy/maven2")
+// }
 
-ThisBuild / pomIncludeRepository := { _ => false }
+// ThisBuild / pomIncludeRepository := { _ => false }
 ThisBuild / licenses := Seq("BSD-3-Clause" -> url("https://opensource.org/licenses/BSD-3-Clause"))
 ThisBuild / homepage := Some(url("https://github.com/fishuyo/seer"))
 ThisBuild / scmInfo := Some(
@@ -33,8 +38,8 @@ ThisBuild / developers := List(
     url = url("http://embodiedworlds.com")
   )
 )
-ThisBuild / sonatypeCredentialHost := "oss.sonatype.org"
-ThisBuild / sonatypeRepository := "https://oss.sonatype.org/service/local"
+// ThisBuild / sonatypeCredentialHost := "oss.sonatype.org"
+ThisBuild / sonatypeRepository := "https://central.sonatype.com/repository/maven-snapshots/" //"https://oss.sonatype.org/service/local"
 
 
 /*

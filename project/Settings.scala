@@ -33,32 +33,32 @@ object Settings {
     // pomIncludeRepository := { _ =>
     //   false
     // },
-    licenses := Seq(
-      "BSD-style" -> url("http://www.opensource.org/licenses/bsd-license.php")
-    ),
-    homepage := Some(url("http://fishuyo.com/projects/seer")),
-    scmInfo := Some(
-      ScmInfo(
-        url("https://github.com/fishuyo/seer"),
-        "scm:git@github.com:fishuyo/seer.git"
-      )
-    ),
-    developers := List(
-      Developer(
-        id = "fishuyo",
-        name = "Timothy Wood",
-        email = "fishuyo@gmail.com",
-        url = url("http://embodiedworlds.com")
-      )
-    ),
-    publishMavenStyle := true,
-    publishTo := {
-      val nexus = "https://oss.sonatype.org/"
-      if (isSnapshot.value)
-        Some("snapshots" at nexus + "content/repositories/snapshots")
-      else
-        Some("releases" at nexus + "service/local/staging/deploy/maven2")
-    }
+    // licenses := Seq(
+      // "BSD-style" -> url("http://www.opensource.org/licenses/bsd-license.php")
+    // ),
+    // homepage := Some(url("http://fishuyo.com/projects/seer")),
+    // scmInfo := Some(
+      // ScmInfo(
+        // url("https://github.com/fishuyo/seer"),
+        // "scm:git@github.com:fishuyo/seer.git"
+      // )
+    // ),
+    // developers := List(
+      // Developer(
+        // id = "fishuyo",
+        // name = "Timothy Wood",
+        // email = "fishuyo@gmail.com",
+        // url = url("http://embodiedworlds.com")
+      // )
+    // ),
+    // publishMavenStyle := true,
+    // publishTo := {
+      // val nexus = "https://oss.sonatype.org/"
+      // if (isSnapshot.value)
+        // Some("snapshots" at nexus + "content/repositories/snapshots")
+      // else
+        // Some("releases" at nexus + "service/local/staging/deploy/maven2")
+    // }
   )
 
   lazy val app = common ++ Seq(
