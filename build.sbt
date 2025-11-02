@@ -3,7 +3,7 @@ import xerial.sbt.Sonatype.sonatypeCentralHost
 
 
 ThisBuild / organization := "io.github.fishuyo"
-ThisBuild / scalaVersion := "3.3.3"
+ThisBuild / scalaVersion := "3.3.1"
 ThisBuild / version      := "0.2.0-SNAPSHOT"
 ThisBuild / updateOptions := updateOptions.value.withCachedResolution(true)
 

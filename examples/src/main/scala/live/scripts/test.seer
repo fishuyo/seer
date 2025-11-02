@@ -1,6 +1,7 @@
 import seer.live._
 
-class TestActor extends SeerActor {
+class TestActor(a:Int) extends SeerActor {
+  //def this() = {}
 
   println("hotdog")
 }

@@ -1,4 +1,6 @@
 
+Compile / fork := true
+
 libraryDependencies ++= Seq(
   // "com.twitter" %% "util-eval" % "6.43.0",
   // "org.scala-lang" % "scala-reflect" % scalaVersion.value,

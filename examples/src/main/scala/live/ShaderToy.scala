@@ -52,7 +52,8 @@ object ShaderToy extends SeerApp {
     import g.gl._
 
     shader.bind()
-    mesh.draw()
+    shader.uniform("time", timer)
+    mesh.draw() 
   }
 
 }
