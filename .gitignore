@@ -7,7 +7,7 @@ target/
 .bloop/
 .metals/
 .bsp/
+project
 project/metals.sbt
-.scalafmt.conf
 .DS_Store
 

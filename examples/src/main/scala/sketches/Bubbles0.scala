@@ -1,20 +1,18 @@
-package seer 
+package seer
 package examples
 
 import graphics._
 import math._
 
-
 object Bubbles0 extends SeerApp {
 
   var timer = 0.0
-  var shader:ShaderProgram = _
-  var mesh:Mesh = _
-
+  var shader: ShaderProgram = _
+  var mesh: Mesh = _
 
   graphics.onCreate = () => {
     val gl = Graphics().gl
-    import gl._ 
+    import gl._
 
     val vertText = """
       #version 330 core
@@ -94,28 +92,31 @@ object Bubbles0 extends SeerApp {
       }"""
 
     shader = new ShaderProgram().create(vertText, fragText)
-    
+
     mesh = new Mesh()
-    mesh.resize(4, hasTexcoords=true)
-    mesh.vertices.put(Array(-1.0f,-1.0f,0.0f,  1.0f,-1.0f,0.0f,  1.0f,1.0f,0.0f, -1.0f,1.0f,0.0f))
-    mesh.texcoords.put(Array(0f,0f,  1.0f,0f,  1.0f,1.0f, 0f,1.0f))
+    mesh.resize(4, hasTexcoords = true)
+    mesh.vertices.put(
+      Array(-1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 1.0f, 1.0f, 0.0f, -1.0f,
+        1.0f, 0.0f)
+    )
+    mesh.texcoords.put(Array(0f, 0f, 1.0f, 0f, 1.0f, 1.0f, 0f, 1.0f))
     mesh.resizeIndices(6)
-    mesh.indices.put(Array(0,1,2,2,3,0))
+    mesh.indices.put(Array(0, 1, 2, 2, 3, 0))
   }
 
-  graphics.onUpdate = (dt:Double) => {
+  graphics.onUpdate = (dt: Double) => {
     timer += dt
     // if(timer > 0.5) timer = 0.0
 
-    mesh.update()    
+    mesh.update()
   }
 
-  graphics.onDraw = (g:Graphics) => {
+  graphics.onDraw = (g: Graphics) => {
     import g.gl._
 
     shader.bind()
     shader.uniform("time", timer)
-    shader.uniform("mouse", Vec2(0.5f,0.5f))
+    shader.uniform("mouse", Vec2(0.5f, 0.5f))
 
     mesh.draw()
   }

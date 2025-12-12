@@ -9,7 +9,7 @@ libraryDependencies ++= Seq(
   // "com.github.dmytromitin" %% "eval" % "0.1",
 
   // "com.eed3si9n.eval" %% "eval" % "0.2.0" cross CrossVersion.full,
-  "com.eed3si9n.eval" %% "eval" % "0.3.0" cross CrossVersion.full,
+  "com.eed3si9n.eval" %% "eval" % "0.3.1" cross CrossVersion.full,
 
   // "org.apache.pekko" %% "pekko-actor" % "1.1.1",
 

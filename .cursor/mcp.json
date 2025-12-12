@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "/Users/fishuyo/_make/seer-metals": {
+      "url": "http://localhost:55470/sse"
+    }
+  }
+}
