@@ -1,4 +1,3 @@
-
 package seer
 
 /**
@@ -9,14 +8,36 @@ package seer
  */
 
 trait Module {
-
-  def create() = {}
-  def destroy() = {}
-
-  def start() = {}
-  def stop() = {}
-
-  def update() = {}
+  
+  /** Unique identifier for this module */
+  def id: String
+  
+  /** Human-readable name for this module */
+  def name: String
+  
+  /** Lifecycle: Initialize module resources */
+  def create(): Unit = {}
+  
+  /** Lifecycle: Cleanup module resources */
+  def destroy(): Unit = {}
+  
+  /** Lifecycle: Start module (begin main loop, start threads, etc.) */
+  def start(): Unit = {}
+  
+  /** Lifecycle: Stop module (pause main loop, stop threads, etc.) */
+  def stop(): Unit = {}
+  
+  /** Lifecycle: Update module state (called each frame/update cycle) */
+  def update(dt: Double): Unit = {}
+  
+  /** Handle events from the event bus */
+  def onEvent(event: Event): Unit = {}
+  
+  /** Check if module has been created */
+  def isCreated: Boolean = false
+  
+  /** Check if module is currently running */
+  def isRunning: Boolean = false
 }
 
 
