@@ -64,20 +64,23 @@ lazy val graphics = crossProject(JVMPlatform, JSPlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/core/graphics"))
   .settings(Settings.common: _*)
-  .dependsOn(math)
+  .dependsOn(math, runtime)
 
 // Base Audio API
 lazy val audio = crossProject(JVMPlatform, JSPlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/core/audio"))
   .settings(Settings.common: _*)
-  .dependsOn(math)
+  .dependsOn(math, runtime)
   .settings(libraryDependencies ++= Dependencies.audio.value)
 
 // Compiler interface enabling Scripting / Live-coding / Runtime compilation
 lazy val compiler = project
   .in(file("modules/core/compiler"))
   .settings(Settings.common: _*)
+  .settings(
+    libraryDependencies += "com.eed3si9n.eval" %% "eval" % "0.3.1" cross CrossVersion.full
+  )
   .dependsOn(actor.jvm)
 
 lazy val osc = project
@@ -94,9 +97,14 @@ lazy val actor = crossProject(JVMPlatform, JSPlatform)
 
 /** Backend Audio/Graphics Implementations
   */
+lazy val window_glfw = project
+  .in(file("modules/backends/window-glfw"))
+  .dependsOn(graphics.jvm, runtime.jvm)
+  .settings(Settings.common: _*)
+
 lazy val graphics_lwjgl = project
   .in(file("modules/backends/graphics-lwjgl"))
-  .dependsOn(graphics.jvm, runtime.jvm)
+  .dependsOn(graphics.jvm, runtime.jvm, window_glfw)
   .settings(Settings.common: _*)
 // .settings(libraryDependencies ++= Dependencies.lwjgl.libs.value)
 
@@ -146,7 +154,15 @@ lazy val examples = project // crossProject(JVMPlatform, JSPlatform)
   // .crossType(CrossType.Pure)
   .in(file("examples"))
   // .dependsOn(math)
-  .dependsOn(app.jvm, math.jvm, compiler, osc, actor.jvm) // multitouch, video)
+  .dependsOn(
+    app.jvm,
+    math.jvm,
+    compiler,
+    osc,
+    actor.jvm,
+    graphics_lwjgl,
+    audio_portaudio
+  ) // multitouch, video)
   .settings(Settings.app: _*)
 
 // lazy val examplesJVM = examples.jvm.dependsOn(graphics_lwjgl, audio_portaudio, audio_jack, compiler, multitouch)
@@ -156,9 +172,9 @@ lazy val examplesjs = project
   .enablePlugins(ScalaJSPlugin)
   .in(file("examplesjs"))
   .settings(Settings.common: _*)
-  // .settings(scalaJSUseMainModuleInitializer := true)
+  .settings(scalaJSUseMainModuleInitializer := true)
 //   .settings(libraryDependencies ++= Dependencies.coreJs.value)
-  .dependsOn(app.js, math.js)
+  .dependsOn(app.js, math.js, graphics_webgl, runtime.js)
 
 /** Extensions
   */

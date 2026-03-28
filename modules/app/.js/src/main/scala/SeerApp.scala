@@ -9,7 +9,7 @@ import graphics._
 class SeerApp {
 
   val runtime = new SeerRuntime
-  val graphics = new WebglGraphicsModule()
+  val graphics = new WebGLGraphicsModule(WebGLConfig())
   // val audio = new PortAudioModule()
 
   runtime.useModules(graphics :: List())

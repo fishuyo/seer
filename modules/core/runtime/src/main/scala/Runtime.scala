@@ -26,6 +26,31 @@ class SeerRuntime {
     if (!modulesById.contains(module.id)) {
       modules += module
       modulesById(module.id) = module
+      
+      // Set runtime reference on modules for event publishing
+      // Use a type-safe approach that works cross-platform
+      if (hasSetRuntime(module)) {
+        setRuntimeOnModule(module, this)
+      }
+    }
+  }
+  
+  // Helper to check if module has setRuntime method
+  private def hasSetRuntime(module: Module): Boolean = {
+    try {
+      module.getClass.getMethods.exists(_.getName == "setRuntime")
+    } catch {
+      case _: Exception => false // Reflection not available (e.g., in Scala.js)
+    }
+  }
+  
+  // Helper to call setRuntime
+  private def setRuntimeOnModule(module: Module, runtime: SeerRuntime): Unit = {
+    try {
+      val method = module.getClass.getMethod("setRuntime", classOf[SeerRuntime])
+      method.invoke(module, runtime)
+    } catch {
+      case _: Exception => // Method doesn't exist or reflection not available, that's okay
     }
   }
 
@@ -101,7 +126,7 @@ class SeerRuntime {
     publish(ModuleStarted(null)) // Global start event
     
     // Main loop
-    lastUpdateTime = System.currentTimeMillis() / 1000.0
+    lastUpdateTime = getCurrentTime()
     runLoop()
     
     // Cleanup
@@ -111,7 +136,7 @@ class SeerRuntime {
   /** Main update loop */
   private def runLoop(): Unit = {
     while (running && modules.nonEmpty) {
-      val currentTime = System.currentTimeMillis() / 1000.0
+      val currentTime = getCurrentTime()
       val dt = currentTime - lastUpdateTime
       lastUpdateTime = currentTime
       
@@ -153,4 +178,9 @@ class SeerRuntime {
 
   /** Check if runtime is running */
   def isRunning: Boolean = running
+  
+  // Cross-platform time helper
+  private def getCurrentTime(): Double = {
+    Timestamp.now() / 1000.0
+  }
 }

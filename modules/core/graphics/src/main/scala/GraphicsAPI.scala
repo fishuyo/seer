@@ -104,29 +104,7 @@ trait GraphicsContext {
   def isValid: Boolean
 }
 
-// Window interface
-trait Window {
-  def id: String
-  def width: Int
-  def height: Int
-  def bufferWidth: Int
-  def bufferHeight: Int
-  
-  def makeCurrent(): Unit
-  def swapBuffers(): Unit
-  def shouldClose: Boolean
-  def setShouldClose(value: Boolean): Unit
-  
-  def getSize: (Int, Int)
-  def getBufferSize: (Int, Int)
-  def setSize(width: Int, height: Int): Unit
-  
-  def isFullscreen: Boolean
-  def setFullscreen(fullscreen: Boolean): Unit
-  
-  def title: String
-  def setTitle(title: String): Unit
-}
+// Window interface is now in Window.scala for better visibility
 
 // Graphics Module interface - base trait for all graphics modules
 trait GraphicsModule extends Module {

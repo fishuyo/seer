@@ -7,6 +7,7 @@ object Settings {
   // val scalaV = "3.2.0" //"2.13.8" //2.13.3"
 
   lazy val common = Seq(
+    bspEnabled := false
     // organization := "seer",
     // version := seerV,
     // scalaVersion := scalaV,
@@ -34,30 +35,30 @@ object Settings {
     //   false
     // },
     // licenses := Seq(
-      // "BSD-style" -> url("http://www.opensource.org/licenses/bsd-license.php")
+    // "BSD-style" -> url("http://www.opensource.org/licenses/bsd-license.php")
     // ),
     // homepage := Some(url("http://fishuyo.com/projects/seer")),
     // scmInfo := Some(
-      // ScmInfo(
-        // url("https://github.com/fishuyo/seer"),
-        // "scm:git@github.com:fishuyo/seer.git"
-      // )
+    // ScmInfo(
+    // url("https://github.com/fishuyo/seer"),
+    // "scm:git@github.com:fishuyo/seer.git"
+    // )
     // ),
     // developers := List(
-      // Developer(
-        // id = "fishuyo",
-        // name = "Timothy Wood",
-        // email = "fishuyo@gmail.com",
-        // url = url("http://embodiedworlds.com")
-      // )
+    // Developer(
+    // id = "fishuyo",
+    // name = "Timothy Wood",
+    // email = "fishuyo@gmail.com",
+    // url = url("http://embodiedworlds.com")
+    // )
     // ),
     // publishMavenStyle := true,
     // publishTo := {
-      // val nexus = "https://oss.sonatype.org/"
-      // if (isSnapshot.value)
-        // Some("snapshots" at nexus + "content/repositories/snapshots")
-      // else
-        // Some("releases" at nexus + "service/local/staging/deploy/maven2")
+    // val nexus = "https://oss.sonatype.org/"
+    // if (isSnapshot.value)
+    // Some("snapshots" at nexus + "content/repositories/snapshots")
+    // else
+    // Some("releases" at nexus + "service/local/staging/deploy/maven2")
     // }
   )
 
@@ -65,10 +66,10 @@ object Settings {
     // libraryDependencies ++= Seq(
     //   "net.sf.proguard" % "proguard-base" % "4.11" % "provided"
     // ),
-    Compile / fork := true,
+    Compile / fork := true
     // run / fork := true,
     // javaOptions in run := "-javaagent:/Users/fishuyo/Downloads/lwjglx-debug-1.0.0.jar" +: javaOptions.value
-    
+
     // javaOptions in run += "-Xcheck:jni"
     // javaOptions in run += "-Dorg.lwjgl.util.Debug=true"
     // unmanagedResourceDirectories in Compile += file("android/assets"),

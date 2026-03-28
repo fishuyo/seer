@@ -14,22 +14,22 @@ sealed trait ModuleEvent extends Event {
   def module: Module
 }
 
-case class ModuleCreated(module: Module, timestamp: Long = System.currentTimeMillis()) extends ModuleEvent
-case class ModuleDestroyed(module: Module, timestamp: Long = System.currentTimeMillis()) extends ModuleEvent
-case class ModuleStarted(module: Module, timestamp: Long = System.currentTimeMillis()) extends ModuleEvent
-case class ModuleStopped(module: Module, timestamp: Long = System.currentTimeMillis()) extends ModuleEvent
+case class ModuleCreated(module: Module, timestamp: Long = Timestamp.now()) extends ModuleEvent
+case class ModuleDestroyed(module: Module, timestamp: Long = Timestamp.now()) extends ModuleEvent
+case class ModuleStarted(module: Module, timestamp: Long = Timestamp.now()) extends ModuleEvent
+case class ModuleStopped(module: Module, timestamp: Long = Timestamp.now()) extends ModuleEvent
 
 // Window Events
 sealed trait WindowEvent extends Event {
   def windowId: String
 }
 
-case class WindowCreated(windowId: String, width: Int, height: Int, timestamp: Long = System.currentTimeMillis()) extends WindowEvent
-case class WindowDestroyed(windowId: String, timestamp: Long = System.currentTimeMillis()) extends WindowEvent
-case class WindowResized(windowId: String, width: Int, height: Int, timestamp: Long = System.currentTimeMillis()) extends WindowEvent
-case class WindowClosed(windowId: String, timestamp: Long = System.currentTimeMillis()) extends WindowEvent
-case class WindowFocused(windowId: String, timestamp: Long = System.currentTimeMillis()) extends WindowEvent
-case class WindowUnfocused(windowId: String, timestamp: Long = System.currentTimeMillis()) extends WindowEvent
+case class WindowCreated(windowId: String, width: Int, height: Int, timestamp: Long = Timestamp.now()) extends WindowEvent
+case class WindowDestroyed(windowId: String, timestamp: Long = Timestamp.now()) extends WindowEvent
+case class WindowResized(windowId: String, width: Int, height: Int, timestamp: Long = Timestamp.now()) extends WindowEvent
+case class WindowClosed(windowId: String, timestamp: Long = Timestamp.now()) extends WindowEvent
+case class WindowFocused(windowId: String, timestamp: Long = Timestamp.now()) extends WindowEvent
+case class WindowUnfocused(windowId: String, timestamp: Long = Timestamp.now()) extends WindowEvent
 
 // Key Modifiers
 case class KeyModifiers(
@@ -93,21 +93,21 @@ case class KeyPressed(
   windowId: String,
   key: Key,
   mods: KeyModifiers,
-  timestamp: Long = System.currentTimeMillis()
+  timestamp: Long = Timestamp.now()
 ) extends InputEvent
 
 case class KeyReleased(
   windowId: String,
   key: Key,
   mods: KeyModifiers,
-  timestamp: Long = System.currentTimeMillis()
+  timestamp: Long = Timestamp.now()
 ) extends InputEvent
 
 case class KeyRepeated(
   windowId: String,
   key: Key,
   mods: KeyModifiers,
-  timestamp: Long = System.currentTimeMillis()
+  timestamp: Long = Timestamp.now()
 ) extends InputEvent
 
 case class MouseMoved(
@@ -116,7 +116,7 @@ case class MouseMoved(
   y: Double,
   dx: Double,
   dy: Double,
-  timestamp: Long = System.currentTimeMillis()
+  timestamp: Long = Timestamp.now()
 ) extends InputEvent
 
 case class MousePressed(
@@ -125,7 +125,7 @@ case class MousePressed(
   x: Double,
   y: Double,
   mods: KeyModifiers,
-  timestamp: Long = System.currentTimeMillis()
+  timestamp: Long = Timestamp.now()
 ) extends InputEvent
 
 case class MouseReleased(
@@ -134,7 +134,7 @@ case class MouseReleased(
   x: Double,
   y: Double,
   mods: KeyModifiers,
-  timestamp: Long = System.currentTimeMillis()
+  timestamp: Long = Timestamp.now()
 ) extends InputEvent
 
 case class MouseScrolled(
@@ -143,7 +143,7 @@ case class MouseScrolled(
   y: Double,
   scrollX: Double,
   scrollY: Double,
-  timestamp: Long = System.currentTimeMillis()
+  timestamp: Long = Timestamp.now()
 ) extends InputEvent
 
 // Event Subscription

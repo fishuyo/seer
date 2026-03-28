@@ -33,7 +33,7 @@ object ExampleComponent {
     val compiler = CompilerService()
     
     // Example source code for a component
-    val source = """ x
+    val source = """ 
       val component = new seer.compiler.ExampleComponent(
         // id = "example-1",
         // version = "1.0",
