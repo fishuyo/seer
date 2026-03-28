@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Seer WebGL Tests</title>
+    <style>
+      body {
+        margin: 0px;
+        font-family: monospace;
+        background: #1a1a1a;
+        color: #fff;
+      }
+      #info {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 10px;
+        background: rgba(0,0,0,0.7);
+        border-radius: 5px;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="info">
+      <div>Seer WebGL Test</div>
+      <div>Check browser console for test output</div>
+    </div>
+    
+    <!-- Canvas will be created by the module -->
+    <canvas id="glcanvas"></canvas>
+    
+    <!-- Include Scala.js compiled code -->
+    <script type="text/javascript" src="target/scala-3.3.6/examplesjs-fastopt/main.js"></script>
+    
+    <!-- Run test Main function -->
+    <script type="text/javascript">
+      seer.Main.main__AT__V__A1Lscala_Predef_String(null);
+    </script>
+  </body>
+</html>
